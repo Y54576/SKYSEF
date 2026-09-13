@@ -1595,7 +1595,13 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 }
 
 /* 我的頁 */
+/* My 頁專屬背景圖：滿版置中、cover 不變形；圖片不存在時以柔和淺綠為後備色，畫面不會破圖 */
+#viewMe.view-screen { position:relative; background:transparent; }
+#viewMe::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:none; background:#eaf3e6 url('assets/images/my-bg.jpg') top center / cover no-repeat; }
+#viewMe > .container { position:relative; z-index:1; }
 #viewMe .me-card { box-sizing:border-box; background:rgba(255,255,255,0.78); backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,0.65); border-radius:22px; padding:22px 18px; box-shadow:0 6px 24px rgba(30,60,40,0.08); margin-bottom:14px; }
+#viewMe .me-points { margin-top:14px; display:flex; align-items:center; justify-content:center; gap:8px; background:rgba(127,216,162,0.16); border:1px solid rgba(127,216,162,0.4); border-radius:14px; padding:9px 14px; font-size:14px; font-weight:800; color:#237a49; }
+#viewMe .me-points b { font-size:18px; color:#178a4e; }
 #viewMe .me-avatar { width:84px; height:84px; border-radius:50%; object-fit:cover; background:rgba(30,50,40,0.1); border:3px solid #7fd8a2; display:block; margin:0 auto 12px; }
 #viewMe .me-name { text-align:center; font-size:19px; font-weight:800; color:#1c2b22; }
 #viewMe .me-mail { text-align:center; font-size:12px; color:rgba(30,50,40,0.5); margin-top:3px; }
@@ -4337,6 +4343,7 @@ body:has(#viewConsumer.active) #loginOverlay { display: none; }
     <img class="me-avatar" id="meAvatar" src="" alt="">
     <div class="me-name" id="meName">在地小農</div>
     <div class="me-mail" id="meMail"></div>
+    <div class="me-points"><span>🌱 我的積分</span><b id="mePointsVal">0</b></div>
   </div>
   <div class="me-card">
     <div class="me-row" onclick="openSettings()"><span>⚙️ 農場設定</span><span>›</span></div>
@@ -4632,15 +4639,19 @@ body:has(#viewConsumer.active) #loginOverlay { display: none; }
     <div class="settings-divider"></div>
 
     <div class="settings-section">
-      <div class="settings-section-label">音樂設定</div>
+      <div class="settings-section-label">音效與音樂</div>
+      <div class="settings-row">
+        <label>背景音樂</label>
+        <button id="settingsMusicBtn" onclick="setMusicOn(!_getMusicOn())" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;border-radius:10px;padding:7px 18px;font-size:13px;cursor:pointer;">🔊 開啟</button>
+      </div>
       <div class="settings-row">
         <label>音量</label>
         <input type="range" id="settingsVolume" min="0" max="100" value="60" oninput="setMusicVolume(this.value)">
         <span id="settingsVolumeVal" style="font-size:12px;color:rgba(255,255,255,0.55);min-width:28px;text-align:right;">60%</span>
       </div>
       <div class="settings-row">
-        <label>背景音樂</label>
-        <button id="settingsMuteBtn" onclick="toggleSettingsMute()" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;border-radius:10px;padding:7px 18px;font-size:13px;cursor:pointer;">🔊 開啟</button>
+        <label>音效</label>
+        <button id="settingsSfxBtn" onclick="setSfxOn(!_getSfxOn())" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;border-radius:10px;padding:7px 18px;font-size:13px;cursor:pointer;">🔊 開啟</button>
       </div>
     </div>
 
@@ -4650,6 +4661,14 @@ body:has(#viewConsumer.active) #loginOverlay { display: none; }
       <div class="settings-section-label">帳號</div>
       <button class="btn-settings-save" onclick="sendResetEmail()" style="margin-bottom:10px;">更改密碼（發送重設信）</button>
       <button class="btn-settings-logout" onclick="doLogout(); closeSettings();">登出帳號</button>
+    </div>
+
+    <div class="settings-divider"></div>
+
+    <div class="settings-section">
+      <div class="settings-section-label">關於</div>
+      <div class="settings-row" style="cursor:default;"><label>版本</label><span style="font-size:12px;color:rgba(255,255,255,0.6);">福萌芽 Formoya v1.0.0</span></div>
+      <div class="settings-row" style="cursor:default;"><label>更新資訊</label><span style="font-size:12px;color:rgba(255,255,255,0.6);">已是最新版本</span></div>
     </div>
 
   </div>
@@ -6330,14 +6349,48 @@ let _musicAudio = null;
 let _musicIndex = 0;
 let _musicCollapsed = false;
 
+// ── 全站單一背景音樂系統（不重複建立、切頁不中斷、依 UID 記憶偏好、尊重瀏覽器自動播放限制）──
+function _getMusicOn()  { const v = localStorage.getItem('skysef_music_on');  return v === null ? true : v === '1'; }
+function _getMusicVol() { const v = parseInt(localStorage.getItem('skysef_music_vol') || '60', 10); return isNaN(v) ? 60 : Math.max(0, Math.min(100, v)); }
+function _getSfxOn()    { const v = localStorage.getItem('skysef_sfx_on');     return v === null ? true : v === '1'; }
+
 function initMusicPlayer() {
+  if (_musicAudio) { _applyUserMusicPrefs(); return; }   // 已建立就不重建（避免重複實例／切頁重播）
   _musicAudio = new Audio(MUSIC_TRACKS[_musicIndex].file);
-  _musicAudio.volume = 0.3;
-  _musicAudio.addEventListener('ended', () => { _musicIndex = (_musicIndex + 1) % MUSIC_TRACKS.length; _loadTrack(); });
+  _musicAudio.loop = (MUSIC_TRACKS.length === 1);          // 單曲循環；多曲則播放結束換下一首
+  _musicAudio.volume = _getMusicVol() / 100;
+  _musicAudio.addEventListener('ended', () => { if (MUSIC_TRACKS.length > 1) { _musicIndex = (_musicIndex + 1) % MUSIC_TRACKS.length; _loadTrack(); } });
   _musicAudio.addEventListener('timeupdate', _updateProgress);
   _updateTrackUI();
-  document.getElementById('musicProgress').style.display = 'block';
-  _musicAudio.play().then(() => _setPlayBtn(true)).catch(() => _setPlayBtn(false));
+  const prog = document.getElementById('musicProgress'); if (prog) prog.style.display = 'block';
+  _armAutoplayUnlock();
+  _applyUserMusicPrefs();
+}
+
+// 依目前登入者的偏好套用音量與開/關（不重建音訊、不重置播放位置）
+function _applyUserMusicPrefs() {
+  if (!_musicAudio) return;
+  _musicAudio.volume = _getMusicVol() / 100;
+  if (_getMusicOn()) {
+    _musicAudio.play().then(() => _setPlayBtn(true)).catch(() => { _setPlayBtn(false); _armAutoplayUnlock(); });
+  } else {
+    _musicAudio.pause(); _setPlayBtn(false);
+  }
+}
+
+// 自動播放被瀏覽器擋下時，於第一次有效互動後才開始播放（且不強制、不產生 console 錯誤）
+function _armAutoplayUnlock() {
+  if (window.__mpArmed) return; window.__mpArmed = true;
+  const h = () => {
+    if (_musicAudio && _getMusicOn() && _musicAudio.paused) {
+      _musicAudio.play().then(() => _setPlayBtn(true)).catch(() => {});
+    }
+    window.removeEventListener('pointerdown', h);
+    window.removeEventListener('keydown', h);
+    window.__mpArmed = false;
+  };
+  window.addEventListener('pointerdown', h);
+  window.addEventListener('keydown', h);
 }
 
 function _loadTrack() {
@@ -6468,11 +6521,13 @@ async function loadFarmDataFromFirebase() {
 // ── 設定 ─────────────────────────────────────────────────
 function openSettings() {
   updateProfileDisplay();
-  const vol = _musicAudio ? Math.round(_musicAudio.volume * 100) : 60;
+  const vol = _getMusicVol();
   const slider = document.getElementById('settingsVolume');
   const label  = document.getElementById('settingsVolumeVal');
   if (slider) slider.value = vol;
   if (label)  label.textContent = vol + '%';
+  _syncMusicBtn();
+  _syncSfxBtn();
   _syncMuteBtn();
   document.getElementById('settingsOverlay').classList.add('open');
 }
@@ -6494,32 +6549,47 @@ function saveSettingsFarmProfile() {
 
 let _settingsMuted = false;
 function setMusicVolume(v) {
-  const val = parseInt(v, 10);
+  const val = Math.max(0, Math.min(100, parseInt(v, 10) || 0));
+  localStorage.setItem('skysef_music_vol', String(val));   // 依 UID 記憶音量
   const label = document.getElementById('settingsVolumeVal');
   if (label) label.textContent = val + '%';
   if (_musicAudio) _musicAudio.volume = val / 100;
 }
 
-function toggleSettingsMute() {
-  if (!_musicAudio) return;
-  _settingsMuted = !_settingsMuted;
-  if (_settingsMuted) {
-    _musicAudio.pause();
-    _setPlayBtn(false);
-  } else {
-    _musicAudio.play().then(() => _setPlayBtn(true)).catch(() => {});
+// 背景音樂 ON / OFF（依 UID 記憶；關閉即暫停、開啟即播放，並處理自動播放限制）
+function setMusicOn(on) {
+  localStorage.setItem('skysef_music_on', on ? '1' : '0');
+  if (_musicAudio) {
+    if (on) { _musicAudio.play().then(() => _setPlayBtn(true)).catch(() => { _setPlayBtn(false); _armAutoplayUnlock(); }); }
+    else    { _musicAudio.pause(); _setPlayBtn(false); }
+  } else if (on) {
+    initMusicPlayer();
   }
-  _syncMuteBtn();
+  _syncMusicBtn(); _syncMuteBtn();
 }
+
+// 音效 ON / OFF（僅偏好開關並依 UID 記憶；專案目前無音效，不新增音效）
+function setSfxOn(on) {
+  localStorage.setItem('skysef_sfx_on', on ? '1' : '0');
+  _syncSfxBtn();
+}
+
+function _syncMusicBtn() {
+  const btn = document.getElementById('settingsMusicBtn');
+  if (btn) btn.textContent = _getMusicOn() ? '🔊 開啟' : '🔇 關閉';
+}
+function _syncSfxBtn() {
+  const btn = document.getElementById('settingsSfxBtn');
+  if (btn) btn.textContent = _getSfxOn() ? '🔊 開啟' : '🔇 關閉';
+}
+
+// 保留舊 API（避免其他呼叫點出錯）：改為切換 UID 記憶的背景音樂開關
+function toggleSettingsMute() { setMusicOn(!_getMusicOn()); }
 
 function _syncMuteBtn() {
   const btn = document.getElementById('settingsMuteBtn');
   if (!btn) return;
-  if (_settingsMuted || (_musicAudio && _musicAudio.paused)) {
-    btn.textContent = '🔇 關閉';
-  } else {
-    btn.textContent = '🔊 開啟';
-  }
+  btn.textContent = _getMusicOn() ? '🔊 開啟' : '🔇 關閉';
 }
 // ──────────────────────────────────────────────────────────
 
@@ -6561,11 +6631,13 @@ function initAuth() {
       _loadUserStateFromStorage();
       overlay.classList.add('hidden');
       startApp();
+      _applyUserMusicPrefs();   // 套用「這位使用者」的音樂偏好（音量／開關），不重建音訊
       maybeShowProfileSetup();
     } else {
       // 登出：清除此 UI 工作階段的記憶體狀態，避免下一位使用者繼承；但不刪除該帳號已保存的資料
       _activeUid = null;
       _resetUserStateInMemory();
+      if (_musicAudio) { _musicAudio.pause(); _setPlayBtn(false); }   // 停止上一位使用者的音樂
       overlay.classList.remove('hidden');
     }
   });
@@ -6783,6 +6855,8 @@ function renderMePage() {
   const ml = document.getElementById('meMail');
   if (nm) nm.textContent = farmProfile.farmer || '在地小農';
   if (ml) ml.textContent = (_fbAuth && _fbAuth.currentUser) ? (_fbAuth.currentUser.email || '') : '';
+  const pv = document.getElementById('mePointsVal');   // 目前登入者的積分（EXP），已依 UID 隔離
+  if (pv) pv.textContent = _exp;
   if (av) {
     av.src = farmProfile.photo || ('data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#d7e8dc"/><circle cx="32" cy="24" r="11" fill="#9bb8a5"/><ellipse cx="32" cy="54" rx="18" ry="12" fill="#9bb8a5"/></svg>'));
   }
