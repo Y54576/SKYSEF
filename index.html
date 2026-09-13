@@ -4358,16 +4358,15 @@ body:has(#viewConsumer.active) #loginOverlay { display: none; }
 </div>
 
 <div id="viewMe" class="view-screen">
-<div class="container" style="max-width:560px;">
+<div class="container" style="max-width:560px; padding-top:56px;">
   <div class="me-card me-profile">
     <input type="file" id="avatarInput" accept="image/*" style="display:none;" onchange="handleAvatarUpload(event)">
     <div class="me-avatar-wrap" onclick="changeAvatar()" title="更換頭像" role="button" aria-label="更換頭像">
       <img class="me-avatar" id="meAvatar" src="" alt="頭像">
-      <span class="me-avatar-edit" aria-hidden="true">📷</span>
+      <span class="me-avatar-edit" aria-hidden="true">✏️</span>
     </div>
     <div class="me-name" id="meName">在地小農</div>
     <div class="me-mail" id="meMail"></div>
-    <div class="me-points"><span>🪙 我的點數</span><b id="mePointsVal">0</b></div>
   </div>
   <div class="me-card me-menu">
     <div class="me-menu-row" onclick="openSettings()">
