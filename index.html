@@ -1599,9 +1599,10 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 #viewMe.view-screen { position:relative; background:transparent; }
 #viewMe::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:none; background:#eaf3e6 url('assets/images/my-bg.jpg') top center / cover no-repeat; }
 #viewMe > .container { position:relative; z-index:1; }
-#viewMe .me-card { box-sizing:border-box; background:rgba(255,255,255,0.78); backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,0.65); border-radius:22px; padding:22px 18px; box-shadow:0 6px 24px rgba(30,60,40,0.08); margin-bottom:14px; }
-#viewMe .me-points { margin-top:14px; display:flex; align-items:center; justify-content:center; gap:8px; background:rgba(127,216,162,0.16); border:1px solid rgba(127,216,162,0.4); border-radius:14px; padding:9px 14px; font-size:14px; font-weight:800; color:#237a49; }
-#viewMe .me-points b { font-size:18px; color:#178a4e; }
+#viewMe .me-card { box-sizing:border-box; background:rgba(255,255,255,0.80); backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,0.65); border-radius:22px; padding:18px 18px; box-shadow:0 6px 24px rgba(30,60,40,0.08); margin-bottom:9px; }
+/* 我的點數卡（對齊素材 05_09_39 的奶油色藥丸樣式） */
+#viewMe .me-points { margin-top:10px; display:flex; align-items:center; justify-content:center; gap:8px; background:linear-gradient(180deg,#fff9e9,#fdf0cc); border:1.5px solid #f1d98a; border-radius:16px; padding:11px 16px; font-size:14px; font-weight:800; color:#8a6d1f; box-shadow:0 3px 10px rgba(210,180,90,0.16); }
+#viewMe .me-points b { font-size:19px; color:#6e5410; }
 #viewMe .me-avatar { width:84px; height:84px; border-radius:50%; object-fit:cover; background:rgba(30,50,40,0.1); border:3px solid #7fd8a2; display:block; margin:0 auto 12px; }
 /* 可編輯頭像：外框可點、右下角相機小徽章，維持乾淨可愛風 */
 #viewMe .me-avatar-wrap { position:relative; width:84px; height:84px; margin:0 auto 12px; cursor:pointer; -webkit-tap-highlight-color:transparent; }
@@ -1610,13 +1611,31 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 #viewMe .me-avatar-edit { position:absolute; right:-2px; bottom:-2px; width:28px; height:28px; border-radius:50%; background:#7fd8a2; border:2px solid #fff; box-shadow:0 2px 6px rgba(30,60,40,0.25); display:flex; align-items:center; justify-content:center; font-size:14px; line-height:1; pointer-events:none; }
 #viewMe .me-name { text-align:center; font-size:19px; font-weight:800; color:#1c2b22; }
 #viewMe .me-mail { text-align:center; font-size:12px; color:rgba(30,50,40,0.5); margin-top:3px; }
+/* 頁首招牌（素材 05_09_57，靜態品牌圖，非使用者文字） */
+#viewMe .me-header { text-align:center; padding:0 0 4px; }
+#viewMe .me-sign { display:block; width:auto; max-width:172px; max-height:92px; margin:0 auto; }
+/* 功能選單卡：對齊目標截圖（彩色圓形圖示 + 標題 + 副標 + 箭頭 + 分隔線） */
+#viewMe .me-menu { padding:4px 16px; }
+#viewMe .me-menu-row { display:flex; align-items:center; gap:13px; padding:12px 2px; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+#viewMe .me-menu-row:active { opacity:0.65; }
+#viewMe .me-menu-ic { flex:0 0 auto; width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:26px; line-height:1; }
+#viewMe .me-menu-ic.ic-green { background:#dcecd2; }
+#viewMe .me-menu-ic.ic-gold  { background:#fbf0cd; }
+#viewMe .me-menu-ic.ic-teal  { background:#d6ebe8; }
+#viewMe .me-menu-txt { flex:1 1 auto; min-width:0; }
+#viewMe .me-menu-title { font-size:17px; font-weight:800; color:#1c3325; line-height:1.25; }
+#viewMe .me-menu-sub { font-size:12.5px; color:#8a9a8f; margin-top:3px; line-height:1.25; }
+#viewMe .me-menu-arrow { flex:0 0 auto; font-size:24px; color:rgba(30,50,40,0.26); }
+#viewMe .me-menu-div { height:1px; background:rgba(30,50,40,0.08); }
+#viewMe .me-logout-ic { display:inline-flex; align-items:center; }
 #viewMe .me-row { display:flex; align-items:center; justify-content:space-between; padding:14px 4px; border-bottom:1px solid rgba(30,50,40,0.07); font-size:14px; font-weight:700; color:#233b2d; cursor:pointer; }
 #viewMe .me-row:last-child { border-bottom:none; }
 #viewMe .me-row span { color:inherit; }
 #viewFarmer .hm-qbtn span { color:inherit; }
 #viewFarmer .hm-titem, #viewFarmer .hm-gacha-text, #viewFarmer .hm-gacha-count { color:#233b2d; }
 #viewMe .me-row span:last-child { color:rgba(30,50,40,0.35); }
-#viewMe .me-logout { width:100%; border:none; border-radius:14px; padding:13px; background:rgba(229,57,53,0.1); color:#e53935; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit; }
+/* 登出按鈕（對齊素材 05_10_28 的粉色藥丸） */
+#viewMe .me-logout { width:100%; border:none; border-radius:16px; padding:15px; background:linear-gradient(180deg,#fdeaea,#fbdada); color:#e0574f; font-size:15px; font-weight:800; cursor:pointer; font-family:inherit; box-shadow:0 3px 10px rgba(220,120,110,0.16); display:flex; align-items:center; justify-content:center; gap:7px; }
 .gacha-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.88); z-index: 999; align-items: center; justify-content: center; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
 .gacha-modal-overlay.active { display: flex; }
 .gacha-modal-card { background: linear-gradient(160deg,#0a1f12,#0d2a1a); border-radius: 28px; padding: 26px 22px 22px; text-align: center; max-width: 300px; width: 88%; position: relative; overflow: hidden; animation: popIn 0.45s cubic-bezier(0.175,0.885,0.32,1.275); border: 1.5px solid rgba(255,255,255,0.12); }
@@ -4341,10 +4360,10 @@ body:has(#viewConsumer.active) #loginOverlay { display: none; }
 
 <div id="viewMe" class="view-screen">
 <div class="container" style="max-width:560px;">
-  <div class="hm-header" style="padding:18px 0 14px;">
-    <div class="hm-title" style="color:#1c2b22;">我的</div>
+  <div class="me-header">
+    <img class="me-sign" src="assets/images/me-sign.png" alt="友善土地 綠色未來">
   </div>
-  <div class="me-card">
+  <div class="me-card me-profile">
     <input type="file" id="avatarInput" accept="image/*" style="display:none;" onchange="handleAvatarUpload(event)">
     <div class="me-avatar-wrap" onclick="changeAvatar()" title="更換頭像" role="button" aria-label="更換頭像">
       <img class="me-avatar" id="meAvatar" src="" alt="頭像">
@@ -4352,15 +4371,29 @@ body:has(#viewConsumer.active) #loginOverlay { display: none; }
     </div>
     <div class="me-name" id="meName">在地小農</div>
     <div class="me-mail" id="meMail"></div>
-    <div class="me-points"><span>🌱 我的積分</span><b id="mePointsVal">0</b></div>
+    <div class="me-points"><span>🪙 我的點數</span><b id="mePointsVal">0</b></div>
+  </div>
+  <div class="me-card me-menu">
+    <div class="me-menu-row" onclick="openSettings()">
+      <div class="me-menu-ic ic-green">🌱</div>
+      <div class="me-menu-txt"><div class="me-menu-title">農場設定</div><div class="me-menu-sub">管理你的農場資訊與設備</div></div>
+      <div class="me-menu-arrow">›</div>
+    </div>
+    <div class="me-menu-div"></div>
+    <div class="me-menu-row" onclick="switchView('viewTask')">
+      <div class="me-menu-ic ic-gold">🏆</div>
+      <div class="me-menu-txt"><div class="me-menu-title">任務與成就</div><div class="me-menu-sub">完成任務，獲得成就與獎勵</div></div>
+      <div class="me-menu-arrow">›</div>
+    </div>
+    <div class="me-menu-div"></div>
+    <div class="me-menu-row" onclick="switchView('viewGallery')">
+      <div class="me-menu-ic ic-teal">📖</div>
+      <div class="me-menu-txt"><div class="me-menu-title">我的圖鑑</div><div class="me-menu-sub">查看你收藏的植物與知識</div></div>
+      <div class="me-menu-arrow">›</div>
+    </div>
   </div>
   <div class="me-card">
-    <div class="me-row" onclick="openSettings()"><span>⚙️ 農場設定</span><span>›</span></div>
-    <div class="me-row" onclick="switchView('viewTask')"><span>⭐ 任務與成就</span><span>›</span></div>
-    <div class="me-row" onclick="switchView('viewGallery')"><span>📖 我的圖鑑</span><span>›</span></div>
-  </div>
-  <div class="me-card">
-    <button class="me-logout" onclick="doLogout()">登出帳號</button>
+    <button class="me-logout" onclick="doLogout()"><span class="me-logout-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>登出帳號</button>
   </div>
 </div>
 </div>
