@@ -4223,7 +4223,7 @@ body:has(#viewConsumer.active) #loginOverlay { display: none; }
   <span class="hb-notif-wrap"><button class="hb-rbtn" onclick="switchView('viewTask')"><img src="assets/images/icons/bell.png" alt=""></button><span class="hb-notif-dot"></span></span>
   <button class="hb-rbtn" onclick="switchView('viewMe')">
     <img id="homeAvatarImg" src="" alt="" style="width:100%;height:100%;border-radius:50%;object-fit:cover;display:none;" onerror="this.style.display='none'">
-    <img id="homeAvatarFallback" src="assets/images/icons/user.png" alt="" style="width:100%;height:100%;object-fit:contain;">
+    <img id="homeAvatarFallback" src="assets/images/default-avatar.png" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
   </button>
 </div>
 
@@ -6888,7 +6888,7 @@ function renderMePage() {
   const pv = document.getElementById('mePointsVal');   // 目前登入者的積分（EXP），已依 UID 隔離
   if (pv) pv.textContent = _exp;
   if (av) {
-    av.src = farmProfile.photo || ('data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#d7e8dc"/><circle cx="32" cy="24" r="11" fill="#9bb8a5"/><ellipse cx="32" cy="54" rx="18" ry="12" fill="#9bb8a5"/></svg>'));
+    av.src = farmProfile.photo || 'assets/images/default-avatar.png';   // 預設頭像
   }
 }
 
