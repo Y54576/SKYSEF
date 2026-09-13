@@ -1603,6 +1603,11 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 #viewMe .me-points { margin-top:14px; display:flex; align-items:center; justify-content:center; gap:8px; background:rgba(127,216,162,0.16); border:1px solid rgba(127,216,162,0.4); border-radius:14px; padding:9px 14px; font-size:14px; font-weight:800; color:#237a49; }
 #viewMe .me-points b { font-size:18px; color:#178a4e; }
 #viewMe .me-avatar { width:84px; height:84px; border-radius:50%; object-fit:cover; background:rgba(30,50,40,0.1); border:3px solid #7fd8a2; display:block; margin:0 auto 12px; }
+/* 可編輯頭像：外框可點、右下角相機小徽章，維持乾淨可愛風 */
+#viewMe .me-avatar-wrap { position:relative; width:84px; height:84px; margin:0 auto 12px; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+#viewMe .me-avatar-wrap .me-avatar { margin:0; }
+#viewMe .me-avatar-wrap:active { transform:scale(0.97); }
+#viewMe .me-avatar-edit { position:absolute; right:-2px; bottom:-2px; width:28px; height:28px; border-radius:50%; background:#7fd8a2; border:2px solid #fff; box-shadow:0 2px 6px rgba(30,60,40,0.25); display:flex; align-items:center; justify-content:center; font-size:14px; line-height:1; pointer-events:none; }
 #viewMe .me-name { text-align:center; font-size:19px; font-weight:800; color:#1c2b22; }
 #viewMe .me-mail { text-align:center; font-size:12px; color:rgba(30,50,40,0.5); margin-top:3px; }
 #viewMe .me-row { display:flex; align-items:center; justify-content:space-between; padding:14px 4px; border-bottom:1px solid rgba(30,50,40,0.07); font-size:14px; font-weight:700; color:#233b2d; cursor:pointer; }
@@ -4340,7 +4345,11 @@ body:has(#viewConsumer.active) #loginOverlay { display: none; }
     <div class="hm-title" style="color:#1c2b22;">我的</div>
   </div>
   <div class="me-card">
-    <img class="me-avatar" id="meAvatar" src="" alt="">
+    <input type="file" id="avatarInput" accept="image/*" style="display:none;" onchange="handleAvatarUpload(event)">
+    <div class="me-avatar-wrap" onclick="changeAvatar()" title="更換頭像" role="button" aria-label="更換頭像">
+      <img class="me-avatar" id="meAvatar" src="" alt="頭像">
+      <span class="me-avatar-edit" aria-hidden="true">📷</span>
+    </div>
     <div class="me-name" id="meName">在地小農</div>
     <div class="me-mail" id="meMail"></div>
     <div class="me-points"><span>🌱 我的積分</span><b id="mePointsVal">0</b></div>
@@ -6860,6 +6869,46 @@ function renderMePage() {
   if (av) {
     av.src = farmProfile.photo || ('data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#d7e8dc"/><circle cx="32" cy="24" r="11" fill="#9bb8a5"/><ellipse cx="32" cy="54" rx="18" ry="12" fill="#9bb8a5"/></svg>'));
   }
+}
+
+// ── 可編輯頭像（依 UID 隔離，存於 puli_farm_profile.photo）──────────
+function changeAvatar() {
+  const inp = document.getElementById('avatarInput');
+  if (inp) { inp.value = ''; inp.click(); }   // 點頭像即開啟選圖
+}
+function handleAvatarUpload(event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => _applyAvatar(e.target.result);
+  reader.readAsDataURL(file);
+}
+function _applyAvatar(dataUrl) {
+  // 置中裁成正方形再縮到 256，確保圓框內不變形；壓縮避免 localStorage 爆量
+  const img = new Image();
+  img.onload = function () {
+    const S = 256;
+    const side = Math.min(img.width, img.height);
+    const sx = (img.width - side) / 2, sy = (img.height - side) / 2;
+    const cv = document.createElement('canvas'); cv.width = S; cv.height = S;
+    cv.getContext('2d').drawImage(img, sx, sy, side, side, 0, 0, S, S);
+    _saveAvatar(cv.toDataURL('image/jpeg', 0.82));
+  };
+  img.onerror = function () { _saveAvatar(dataUrl); };
+  img.src = dataUrl;
+}
+function _saveAvatar(dataUrl) {
+  farmProfile.photo = dataUrl;
+  try {
+    localStorage.setItem('puli_farm_profile', JSON.stringify(farmProfile));  // 依 UID 命名空間化
+  } catch (e) {
+    showTicketToast('⚠ 圖片太大，請換一張'); return;
+  }
+  const av = document.getElementById('meAvatar'); if (av) av.src = dataUrl;      // 立即更新我的頁
+  const hi = document.getElementById('homeAvatarImg');                          // 同步首頁小頭像
+  const hf = document.getElementById('homeAvatarFallback');
+  if (hi) { hi.src = dataUrl; hi.style.display = 'block'; if (hf) hf.style.display = 'none'; }
+  showTicketToast('✓ 頭像已更新');
 }
 
 function maybeShowProfileSetup() {
