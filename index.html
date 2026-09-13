@@ -1611,9 +1611,8 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 #viewMe .me-avatar-edit { position:absolute; right:-2px; bottom:-2px; width:28px; height:28px; border-radius:50%; background:#7fd8a2; border:2px solid #fff; box-shadow:0 2px 6px rgba(30,60,40,0.25); display:flex; align-items:center; justify-content:center; font-size:14px; line-height:1; pointer-events:none; }
 #viewMe .me-name { text-align:center; font-size:19px; font-weight:800; color:#1c2b22; }
 #viewMe .me-mail { text-align:center; font-size:12px; color:rgba(30,50,40,0.5); margin-top:3px; }
-/* 頁首招牌（素材 05_09_57，靜態品牌圖，非使用者文字） */
-#viewMe .me-header { text-align:center; padding:0 0 4px; }
-#viewMe .me-sign { display:block; width:auto; max-width:172px; max-height:92px; margin:0 auto; }
+/* 頭像卡背景板（素材 05_09_49 綠色底板）；文字/頭像置於其上仍清晰 */
+#viewMe .me-profile { background:url('assets/images/me-softcard.png') center/cover no-repeat; border:1px solid rgba(255,255,255,0.7); }
 /* 功能選單卡：對齊目標截圖（彩色圓形圖示 + 標題 + 副標 + 箭頭 + 分隔線） */
 #viewMe .me-menu { padding:4px 16px; }
 #viewMe .me-menu-row { display:flex; align-items:center; gap:13px; padding:12px 2px; cursor:pointer; -webkit-tap-highlight-color:transparent; }
@@ -4360,9 +4359,6 @@ body:has(#viewConsumer.active) #loginOverlay { display: none; }
 
 <div id="viewMe" class="view-screen">
 <div class="container" style="max-width:560px;">
-  <div class="me-header">
-    <img class="me-sign" src="assets/images/me-sign.png" alt="友善土地 綠色未來">
-  </div>
   <div class="me-card me-profile">
     <input type="file" id="avatarInput" accept="image/*" style="display:none;" onchange="handleAvatarUpload(event)">
     <div class="me-avatar-wrap" onclick="changeAvatar()" title="更換頭像" role="button" aria-label="更換頭像">
