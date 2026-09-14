@@ -581,8 +581,8 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   padding:0 var(--home-inline) var(--nav-content-gap);
   box-sizing:border-box;
   overflow:visible;
-  /* 整頁背景：完整插畫（上農場、中淺綠、下花草）鋪滿首頁容器，而非只有 hero */
-  background:url('assets/images/home/home-bg.png') top center / 100% 100% no-repeat;
+  /* 整頁背景：只保留上方農場景色區塊，下方以柔和淺綠純色填滿（不要下方的葉子／花草）*/
+  background:url('assets/images/home/home-bg-top.png') top center / 100% auto no-repeat, #f0f8ea;
 }
 @supports (height:100dvh) {
   #viewFarmer.home-v2 .hb-wrap {
