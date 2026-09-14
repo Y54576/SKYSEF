@@ -581,6 +581,8 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   padding:0 var(--home-inline) var(--nav-content-gap);
   box-sizing:border-box;
   overflow:visible;
+  /* 整頁背景：完整插畫（上農場、中淺綠、下花草）鋪滿首頁容器，而非只有 hero */
+  background:url('assets/images/home/home-bg.png') top center / 100% 100% no-repeat;
 }
 @supports (height:100dvh) {
   #viewFarmer.home-v2 .hb-wrap {
@@ -1157,21 +1159,12 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 }
 
 #viewFarmer.home-v2 .hero-banner {
-  background:
-    linear-gradient(90deg, rgba(255,255,255,0.34) 0%, rgba(255,255,255,0.12) 42%, rgba(255,255,255,0) 66%),
-    url('assets/images/home/home-bg.png') center top / cover no-repeat;
-  box-shadow:
-    inset 0 -1px 0 rgba(255,255,255,0.76),
-    0 12px 28px rgba(35,74,47,0.085);
+  /* hero 背景改為透明，讓整頁背景圖連續延伸（不再是 hero 專屬背景）*/
+  background:transparent;
+  box-shadow:none;
 }
 #viewFarmer.home-v2 .hero-banner::after {
-  content:"";
-  position:absolute;
-  inset:auto 0 0;
-  height:26%;
-  z-index:0;
-  pointer-events:none;
-  background:linear-gradient(180deg, transparent, rgba(238,246,232,0.24));
+  display:none;
 }
 #viewFarmer.home-v2 .hb-brand-t {
   color:var(--text-primary) !important;
