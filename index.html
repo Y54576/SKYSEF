@@ -700,9 +700,31 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   width:clamp(24px,7.4vw,31px);
   height:clamp(24px,7.4vw,31px);
   object-fit:contain;
+  object-position:center;
+  max-width:100%;
   flex-shrink:0;
   filter:drop-shadow(0 1px 2px rgba(40,70,40,0.14));
 }
+/* 開始紀錄：直接使用完整按鈕素材，幾乎滿版、置中、保持比例、整顆可點 */
+#viewFarmer.home-v2 .hb-recordbtn {
+  width:100%;
+  margin:0 auto;
+  padding:0;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  display:block;
+  -webkit-tap-highlight-color:transparent;
+  transition:transform 120ms ease, filter 120ms ease;
+}
+#viewFarmer.home-v2 .hb-recordbtn img {
+  width:100%;
+  height:auto;
+  display:block;
+  object-fit:contain;
+  filter:drop-shadow(0 5px 12px rgba(27,110,55,0.22));
+}
+#viewFarmer.home-v2 .hb-recordbtn:active { transform:scale(0.985); filter:brightness(0.98); }
 #viewFarmer.home-v2 .hb-metric-tx {
   display:flex;
   flex-direction:column;
@@ -4266,7 +4288,7 @@ body:has(#viewConsumer.active) #loginOverlay { display: none; }
     <div class="hb-metric"><img class="hb-metric-ic" src="assets/images/home/metrics/ic/humidity.png" alt=""><div class="hb-metric-tx"><span class="hb-metric-lb">濕度</span><span class="hb-metric-vl" id="homeSumHum">--%</span></div></div>
     <div class="hb-metric"><img class="hb-metric-ic" src="assets/images/home/metrics/ic/soil-ph.png" alt=""><div class="hb-metric-tx"><span class="hb-metric-lb">土壤 pH</span><span class="hb-metric-vl" id="homeSumPh">--</span></div></div>
   </div>
-  <button class="hb-bigbtn" onclick="openQuickLogModal()"><img class="hb-btn-leaf hb-btn-leaf-l" src="assets/images/decorations/leaf-left.png" alt="" aria-hidden="true"><span class="hb-bigbtn-label"><img class="hb-record-icon" src="assets/images/icons/icon-start-record.png" alt="">開始紀錄</span><img class="hb-btn-leaf hb-btn-leaf-r" src="assets/images/decorations/leaf-left.png" alt="" aria-hidden="true"></button>
+  <button class="hb-recordbtn" onclick="openQuickLogModal()" aria-label="開始紀錄"><img src="assets/images/home/start-record-btn.png" alt="開始紀錄"></button>
 </div>
 
 <div class="hb-card">
