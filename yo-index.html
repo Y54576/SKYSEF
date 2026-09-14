@@ -4551,14 +4551,17 @@ async function loadAccount(uid){
   const parsed=JSON.parse(localStorage.getItem(pendingKey(uid))||'{}');
   if(parsed&&typeof parsed==='object'&&!Array.isArray(parsed))pending=parsed;else warnings.push('pending');
  }catch{warnings.push('pending')}
+ const cleanPending={};
  for(const [key,item] of Object.entries(pending)){
   if(!privateKeys.has(key))continue;
+  if(!item||typeof item!=='object'){warnings.push('pending');continue}
+  cleanPending[key]=item;
   if((entries[key]?.version??null)!==item.base)continue;
   if(item.value==='null')delete values[key];else values[key]=item.value;
  }
- accountValues=values;accountVersions=Object.fromEntries(Object.entries(entries).map(([key,e])=>[key,e.version]));accountDirty=pending;accountReady=true;hydrateAccountGlobals();
- accountNotice(warnings.length?'已載入自己的帳號資料，部分舊資料需要重新儲存。':Object.keys(pending).length?'找到此帳號待同步資料，正在補存…':'已載入自己的帳號資料',warnings.length>0);
- if(Object.keys(pending).length)flushAccount().catch(()=>{});
+ accountValues=values;accountVersions=Object.fromEntries(Object.entries(entries).map(([key,e])=>[key,e?.version??null]));accountDirty=cleanPending;accountReady=true;hydrateAccountGlobals();
+ accountNotice(warnings.length?'已載入自己的帳號資料，部分舊資料需要重新儲存。':Object.keys(cleanPending).length?'找到此帳號待同步資料，正在補存…':'已載入自己的帳號資料',warnings.length>0);
+ if(Object.keys(cleanPending).length)flushAccount().catch(()=>{});
  return true;
 }
 async function flushAccount(){
