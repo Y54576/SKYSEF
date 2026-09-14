@@ -651,17 +651,23 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   line-height:1.2;
 }
 #viewFarmer.home-v2 .hb-summary {
-  min-height:var(--summary-min-height);
-  margin-top:0;
-  padding:var(--upper-card-padding-block) var(--card-padding-inline);
+  min-height:0;
+  /* 上移貼近 hero（略為重疊）*/
+  margin-top:-14px;
+  margin-left:-3px;
+  margin-right:-3px;
+  width:calc(100% + 6px);
+  position:relative;
+  z-index:5;
+  padding:clamp(10px,1.5dvh,13px) clamp(11px,3.4vw,14px) clamp(11px,1.6dvh,14px);
   display:grid;
   grid-template-rows:auto auto auto auto;
-  align-content:center;
-  row-gap:var(--upper-content-gap);
+  align-content:start;
+  row-gap:clamp(6px,1dvh,9px);
 }
 #viewFarmer.home-v2 .hb-summary .hb-head {
   margin-bottom:0;
-  font-size:13px;
+  font-size:clamp(14px,4vw,15.5px);
 }
 #viewFarmer.home-v2 .hb-note {
   margin:0;
@@ -680,20 +686,20 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   width:auto;
   min-width:0;
   align-items:center;
-  justify-content:center;
-  padding:clamp(5px,1dvh,8px) clamp(2px,0.8vw,4px);
-  gap:clamp(2px,0.7vw,4px);
-  background:#fff;
-  border:1px solid rgba(38,64,47,0.12);
-  border-radius:clamp(11px,3.2vw,15px);
-  box-shadow:0 1px 3px rgba(28,63,40,0.05);
+  justify-content:flex-start;
+  padding:clamp(5px,0.9dvh,7px) clamp(3px,1vw,5px);
+  gap:clamp(3px,1.1vw,6px);
+  background:linear-gradient(180deg,#fdfbf3,#f6f1e4);
+  border:0;
+  border-radius:clamp(12px,3.6vw,16px);
+  box-shadow:0 2px 6px rgba(70,58,24,0.08), inset 0 1px 0 rgba(255,255,255,0.65);
 }
-#viewFarmer.home-v2 .hb-chip:first-child { padding-left:clamp(2px,0.8vw,4px); }
+#viewFarmer.home-v2 .hb-chip:first-child { padding-left:clamp(3px,1vw,5px); }
 #viewFarmer.home-v2 .hb-chip-ico,
 #viewFarmer.home-v2 .hb-chip:first-child .hb-chip-ico {
-  width:clamp(19px,5.6vw,25px);
-  height:clamp(19px,5.6vw,25px);
-  font-size:clamp(17px,5vw,21px);
+  width:clamp(24px,7.2vw,32px);
+  height:clamp(24px,7.2vw,32px);
+  font-size:clamp(21px,6vw,26px);
 }
 #viewFarmer.home-v2 .hb-chip-ico img {
   width:100%;
@@ -707,24 +713,45 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   height:100%;
 }
 #viewFarmer.home-v2 .hb-chip-label {
-  font-size:clamp(9px,2.6vw,11px);
-  line-height:1.25;
+  font-size:clamp(8.5px,2.4vw,10px);
+  line-height:1.2;
 }
 #viewFarmer.home-v2 .hb-chip-val {
-  font-size:clamp(9.5px,2.7vw,11.5px);
-  line-height:1.25;
+  font-size:clamp(10.5px,3vw,13px);
+  line-height:1.2;
   margin-top:1px;
 }
 #viewFarmer.home-v2 .hb-chip-label-pill { padding:1px clamp(4px,1.6vw,7px); }
 #viewFarmer.home-v2 .hb-bigbtn {
-  height:clamp(38px,5dvh,42px);
-  min-height:38px;
-  font-size:clamp(12px,3.4vw,14px);
+  height:clamp(40px,5.2dvh,45px);
+  min-height:40px;
+  font-size:clamp(13px,3.6vw,15px);
   display:flex;
   align-items:center;
   justify-content:center;
   gap:6px;
+  position:relative;
+  overflow:hidden;
 }
+#viewFarmer.home-v2 .hb-bigbtn-label {
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  position:relative;
+  z-index:2;
+}
+#viewFarmer.home-v2 .hb-btn-leaf {
+  position:absolute;
+  bottom:-6px;
+  width:clamp(34px,10vw,44px);
+  height:auto;
+  pointer-events:none;
+  z-index:1;
+  opacity:0.95;
+  filter:drop-shadow(0 1px 2px rgba(16,70,32,0.28));
+}
+#viewFarmer.home-v2 .hb-btn-leaf-l { left:6px; transform:rotate(10deg); }
+#viewFarmer.home-v2 .hb-btn-leaf-r { right:6px; transform:scaleX(-1) rotate(10deg); }
 #viewFarmer.home-v2 .hb-section-icon {
   width:clamp(18px,4.8vw,22px);
   height:clamp(18px,4.8vw,22px);
@@ -1208,9 +1235,10 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 }
 #viewFarmer.home-v2 .hb-summary {
   position:relative;
-  background:#ffffff;
-  border-color:rgba(40,91,58,0.10);
-  box-shadow:var(--shadow-elevated);
+  background:linear-gradient(180deg,#ffffff,#fdfdfb);
+  border:1px solid rgba(40,91,58,0.08);
+  border-radius:24px;
+  box-shadow:0 12px 26px rgba(24,60,38,0.14), 0 2px 6px rgba(24,60,38,0.06);
 }
 #viewFarmer.home-v2 .hb-summary::before {
   display:none;
@@ -1256,7 +1284,7 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   background:rgba(47,167,90,0.08);
 }
 #viewFarmer.home-v2 .hb-chip:not(:first-child) {
-  border-left:1px solid rgba(38,64,47,0.12);
+  border-left:0;
 }
 #viewFarmer.home-v2 .hb-chip-ico {
   border-radius:0;
@@ -1266,17 +1294,15 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 #viewFarmer.home-v2 .hb-chip-ico img {
   filter:drop-shadow(0 1px 2px rgba(35,78,48,0.14));
 }
-/* target：標籤在上（深色），數值在下（灰色）*/
+/* target：標籤在上（小、柔和棕），數值在下（深色、較粗）*/
 #viewFarmer.home-v2 .hb-chip-label {
-  color:#2E3D34 !important;
-  font-weight:800;
-  order:0;
+  color:#8A7A55 !important;
+  font-weight:700;
 }
 #viewFarmer.home-v2 .hb-chip-val {
-  color:#5B6770 !important;
-  font-weight:700;
+  color:#2C3A30 !important;
+  font-weight:800;
   letter-spacing:-0.02em;
-  order:1;
 }
 #viewFarmer.home-v2 .hb-chip-label-pill {
   color:var(--brand-green-dark) !important;
@@ -4247,7 +4273,7 @@ body:has(#viewConsumer.active) #loginOverlay { display: none; }
     <div class="hb-chip"><span class="hb-chip-ico"><img src="assets/images/data/icon-humidity.png" alt=""></span><div class="hb-chip-text"><div class="hb-chip-label">濕度</div><div class="hb-chip-val" id="homeSumHum">--%</div></div></div>
     <div class="hb-chip"><span class="hb-chip-ico"><img src="assets/images/data/icon-soil-ph.png" alt=""></span><div class="hb-chip-text"><div class="hb-chip-label">土壤 pH</div><div class="hb-chip-val" id="homeSumPh">--</div></div></div>
   </div>
-  <button class="hb-bigbtn" onclick="openQuickLogModal()"><img class="hb-record-icon" src="assets/images/icons/icon-start-record.png" alt="">開始紀錄</button>
+  <button class="hb-bigbtn" onclick="openQuickLogModal()"><img class="hb-btn-leaf hb-btn-leaf-l" src="assets/images/decorations/leaf-left.png" alt="" aria-hidden="true"><span class="hb-bigbtn-label"><img class="hb-record-icon" src="assets/images/icons/icon-start-record.png" alt="">開始紀錄</span><img class="hb-btn-leaf hb-btn-leaf-r" src="assets/images/decorations/leaf-left.png" alt="" aria-hidden="true"></button>
 </div>
 
 <div class="hb-card">
