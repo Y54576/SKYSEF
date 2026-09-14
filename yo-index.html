@@ -4466,6 +4466,7 @@ html:has(#viewPestGame.active),body:has(#viewPestGame.active),html:has(#viewFarm
       <button type="button" id="loginForgotLink" class="login-link" onclick="setLoginMode('forgot')">忘記密碼？</button>
     </div>
     <div class="login-err" id="loginErr" role="status" aria-live="polite" style="color:#D9534F;"></div>
+    <button type="button" id="accountRetry" class="login-link" onclick="retryPrivateAccount()" hidden style="display:block;width:100%;margin:10px 0;padding:10px;border:1px solid #b9d9be;border-radius:12px;background:#eef8ef;color:#2b6a3c;cursor:pointer;">重新載入帳號資料</button>
     <button type="submit" class="login-btn" id="loginBtn">登入</button>
     <div class="login-links">
       <button type="button" id="loginBackLink" class="login-link" onclick="setLoginMode('login')" style="display:none">← 返回登入</button>
@@ -4500,6 +4501,15 @@ function hydrateAccountGlobals(){
  _exp=Number(accountStorage.getItem('skysef_exp'))||0;_tickets=Number(accountStorage.getItem('skysef_tickets'))||0;
  editingIndex=-1;timelineSelectedYear=null;timelineSelectedMonth=null;timelineSelectedDay=null;
 }
+async function readAccountDocument(ref){
+ try{return await ref.get({source:'server'})}
+ catch(error){
+  // A temporary network failure should not block a user whose data is already
+  // in Firestore's local cache. Permission errors still surface normally.
+  if(error?.code==='permission-denied')throw error;
+  try{return await ref.get()}catch(_cacheError){throw error}
+ }
+}
 function clearAccountSession(){
 
  accountEpoch++;accountReady=false;accountUid=null;accountValues={};accountVersions={};accountDirty={};accountLoadError=false;
@@ -4520,23 +4530,34 @@ function clearAccountSession(){
 async function loadAccount(uid){
  clearAccountSession();const epoch=accountEpoch;accountUid=uid;accountNotice('正在讀取自己的帳號資料…');
  const root=_fbDb.collection('privateAccounts').doc(uid);
- const snap=await root.collection('state').doc('manifest').get({source:'server'});
+ const snap=await readAccountDocument(root.collection('state').doc('manifest'));
  if(epoch!==accountEpoch||_fbAuth?.currentUser?.uid!==uid)return false;
- const entries=snap.exists?(snap.data().entries||{}):{};const values={};
+ const rawEntries=snap.exists?snap.data()?.entries:{};
+ const entries=rawEntries&&typeof rawEntries==='object'&&!Array.isArray(rawEntries)?rawEntries:{};
+ const values={},warnings=[];
  await Promise.all(Object.entries(entries).filter(([key])=>privateKeys.has(key)).map(async([key,entry])=>{
-  const parts=await Promise.all(entry.parts.map(id=>root.collection('chunks').doc(id).get({source:'server'})));
-  if(parts.some(p=>!p.exists))throw new Error('帳號資料不完整，請稍後重試，不會載入其他帳號資料。');
-  const value=parts.map(p=>p.data().value).join('');if(value!=='null')values[key]=value;
+  if(!entry||!Array.isArray(entry.parts)){warnings.push(key);return}
+  if(entry.parts.length===0){values[key]='';return}
+  const ids=entry.parts.filter(id=>typeof id==='string'&&id);
+  if(ids.length!==entry.parts.length){warnings.push(key);return}
+  try{
+   const parts=await Promise.all(ids.map(id=>readAccountDocument(root.collection('chunks').doc(id))));
+   if(parts.some(p=>!p.exists)||parts.some(p=>typeof p.data()?.value!=='string')){warnings.push(key);return}
+   const value=parts.map(p=>p.data().value).join('');if(value!=='null')values[key]=value;
+  }catch(_error){warnings.push(key)}
  }));
  if(epoch!==accountEpoch||_fbAuth?.currentUser?.uid!==uid)return false;
- let pending={};try{pending=JSON.parse(localStorage.getItem(pendingKey(uid))||'{}')}catch{throw new Error('本機待同步資料無法讀取，請保留瀏覽器資料並聯絡管理員。')}
+ let pending={};try{
+  const parsed=JSON.parse(localStorage.getItem(pendingKey(uid))||'{}');
+  if(parsed&&typeof parsed==='object'&&!Array.isArray(parsed))pending=parsed;else warnings.push('pending');
+ }catch{warnings.push('pending')}
  for(const [key,item] of Object.entries(pending)){
   if(!privateKeys.has(key))continue;
   if((entries[key]?.version??null)!==item.base)continue;
   if(item.value==='null')delete values[key];else values[key]=item.value;
  }
  accountValues=values;accountVersions=Object.fromEntries(Object.entries(entries).map(([key,e])=>[key,e.version]));accountDirty=pending;accountReady=true;hydrateAccountGlobals();
- accountNotice(Object.keys(pending).length?'找到此帳號待同步資料，正在補存…':'已載入自己的帳號資料');
+ accountNotice(warnings.length?'已載入自己的帳號資料，部分舊資料需要重新儲存。':Object.keys(pending).length?'找到此帳號待同步資料，正在補存…':'已載入自己的帳號資料',warnings.length>0);
  if(Object.keys(pending).length)flushAccount().catch(()=>{});
  return true;
 }
@@ -4573,7 +4594,7 @@ async function flushAccount(){
 async function retryPrivateAccount(){
  const user=_fbAuth?.currentUser;if(!user){showLogin('請先登入');return;}
  try{if(accountReady){await flushAccount();return}showLogin('正在載入自己的資料…');if(await loadAccount(user.uid)){_authStartedUid=user.uid;hideLogin();startApp();}}
- catch(error){showLogin('帳號資料載入失敗，請稍後再試。');accountLoadError=true;}
+ catch(error){showLogin('帳號資料載入失敗，請稍後再試。');accountLoadError=true;const retry=document.getElementById('accountRetry');if(retry)retry.hidden=false;}
 }
 function exportPendingAccount(){
  const uid=_fbAuth?.currentUser?.uid;if(!uid)return;
@@ -6439,6 +6460,8 @@ function showLogin(message = '') {
   const overlay = document.getElementById('loginOverlay');
   overlay.classList.remove('hidden');
   document.getElementById('loginErr').textContent = message;
+  const retry = document.getElementById('accountRetry');
+  if (retry && !message.includes('帳號資料載入失敗')) retry.hidden = true;
   document.querySelectorAll('.view-screen, #bottomTabbar').forEach(el => el.inert = true);
 }
 function hideLogin() {
@@ -6493,6 +6516,7 @@ async function initAuth() {
         if (_fbAuth?.currentUser?.uid !== uid) return;
         accountReady = false; accountLoadError = true;
         showLogin('帳號資料載入失敗，請稍後再試。');
+        const retry = document.getElementById('accountRetry'); if (retry) retry.hidden = false;
       }
     } else {
       document.body.classList.remove('consumer-mode');
