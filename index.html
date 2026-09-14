@@ -369,9 +369,21 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   gap:9px; box-sizing:border-box; justify-content:flex-start;
   max-width:100%;
 }
-.hb-topbar { flex:0 0 auto; display:flex; align-items:center; gap:10px; position:relative; z-index:2; }
+.hb-topbar { flex:0 0 auto; display:flex; align-items:center; justify-content:space-between; gap:10px; position:relative; z-index:3; }
 .hb-wrap > * { flex-shrink:0; }
 .hb-logo { width:36px; height:36px; object-fit:contain; flex-shrink:0; }
+/* Formoya 完整標誌（葉子 + 福萌芽 Formoya 文字） */
+.hb-logo-full { height:34px; width:auto; object-fit:contain; flex-shrink:0; filter:drop-shadow(0 1px 2px rgba(255,255,255,0.6)); }
+/* 我的點數藥丸徽章（數字為即時 EXP，依 UID 隔離，不寫死於圖片） */
+.hb-points { display:inline-flex; align-items:center; gap:8px; flex-shrink:0; cursor:pointer;
+  background:linear-gradient(180deg,#fffdf6,#fdf3d4); border:1.5px solid rgba(241,204,120,0.95);
+  border-radius:999px; padding:7px 14px 7px 8px; box-shadow:0 4px 12px rgba(190,150,40,0.20), inset 0 1px 0 rgba(255,255,255,0.9);
+  line-height:normal; -webkit-tap-highlight-color:transparent; }
+.hb-points:active { transform:translateY(1px); box-shadow:0 2px 6px rgba(190,150,40,0.20), inset 0 1px 0 rgba(255,255,255,0.9); }
+.hb-points-coin { width:24px; height:24px; object-fit:contain; flex-shrink:0; filter:drop-shadow(0 1px 1px rgba(160,110,20,0.25)); }
+.hb-points-txt { display:flex; flex-direction:column; align-items:flex-start; justify-content:center; }
+.hb-points-label { font-size:10px; font-weight:800; color:#8a6a12 !important; letter-spacing:0.01em; line-height:1.25; white-space:nowrap; }
+.hb-points-val { font-size:17px; font-weight:900; color:#5f4708 !important; letter-spacing:0.01em; line-height:1.15; }
 .hb-brand { flex:1; min-width:0; }
 .hb-brand-t { font-size:15px; font-weight:800; color:#1F2937 !important; line-height:1.1; }
 .hb-brand-s { font-size:9px; color:#6B7280 !important; font-weight:600; }
@@ -389,8 +401,8 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   height:235px;
   padding:calc(env(safe-area-inset-top,0px) + 12px) 18px 0;
   background:
-    linear-gradient(180deg, rgba(190,227,248,0.55) 0%, rgba(223,243,230,0.5) 55%, rgba(201,232,184,0.6) 100%),
-    url('assets/images/hero-farm-background.jpg') center 68% / cover no-repeat;
+    linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 45%, rgba(197,231,181,0.14) 100%),
+    url('assets/images/home/home-bg.png') center top / cover no-repeat;
   background-color:#BEE3F8;
   border-radius:0 0 32px 32px;
   overflow:hidden;
@@ -589,8 +601,8 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   border-radius:0 0 clamp(22px,7vw,30px) clamp(22px,7vw,30px);
 }
 #viewFarmer.home-v2 .hero-greet {
-  margin-top:clamp(3px,0.7dvh,7px);
-  max-width:88%;
+  margin-top:clamp(14px,4.5dvh,40px);
+  max-width:60%;
   min-width:0;
 }
 #viewFarmer.home-v2 .hb-greet-row { min-width:0; }
@@ -607,20 +619,24 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   line-height:1.25;
 }
 #viewFarmer.home-v2 .hero-farmer {
-  right:clamp(-8px,-1vw,-2px);
-  width:clamp(145px,40vw,190px);
-  height:clamp(125px,20dvh,175px);
-  max-height:78%;
+  right:clamp(-6px,-1vw,0px);
+  width:clamp(140px,42vw,182px);
+  height:clamp(135px,22dvh,188px);
+  max-height:86%;
   aspect-ratio:auto;
 }
-#viewFarmer.home-v2 .hb-logo {
-  width:clamp(32px,9vw,38px);
-  height:clamp(32px,9vw,38px);
+#viewFarmer.home-v2 .hb-logo-full {
+  height:clamp(30px,8.5vw,36px);
 }
-#viewFarmer.home-v2 .hb-rbtn {
-  width:clamp(38px,11vw,45px);
-  height:clamp(38px,11vw,45px);
-  padding:clamp(7px,2.2vw,9px);
+#viewFarmer.home-v2 .hb-points {
+  padding:clamp(4px,1.2vw,5px) clamp(10px,3vw,13px) clamp(4px,1.2vw,5px) clamp(6px,1.8vw,7px);
+}
+#viewFarmer.home-v2 .hb-points-coin {
+  width:clamp(21px,6vw,25px);
+  height:clamp(21px,6vw,25px);
+}
+#viewFarmer.home-v2 .hb-points-val {
+  font-size:clamp(14px,4.2vw,17px);
 }
 
 /* 今日農場紀錄與快速操作維持內容高度 */
@@ -1107,9 +1123,8 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 
 #viewFarmer.home-v2 .hero-banner {
   background:
-    linear-gradient(90deg, rgba(252,255,252,0.50) 0%, rgba(250,254,250,0.20) 46%, rgba(248,253,248,0) 72%),
-    linear-gradient(180deg, rgba(203,235,247,0.03) 0%, rgba(239,248,232,0.02) 60%, rgba(232,243,222,0.20) 100%),
-    url('assets/images/hero-farm-background.jpg') center 68% / cover no-repeat;
+    linear-gradient(90deg, rgba(255,255,255,0.34) 0%, rgba(255,255,255,0.12) 42%, rgba(255,255,255,0) 66%),
+    url('assets/images/home/home-bg.png') center top / cover no-repeat;
   box-shadow:
     inset 0 -1px 0 rgba(255,255,255,0.76),
     0 12px 28px rgba(35,74,47,0.085);
@@ -4218,20 +4233,18 @@ body:has(#viewConsumer.active) #loginOverlay { display: none; }
 
 <div class="hero-banner">
 <div class="hb-topbar hero-topbar">
-  <img class="hb-logo" src="assets/images/logo.png" alt="">
-  <div class="hb-brand"><div class="hb-brand-t">福萌芽 Formoya</div><div class="hb-brand-s">記錄每一步農場成長</div></div>
-  <span class="hb-notif-wrap"><button class="hb-rbtn" onclick="switchView('viewTask')"><img src="assets/images/icons/bell.png" alt=""></button><span class="hb-notif-dot"></span></span>
-  <button class="hb-rbtn" onclick="switchView('viewMe')">
-    <img id="homeAvatarImg" src="" alt="" style="width:100%;height:100%;border-radius:50%;object-fit:cover;display:none;" onerror="this.style.display='none'">
-    <img id="homeAvatarFallback" src="assets/images/default-avatar.png" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+  <img class="hb-logo-full" src="assets/images/logo.png" alt="福萌芽 Formoya">
+  <button class="hb-points" onclick="switchView('viewMe')" aria-label="我的點數">
+    <img class="hb-points-coin" src="assets/images/others/coin.png" alt="">
+    <span class="hb-points-txt"><span class="hb-points-label">我的點數</span><span class="hb-points-val" id="homePointsVal">0</span></span>
   </button>
 </div>
 
   <div class="hero-greet">
-    <div class="hb-greet-row"><div class="hb-greet-h" id="homeGreeting">午安！</div><img class="hb-greet-leaf" src="assets/images/decorations/leaf-left.png" alt=""></div>
+    <div class="hb-greet-row"><div class="hb-greet-h" id="homeGreeting">午安！</div></div>
     <div class="hb-greet-sub">記錄每一步，串聯信任的農業未來</div>
   </div>
-  <img class="hero-farmer" src="assets/images/hero-farmer-mascot.png" alt="">
+  <img class="hero-farmer" src="assets/images/home/home-farmer.png" alt="">
 </div>
 
 <div class="hb-card hb-summary">
@@ -6802,6 +6815,10 @@ function renderHomeWidgets() {
   }
   const wloc = document.getElementById('homeWeatherLoc');
   if (wloc) wloc.textContent = farmProfile.location || '台灣在地';
+
+  // 我的點數徽章（顯示目前登入者的即時積分／EXP，依 UID 隔離，不寫死於圖片）
+  const hpv = document.getElementById('homePointsVal');
+  if (hpv) hpv.textContent = _exp;
 
   // 今日農場紀錄摘要（取最新一筆日誌）
   const latest = logs[0];
