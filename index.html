@@ -683,47 +683,40 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   min-width:0;
   margin-bottom:0;
 }
-/* 每個指標為獨立白底圓角小卡（對齊 target 螢幕截圖）*/
-#viewFarmer.home-v2 .hb-chip {
-  width:auto;
+/* 四個指標改用真實卡片圖片素材（作物／溫度／濕度／土壤 pH），等寬同高 */
+#viewFarmer.home-v2 .hb-metric {
+  position:relative;
+  width:100%;
+  aspect-ratio:1445 / 1000;   /* 與素材一致，object-fit 完整不變形 */
   min-width:0;
-  align-items:center;
-  justify-content:flex-start;
-  padding:clamp(5px,0.9dvh,7px) clamp(3px,1vw,5px);
-  gap:clamp(3px,1.1vw,6px);
-  background:linear-gradient(180deg,#fdfbf3,#f6f1e4);
-  border:0;
-  border-radius:clamp(12px,3.6vw,16px);
-  box-shadow:0 2px 6px rgba(70,58,24,0.08), inset 0 1px 0 rgba(255,255,255,0.65);
 }
-#viewFarmer.home-v2 .hb-chip:first-child { padding-left:clamp(3px,1vw,5px); }
-#viewFarmer.home-v2 .hb-chip-ico,
-#viewFarmer.home-v2 .hb-chip:first-child .hb-chip-ico {
-  width:clamp(24px,7.2vw,32px);
-  height:clamp(24px,7.2vw,32px);
-  font-size:clamp(21px,6vw,26px);
-}
-#viewFarmer.home-v2 .hb-chip-ico img {
+#viewFarmer.home-v2 .hb-metric img {
   width:100%;
   height:100%;
-  max-width:none;
   object-fit:contain;
+  display:block;
   pointer-events:none;
 }
-#viewFarmer.home-v2 .hb-chip:first-child .hb-chip-ico img {
-  width:100%;
-  height:100%;
+/* 覆蓋在素材「--」占位值之上的即時數值（有資料時才顯示，空值時露出素材原本的 --）*/
+#viewFarmer.home-v2 .hb-metric-val {
+  position:absolute;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#fafdfa;
+  color:#33423a;
+  font-weight:800;
+  font-size:clamp(9px,2.6vw,12px);
+  line-height:1;
+  white-space:nowrap;
+  overflow:hidden;
+  border-radius:3px;
 }
-#viewFarmer.home-v2 .hb-chip-label {
-  font-size:clamp(8.5px,2.4vw,10px);
-  line-height:1.2;
-}
-#viewFarmer.home-v2 .hb-chip-val {
-  font-size:clamp(10.5px,3vw,13px);
-  line-height:1.2;
-  margin-top:1px;
-}
-#viewFarmer.home-v2 .hb-chip-label-pill { padding:1px clamp(4px,1.6vw,7px); }
+#viewFarmer.home-v2 .hb-metric-val:empty { display:none; }
+#viewFarmer.home-v2 .hb-metric-crop .hb-metric-val { left:46%; right:9%;  top:50%; bottom:28%; }
+#viewFarmer.home-v2 .hb-metric-temp .hb-metric-val { left:45%; right:9%;  top:38%; bottom:33%; }
+#viewFarmer.home-v2 .hb-metric-hum  .hb-metric-val { left:50%; right:9%;  top:47%; bottom:30%; }
+#viewFarmer.home-v2 .hb-metric-ph   .hb-metric-val { left:47%; right:9%;  top:50%; bottom:32%; }
 #viewFarmer.home-v2 .hb-bigbtn {
   height:clamp(40px,5.2dvh,45px);
   min-height:40px;
@@ -4261,10 +4254,10 @@ body:has(#viewConsumer.active) #loginOverlay { display: none; }
   <div class="hb-head"><img class="hb-section-icon" src="assets/images/icons/icon-farm-section.png" alt="">今日農場紀錄<span class="hb-seeall" onclick="switchView('viewConsumer')">查看全部 ›</span></div>
   <div class="hb-note" id="homeSumNote">點擊下方按鈕開始今天的第一筆紀錄吧！</div>
   <div class="hb-chiprow">
-    <div class="hb-chip"><span class="hb-chip-ico"><img src="assets/images/crops/crop-water-spinach.png" alt=""></span><div class="hb-chip-text"><div class="hb-chip-label">作物</div><div class="hb-chip-val" id="homeSumCrop">--</div></div></div>
-    <div class="hb-chip"><span class="hb-chip-ico"><img src="assets/images/data/icon-temperature.png" alt=""></span><div class="hb-chip-text"><div class="hb-chip-label">溫度</div><div class="hb-chip-val" id="homeSumTemp">--°C</div></div></div>
-    <div class="hb-chip"><span class="hb-chip-ico"><img src="assets/images/data/icon-humidity.png" alt=""></span><div class="hb-chip-text"><div class="hb-chip-label">濕度</div><div class="hb-chip-val" id="homeSumHum">--%</div></div></div>
-    <div class="hb-chip"><span class="hb-chip-ico"><img src="assets/images/data/icon-soil-ph.png" alt=""></span><div class="hb-chip-text"><div class="hb-chip-label">土壤 pH</div><div class="hb-chip-val" id="homeSumPh">--</div></div></div>
+    <div class="hb-metric hb-metric-crop"><img src="assets/images/home/metrics/crop.png" alt="作物"><span class="hb-metric-val" id="homeSumCrop"></span></div>
+    <div class="hb-metric hb-metric-temp"><img src="assets/images/home/metrics/temperature.png" alt="溫度"><span class="hb-metric-val" id="homeSumTemp"></span></div>
+    <div class="hb-metric hb-metric-hum"><img src="assets/images/home/metrics/humidity.png" alt="濕度"><span class="hb-metric-val" id="homeSumHum"></span></div>
+    <div class="hb-metric hb-metric-ph"><img src="assets/images/home/metrics/soil-ph.png" alt="土壤 pH"><span class="hb-metric-val" id="homeSumPh"></span></div>
   </div>
   <button class="hb-bigbtn" onclick="openQuickLogModal()"><img class="hb-btn-leaf hb-btn-leaf-l" src="assets/images/decorations/leaf-left.png" alt="" aria-hidden="true"><span class="hb-bigbtn-label"><img class="hb-record-icon" src="assets/images/icons/icon-start-record.png" alt="">開始紀錄</span><img class="hb-btn-leaf hb-btn-leaf-r" src="assets/images/decorations/leaf-left.png" alt="" aria-hidden="true"></button>
 </div>
@@ -6837,17 +6830,19 @@ function renderHomeWidgets() {
   const sHum  = document.getElementById('homeSumHum');
   const sPh   = document.getElementById('homeSumPh');
   const sNote = document.getElementById('homeSumNote');
+  // 指標數值改為「覆蓋」在真實卡片素材（作物／溫度／濕度／土壤 pH）的 -- 占位值之上：
+  // 有實際資料才填值（顯示白底覆蓋層），無資料時清空 → 露出素材原本的 -- 占位樣式。
   if (latest) {
-    if (sCrop) sCrop.textContent = latest.type || '農場作物';
-    if (sTemp) sTemp.textContent = (latest.temp || latest.temp === 0 ? latest.temp : '--') + '°C';
-    if (sHum)  sHum.textContent  = (latest.hum  || latest.hum  === 0 ? latest.hum  : '--') + '%';
-    if (sPh)   sPh.textContent   = latest.ph || '--';
+    if (sCrop) sCrop.textContent = latest.type || '';
+    if (sTemp) sTemp.textContent = (latest.temp || latest.temp === 0) ? (latest.temp + '°C') : '';
+    if (sHum)  sHum.textContent  = (latest.hum  || latest.hum  === 0) ? (latest.hum  + '%')  : '';
+    if (sPh)   sPh.textContent   = latest.ph ? latest.ph : '';
     if (sNote) sNote.textContent = latest.note || '（無備註）';
   } else {
-    if (sCrop) sCrop.textContent = '--';
-    if (sTemp) sTemp.textContent = '--°C';
-    if (sHum)  sHum.textContent  = '--%';
-    if (sPh)   sPh.textContent   = '--';
+    if (sCrop) sCrop.textContent = '';
+    if (sTemp) sTemp.textContent = '';
+    if (sHum)  sHum.textContent  = '';
+    if (sPh)   sPh.textContent   = '';
     if (sNote) sNote.textContent = '點擊下方按鈕開始今天的第一筆紀錄吧！';
   }
 
