@@ -3550,7 +3550,128 @@ button.login-link { font:inherit; font-size:13px; border:0; background:none; cur
 .post-preview button { margin:6px 0; }
 #viewCommunity .social-choice input { width:20px; }
 #viewCommunity [hidden] { display:none !important; }
-</style><style>body:has(#viewCommunity.active) .ticket-fab, body:has(#viewCommunity.active) .settings-fab { display:none; }</style><style>#accountSyncStatus[hidden],#accountRetry[hidden]{display:none!important}</style><style>#settingsOverlay details{margin:18px 0}#settingsOverlay details label{display:block;margin-top:12px}#settingsOverlay .account-actions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}#settingsOverlay details button,#settingsOverlay .account-actions button{background:#e5f2e7;color:#235632;border:1px solid #a9cbb0;border-radius:10px;padding:10px;cursor:pointer}#accountStatus{font-size:14px;line-height:1.6}#settingsOverlay button:disabled{opacity:.55}</style><style id="farmer-cutout-fix">
+</style><style>body:has(#viewCommunity.active) .ticket-fab, body:has(#viewCommunity.active) .settings-fab { display:none; }</style><style>#accountSyncStatus[hidden],#accountRetry[hidden]{display:none!important}</style><style>#settingsOverlay details{margin:18px 0}#settingsOverlay details label{display:block;margin-top:12px}#settingsOverlay .account-actions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}#settingsOverlay details button,#settingsOverlay .account-actions button{background:#e5f2e7;color:#235632;border:1px solid #a9cbb0;border-radius:10px;padding:10px;cursor:pointer}#accountStatus{font-size:14px;line-height:1.6}#settingsOverlay button:disabled{opacity:.55}</style>
+<style id="community-redesign">
+#viewCommunity{--community-ink:#2d4031;--community-muted:#768074;--community-green:#568e51;--community-cream:#fffdf5;position:relative;padding:0!important;overflow-x:hidden;background-color:#f4f5cf;background-image:linear-gradient(180deg,rgba(255,255,244,.08),rgba(250,252,230,.34) 48%,rgba(242,247,217,.2)),url('assets/community/community-bg.png');background-position:center top,center top;background-size:100% 100%,100% auto;background-repeat:no-repeat,no-repeat;color:var(--community-ink)}
+#viewCommunity::before,#viewCommunity::after{content:"";position:fixed;z-index:0;bottom:82px;width:min(46vw,220px);height:92px;pointer-events:none;opacity:.18;background:url('assets/community/community-plants.png') left bottom/contain no-repeat}
+#viewCommunity::before{left:-34px}
+#viewCommunity::after{right:-34px;transform:scaleX(-1)}
+#viewCommunity .community-hero{position:relative;z-index:1;min-height:215px;box-sizing:border-box;padding:44px max(24px,calc((100% - 760px)/2 + 24px)) 54px;overflow:hidden;background:linear-gradient(90deg,rgba(255,255,239,.42),rgba(255,255,239,0) 72%)}
+#viewCommunity .community-hero-copy{position:relative;z-index:2;max-width:520px}
+#viewCommunity .community-kicker{display:flex;align-items:center;gap:9px;margin-bottom:6px;color:#548250;font-weight:800;font-size:15px;letter-spacing:.08em}
+#viewCommunity .community-kicker svg{width:25px;height:25px}
+#viewCommunity .community-hero h1{margin:0 0 10px;color:#2e291f!important;font-size:clamp(38px,9vw,54px);line-height:1;font-weight:900;letter-spacing:.045em;text-shadow:0 2px 0 rgba(255,255,255,.76),0 5px 14px rgba(78,91,47,.08)!important}
+#viewCommunity .community-hero p{max-width:420px;margin:0;color:#4c4a3c!important;font-size:15px;line-height:1.65;font-weight:680;text-shadow:0 1px 3px rgba(255,255,255,.92)!important}
+#viewCommunity .social-wrap{position:relative;z-index:1;display:grid;gap:14px;margin-top:-34px;padding:0 14px 138px;max-width:760px}
+#viewCommunity .social-card{min-width:0;box-sizing:border-box;overflow-wrap:anywhere;background:linear-gradient(145deg,rgba(255,254,248,.985),rgba(250,248,238,.97));border:1px solid rgba(143,163,116,.34);border-radius:24px;padding:18px;box-shadow:inset 0 1px 0 rgba(255,255,255,.98),inset 0 -1px 0 rgba(177,164,132,.09),0 10px 26px rgba(72,91,48,.105),0 2px 5px rgba(72,91,48,.055);backdrop-filter:blur(5px)}
+#viewCommunity h2,#viewCommunity h3,#viewCommunity b,#viewCommunity summary,#viewCommunity label{color:#314535!important;text-shadow:none!important}
+#viewCommunity p,#viewCommunity span,#viewCommunity time{color:#5c6658!important;text-shadow:none!important}
+#viewCommunity .community-composer{position:relative;padding:12px 14px 9px;border-color:rgba(138,157,108,.38);border-radius:20px;box-shadow:inset 0 1px 0 #fff,0 11px 27px rgba(74,91,48,.12),0 2px 5px rgba(74,91,48,.06)}
+#viewCommunity .community-composer-head{display:grid;grid-template-columns:56px minmax(0,1fr) 25px;gap:12px;align-items:start}
+#viewCommunity .community-composer-avatar,#viewCommunity .post-avatar{width:56px;height:56px;border-radius:50%;object-fit:cover;background:linear-gradient(145deg,#eef4e5,#dfe9d5);border:2px solid #fff;box-shadow:0 0 0 1px #c4d3b2,0 4px 10px rgba(76,101,58,.12)}
+#viewCommunity .community-composer-main{min-width:0}
+#viewCommunity .community-composer h2{margin:0 0 4px;color:#2c4131!important;font-size:17px;line-height:1.1;font-weight:900;letter-spacing:.01em}
+#viewCommunity .community-composer-sprout{width:25px;height:25px;object-fit:contain;display:block}
+#viewCommunity textarea,#viewCommunity input{box-sizing:border-box;font:inherit;font-size:16px;color:#344238!important;background:linear-gradient(180deg,#fbfaf5,#f7f5ed)!important;border:1px solid rgba(168,171,151,.58)!important}
+#viewCommunity #postText{display:block;width:100%;min-height:34px;max-height:132px;resize:none;appearance:none;-webkit-appearance:none;padding:6px 10px;border-radius:12px;line-height:1.35;box-shadow:inset 0 1px 3px rgba(77,85,63,.035);transition:border-color .18s ease,box-shadow .18s ease}
+#viewCommunity #postText:focus{outline:none;border-color:rgba(103,146,91,.62)!important;box-shadow:0 0 0 3px rgba(112,157,94,.1),inset 0 1px 3px rgba(77,85,63,.035)}
+#viewCommunity textarea::placeholder,#viewCommunity input::placeholder{color:#8b8e84!important;opacity:.95}
+#viewCommunity #postCounter{display:none;text-align:right;margin:5px 2px 0;color:#7b8378;font-size:12px}
+#viewCommunity .community-composer:focus-within #postCounter{display:block}
+#viewCommunity #postFiles{display:none!important}
+#viewCommunity #postPhotos{margin:13px 0 0}
+#viewCommunity .composer-actions{display:flex;align-items:center;justify-content:flex-end;gap:9px;margin-top:6px}
+#viewCommunity .post-upload{display:inline-flex;align-items:center;gap:6px;margin:0 0 0 auto;padding:4px 3px;color:#4c5c50!important;font-weight:800;font-size:12px;cursor:pointer;transition:color .18s ease,transform .18s ease}
+#viewCommunity .post-upload:hover{color:#477d49!important;transform:translateY(-1px)}
+#viewCommunity .post-upload svg{width:16px;height:16px}
+#viewCommunity .community-publish{min-width:74px;min-height:30px!important;padding:5px 13px!important;border-radius:11px!important;background:linear-gradient(145deg,#75a865,#558e52)!important;color:#fff!important;border:1px solid rgba(66,119,62,.5)!important;font-weight:850;box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 5px 12px rgba(72,119,65,.22);transition:transform .18s ease,box-shadow .18s ease}
+#viewCommunity .community-publish:hover{transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.34),0 7px 15px rgba(72,119,65,.25)}
+#viewCommunity .community-sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+#viewCommunity #socialStatus,#viewCommunity #postStatus{min-height:0;margin-top:9px;color:#98503c!important;font-size:13px;line-height:1.5;white-space:pre-line}
+#viewCommunity #socialStatus:empty,#viewCommunity #postStatus:empty{display:none}
+#viewCommunity .community-category-nav{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%;max-width:none;justify-self:center;box-sizing:border-box;padding:3px;background:linear-gradient(145deg,rgba(255,254,248,.99),rgba(247,243,229,.98));border:1px solid rgba(148,157,125,.34);border-radius:20px;box-shadow:inset 0 1px 0 rgba(255,255,255,.98),inset 0 -1px 0 rgba(177,164,132,.1),0 9px 22px rgba(72,86,46,.105),0 2px 4px rgba(72,86,46,.055);backdrop-filter:blur(7px)}
+#viewCommunity .community-category-tab{position:relative;display:flex;min-width:0;min-height:72px;padding:8px 3px 10px!important;border:0!important;border-radius:17px!important;background:transparent!important;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:#6e6559!important;font-size:10px!important;font-weight:800;line-height:1.2;text-align:center;box-shadow:none!important;overflow:visible!important}
+#viewCommunity .community-category-tab:not(:last-child)::after{content:"";position:absolute;right:-2px;top:14px;bottom:14px;width:1px;background:linear-gradient(180deg,transparent,rgba(151,145,124,.29) 20%,rgba(151,145,124,.29) 80%,transparent)}
+#viewCommunity .community-category-tab svg{width:22px;height:22px;flex:0 0 22px}
+#viewCommunity .community-category-tab>img{width:22px;height:22px;flex:0 0 22px;object-fit:contain}
+#viewCommunity .community-category-tab.active{z-index:1;background:linear-gradient(145deg,#7caf6b 0%,#5b9858 50%,#47834b 100%)!important;color:#fff!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.36),inset 0 -1px 0 rgba(39,84,45,.23),0 7px 16px rgba(61,108,57,.285)!important}
+#viewCommunity .community-category-tab.active span{color:#fff!important}
+#viewCommunity .community-category-tab.active>img{filter:brightness(0) invert(1);opacity:.96}
+#viewCommunity .community-category-tab.active::after{display:none}
+#viewCommunity .community-category-tab.active::before{content:"";position:absolute;left:38%;right:38%;bottom:-8px;height:5px;border-radius:6px;background:#5d9657}
+#viewCommunity .community-panel{min-width:0}
+#viewCommunity #communityPanelLatest,#viewCommunity #communityPanelFollowing{margin-top:-6px}
+#viewCommunity .community-panel-heading{margin:10px 5px 14px}
+#viewCommunity .community-panel-heading h2{margin:0 0 4px;font-size:20px}
+#viewCommunity .community-panel-heading p{margin:0;font-size:13px}
+#viewCommunity #communityPanelFeatured{padding-bottom:calc(112px + env(safe-area-inset-bottom,0px))}
+#viewCommunity #communityPanelFeatured .community-panel-heading{margin:8px 5px 10px}
+#viewCommunity .post-feed{display:grid;gap:15px}
+#viewCommunity .post-feed>.social-card{padding:16px;border-color:rgba(139,157,110,.36);border-radius:24px;box-shadow:inset 0 1px 0 rgba(255,255,255,.98),0 11px 28px rgba(73,91,50,.105),0 2px 5px rgba(73,91,50,.055)}
+#viewCommunity .post-header{position:relative;display:flex;justify-content:space-between;align-items:flex-start;gap:10px;min-height:52px}
+#viewCommunity .post-author-wrap{display:flex;min-width:0;align-items:center;gap:11px}
+#viewCommunity .post-avatar{width:48px;height:48px;flex:0 0 48px}
+#viewCommunity .post-author-meta{min-width:0;display:grid;gap:4px;align-content:center}
+#viewCommunity .post-author-line{display:flex;min-width:0;align-items:center;gap:6px}
+#viewCommunity .post-author{min-height:0!important;padding:0!important;border:0!important;background:transparent!important;color:#263b2d!important;font-size:16px!important;font-weight:900;text-align:left;text-decoration:none;letter-spacing:.01em;box-shadow:none!important}
+#viewCommunity .post-author-sprout{width:18px;height:18px;flex:0 0 18px;object-fit:contain}
+#viewCommunity .post-date{position:static;color:#8b8c82!important;font-size:11.5px;line-height:1.2;font-weight:500}
+#viewCommunity .post-menu{flex:0 0 20px;margin-top:-2px;color:#687169!important;font-size:26px;line-height:1;text-align:right;letter-spacing:1px}
+#viewCommunity .post-body,#viewCommunity .post-comment-text{margin:13px 2px 12px;white-space:pre-wrap;overflow-wrap:anywhere;color:#344037!important;font-size:15px;line-height:1.62}
+#viewCommunity .post-feed .social-grid{display:grid;grid-template-columns:1fr;gap:9px}
+#viewCommunity .social-photo{width:100%;aspect-ratio:4/3;object-fit:cover;border:1px solid rgba(255,255,255,.9);border-radius:18px;display:block;box-sizing:border-box;background:#e8eddf;box-shadow:0 3px 10px rgba(68,87,48,.08)}
+#viewCommunity .post-feed .social-photo{max-height:520px}
+#viewCommunity .social-actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));align-items:stretch;gap:7px;margin-top:14px}
+#viewCommunity .social-actions button,#viewCommunity .social-wrap>button,#viewCommunity .post-comment-form button{min-width:0;min-height:42px;padding:8px 7px;border:1px solid rgba(166,187,139,.62);border-radius:13px;background:linear-gradient(180deg,#f7faef,#edf3e2);color:#405245!important;font:inherit;font-size:12px;font-weight:800;white-space:nowrap;box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 2px 5px rgba(76,98,58,.06);cursor:pointer;transition:transform .18s ease,border-color .18s ease,background .18s ease}
+#viewCommunity .social-actions button:hover,#viewCommunity .post-comment-form button:hover{transform:translateY(-1px);border-color:rgba(116,157,99,.72);background:linear-gradient(180deg,#f4fae9,#e8f2dc)}
+#viewCommunity [id^="postCommentToggle-"]::before,#viewCommunity [id^="followingPostCommentToggle-"]::before{content:"💬 ";font-size:13px}
+#viewCommunity button[onclick^="deleteSocialPost"]::before{content:"⌫ ";font-size:16px}
+#viewCommunity button:disabled{opacity:.5;cursor:wait}
+#viewCommunity button[aria-pressed=true]{background:#557f4f!important;color:#fff!important}
+#viewCommunity .post-comments{margin-top:14px;padding-top:12px;border-top:1px solid #d9e1cf}
+#viewCommunity .post-comment{padding:10px 0;border-bottom:1px solid #edf0e7}
+#viewCommunity .post-comment-form{display:flex;gap:8px;align-items:flex-end;margin-top:12px}
+#viewCommunity .post-comment-form textarea{flex:1;min-width:0;border-radius:14px;padding:10px}
+#viewCommunity .post-preview{position:relative}
+#viewCommunity .post-preview button{margin:6px 0}
+#viewCommunity .social-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px}
+#viewCommunity .community-farm-card h3{margin:0 0 5px;font-size:17px}
+#viewCommunity .community-farm-card p{margin:4px 0;font-size:13px;line-height:1.6}
+#viewCommunity #socialFeatured .featured-farm-card{position:relative;padding:17px;background:linear-gradient(145deg,rgba(255,254,247,.99),rgba(246,249,234,.98));border-color:rgba(132,158,105,.38);border-radius:23px;box-shadow:inset 0 1px 0 rgba(255,255,255,.98),0 10px 25px rgba(70,91,47,.11),0 2px 5px rgba(70,91,47,.05)}
+#viewCommunity #socialFeatured .featured-farm-head{display:flex;align-items:center;gap:13px;min-width:0}
+#viewCommunity #socialFeatured .featured-farm-avatar{width:54px;height:54px;flex:0 0 54px;box-sizing:border-box;border:2px solid #fff;border-radius:50%;object-fit:cover;background:#e8efe0;box-shadow:0 0 0 1px rgba(145,165,120,.45),0 4px 11px rgba(72,96,54,.13)}
+#viewCommunity #socialFeatured .featured-farm-copy{min-width:0;flex:1}
+#viewCommunity #socialFeatured .featured-farm-card h3{margin:0 0 3px;color:#294030!important;font-size:18px;line-height:1.25;font-weight:900;overflow-wrap:anywhere}
+#viewCommunity #socialFeatured .featured-farm-achievement{margin:0!important;color:#7b8377!important;font-size:12.5px!important;line-height:1.45!important}
+#viewCommunity #socialFeatured .featured-farm-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:13px 0 0!important}
+#viewCommunity #socialFeatured .featured-farm-stats span{display:inline-flex;align-items:center;justify-content:center;min-width:0;min-height:30px;box-sizing:border-box;padding:5px 8px;border:1px solid rgba(159,180,135,.38);border-radius:999px;background:rgba(238,245,225,.72);color:#5d6c59!important;font-size:11px;line-height:1.2;white-space:nowrap}
+#viewCommunity #socialFeatured .social-actions{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:13px}
+#viewCommunity #socialFeatured .social-actions>span{display:flex;align-items:center;justify-content:center;min-height:42px;color:#6d7869!important;font-size:12px;font-weight:800}
+#viewCommunity #socialFeatured .featured-empty-state{grid-column:1/-1;padding:25px 18px;text-align:center}
+#viewCommunity #socialFeatured .featured-empty-state img{width:38px;height:38px;margin:0 auto 8px;object-fit:contain;opacity:.82}
+#viewCommunity #socialFeatured .featured-empty-state h3{margin:0 0 5px;font-size:17px}
+#viewCommunity #socialFeatured .featured-empty-state p{margin:0;color:#7a8376!important;font-size:13px;line-height:1.55}
+#viewCommunity .community-settings{margin-top:3px;border-radius:20px!important;box-shadow:none!important;background:rgba(255,253,247,.75)!important}
+#viewCommunity .community-settings summary{cursor:pointer;font-size:15px;font-weight:800}
+#viewCommunity .community-settings label{display:grid;gap:7px;margin-top:12px;font-size:13px}
+#viewCommunity .community-settings input:not([type=checkbox]){width:100%;padding:11px;border-radius:12px}
+#viewCommunity .social-choice{display:flex!important;align-items:center;gap:9px;padding:8px 0}
+#viewCommunity .social-choice input{width:19px;height:19px;flex:0 0 19px;accent-color:#5c9456}
+#viewCommunity .social-record{padding:11px 0;border-top:1px solid #e3e8dc}
+#viewCommunity [hidden]{display:none!important}
+body:has(#viewCommunity.active) .ticket-fab,body:has(#viewCommunity.active) .settings-fab{display:none!important}
+body:has(#viewCommunity.active) .consumer-tabbar,body:has(#viewCommunity.active) #bottomTabbar{width:calc(100% - 24px);max-width:736px;left:50%;right:auto;bottom:max(12px,env(safe-area-inset-bottom,0px));transform:translateX(-50%);padding:7px 8px;border:1px solid rgba(166,184,143,.72);border-radius:30px;background:linear-gradient(145deg,rgba(255,254,249,.97),rgba(248,246,235,.95));box-shadow:inset 0 1px 0 rgba(255,255,255,.98),0 14px 34px rgba(65,86,45,.2),0 3px 8px rgba(65,86,45,.08);backdrop-filter:blur(20px) saturate(1.08)}
+body:has(#viewCommunity.active) .consumer-tab,body:has(#viewCommunity.active) #bottomTabbar .tab-btn{border-radius:23px;min-width:0;min-height:58px;padding:7px 4px;color:#716a5e;transition:background .18s ease,color .18s ease,transform .18s ease}
+body:has(#viewCommunity.active) .consumer-tab.active,body:has(#viewCommunity.active) #bottomTabbar .tab-btn.active{color:#427a47!important;background:linear-gradient(145deg,#edf7e6,#dcefd1)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.85),0 4px 11px rgba(72,118,65,.1)}
+body:has(#viewCommunity.active) .consumer-tab{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;overflow:visible!important}
+body:has(#viewCommunity.active) .consumer-tab span{display:block!important;opacity:1!important;visibility:visible!important;color:#716a5e!important;line-height:1.15!important}
+body:has(#viewCommunity.active) .consumer-tab span:first-child{font-size:20px!important}
+body:has(#viewCommunity.active) .consumer-tab span:last-child{font-size:10px!important}
+body:has(#viewCommunity.active) .consumer-tab.active span{color:#477f49!important}
+@media(max-width:480px){#viewCommunity .community-hero{min-height:210px;padding:38px 24px 52px}#viewCommunity .community-hero-copy{max-width:342px}#viewCommunity .community-hero p{max-width:342px;font-size:14px}#viewCommunity .social-wrap{padding-inline:12px}#viewCommunity .community-composer{padding:10px 12px 8px;border-radius:18px}#viewCommunity .community-composer-head{grid-template-columns:46px minmax(0,1fr) 18px;gap:9px}#viewCommunity .community-composer-avatar{width:46px;height:46px}#viewCommunity .community-composer-sprout{width:18px;height:18px}#viewCommunity .community-composer h2{margin-bottom:3px;font-size:15px}#viewCommunity #postText{height:31px;min-height:31px;max-height:120px;padding:5px 9px;border-color:#d6d5ca!important;border-radius:11px;font-size:12px}#viewCommunity .community-composer:focus-within #postCounter{display:none}#viewCommunity .community-category-tab{min-height:68px;font-size:10px!important;padding:7px 2px 9px!important}#viewCommunity .community-category-tab svg,#viewCommunity .community-category-tab>img{width:21px;height:21px;flex-basis:21px}#viewCommunity .post-feed>.social-card{padding:15px}#viewCommunity .composer-actions{gap:7px;margin-top:5px}#viewCommunity .post-upload{font-size:11px;padding:3px 0}#viewCommunity .post-upload svg{width:15px;height:15px}#viewCommunity .community-publish{min-width:68px;min-height:28px!important;padding:4px 11px!important;font-size:12px!important}}
+@media(max-width:360px){#viewCommunity .community-category-tab{font-size:9px!important}#viewCommunity .post-upload span{display:none}}
+</style>
+<style id="farmer-cutout-fix">
 #viewVeggieGame .veggie-farm-farmer{right:2%;bottom:5%;width:24%;height:65%;object-fit:contain;object-position:center bottom;mix-blend-mode:normal;opacity:1}
 #viewVeggieGame .consumer-game-kicker,#viewVeggieGame #veggieGameTarget{color:#245b38!important;text-shadow:none}
 @media(max-width:560px){#viewVeggieGame .veggie-farm-farmer{right:2%;bottom:6%;width:27%;height:55%}}
@@ -4199,19 +4320,6 @@ html:has(#viewPestGame.active),body:has(#viewPestGame.active),html:has(#viewFarm
 
 <div class="container">
 
-<!-- 今日小知識 -->
-<div class="daily-card">
-<div class="cs-daily-heading">
-  <img class="cs-daily-icon" src="https://jun2009980303-bot.github.io/SKYSEF/assets/images/data/sun.png" alt="">
-  <span>今日小知識</span>
-  <span class="daily-badge">每日更新</span>
-</div>
-<h3 id="wikiTitle">載入中...</h3>
-<div id="wikiText">正在為您挑選植物知識...</div>
-<button class="cs-wiki-btn" onclick="generateRandomWiki()">↻ 換一個知識</button>
-<img class="cs-wiki-art" id="wikiImage" src="https://jun2009980303-bot.github.io/SKYSEF/assets/images/knowledge/knowledge-corn.png" alt="可愛玉米插圖">
-</div>
-
 <!-- 環境數據 -->
 <div class="panel cs-monitor-card">
 <div class="cs-monitor-head">
@@ -4267,32 +4375,69 @@ html:has(#viewPestGame.active),body:has(#viewPestGame.active),html:has(#viewFarm
 </div>
 
 <section id="viewCommunity" class="view-screen">
+ <header class="community-hero">
+  <div class="community-hero-copy">
+   <div class="community-kicker"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 21V10M12 14C8 14 5 11 5 7c4 0 7 2 7 6M12 11c0-4 3-7 7-7 0 4-2 7-7 7"/></svg><span>FORMOYA COMMUNITY</span></div>
+   <h1>交流</h1>
+   <p>分享選購問題、生活心情，也看看農友的真實紀錄。</p>
+  </div>
+ </header>
  <div class="container social-wrap">
-  <header><h1>農友交流</h1><p>看看彼此的田間日常，分享栽培的收穫。</p></header>
+  <section class="social-card community-composer" id="postComposer">
+   <div class="community-composer-head">
+    <img class="community-composer-avatar" id="postComposerAvatar" alt="使用者頭像">
+    <div class="community-composer-main">
+     <h2>分享你的想法</h2>
+     <label class="community-sr-only" for="postText">想分享什麼？</label>
+     <textarea id="postText" maxlength="2000" rows="1" placeholder="今天的農場有什麼新鮮事？" oninput="updatePostCounter()"></textarea>
+     <div id="postCounter">0 / 2000</div>
+    </div>
+    <img class="community-composer-sprout" src="assets/community/sprout-icon.png" alt="" aria-hidden="true">
+   </div>
+   <div id="postPhotos" class="social-grid"></div>
+   <div class="composer-actions">
+    <label class="post-upload" for="postFiles"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="3"/><circle cx="9" cy="10" r="2"/><path d="m4 17 5-4 4 3 3-3 4 4"/></svg><span>加入照片（最多 3 張）</span></label>
+    <input id="postFiles" type="file" accept="image/jpeg,image/png,image/webp" multiple onchange="selectPostPhotos(this)">
+    <button type="button" id="publishPost" class="community-publish" onclick="publishSocialPost(this)">發布</button>
+   </div>
+   <p id="postAccountIdentity" class="community-sr-only"></p>
+   <div id="postStatus" role="status" aria-live="polite"></div>
+  </section>
+
+  <nav class="community-category-nav" aria-label="交流內容分類">
+   <button type="button" class="community-category-tab active" data-community-tab="latest" onclick="switchCommunityPanel('latest',this)"><img src="assets/community/sprout-icon.png" alt=""><span>最新動態</span></button>
+   <button type="button" class="community-category-tab" data-community-tab="featured" onclick="switchCommunityPanel('featured',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 11 9-7 9 7"/><path d="M5 10v10h14V10M9 20v-6h6v6"/><path d="M2 7h4M18 7h4"/></svg><span>本週精選農場</span></button>
+   <button type="button" class="community-category-tab" data-community-tab="explore" onclick="switchCommunityPanel('explore',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M2.5 20c0-4 2.5-7 5.5-7s5.5 3 5.5 7M13 15c1-.8 2.2-1.2 3.5-1.2 2.8 0 5 2.3 5 5.2"/></svg><span>探索農友</span></button>
+   <button type="button" class="community-category-tab" data-community-tab="following" onclick="switchCommunityPanel('following',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12v18l-6-4-6 4z"/></svg><span>我的追蹤</span></button>
+  </nav>
+
   <div id="socialStatus" role="status" aria-live="polite"></div>
-  <details class="social-card" id="socialPrivacy"><summary>我的農場 · 公開範圍</summary>
+  <section class="community-panel" id="communityPanelLatest">
+   <div id="postFeed" class="post-feed"></div><button type="button" id="postMore" hidden onclick="loadMorePosts(this)">載入更多貼文</button>
+  </section>
+  <section class="community-panel" id="communityPanelFeatured" hidden>
+   <div class="community-panel-heading"><h2>本週精選農場</h2><p>每週輪換展示用心耕作的公開農場。</p></div><div id="socialFeatured" class="social-grid"></div>
+  </section>
+  <section class="community-panel" id="communityPanelExplore" hidden>
+   <div class="community-panel-heading"><h2 id="communityExploreTitle">探索農友</h2><p id="communityExploreHint">找到更多田間夥伴，看看彼此的栽培日常。</p></div>
+   <button id="socialFollowFilter" type="button" hidden aria-pressed="false" onclick="socialFollowingOnly=!socialFollowingOnly;renderSocialFeed()">只看已追蹤</button>
+   <div id="socialFeed" class="social-grid"></div><button id="socialMore" type="button" hidden onclick="loadSocialPage()">載入更多農友</button>
+  </section>
+  <section class="community-panel" id="communityPanelFollowing" hidden>
+   <div id="followingPostFeed" class="post-feed"></div>
+  </section>
+  <section id="socialVisit" class="social-card" hidden tabindex="-1"></section>
+
+  <details class="social-card community-settings" id="socialPrivacy"><summary>社群與公開設定</summary>
    <p>預設不公開。只有你勾選並儲存的內容會分享給其他已登入農友；新照片和新紀錄不會自動公開。</p>
    <label>社群顯示名稱<input id="socialName" maxlength="40" placeholder="想讓農友怎麼稱呼你"></label>
    <label class="social-choice"><input type="checkbox" id="socialPublic">讓農友找到我的農場</label>
    <label class="social-choice"><input type="checkbox" id="socialAchievement">公開目前成就稱號</label>
    <h3>選擇公開照片</h3><p>最多 3 張。請確認照片不含不想公開的人物、地址或其他資訊。</p><div id="socialPhotoChoices" class="social-grid"></div>
    <h3>選擇公開栽培紀錄</h3><div id="socialLogChoices"></div>
-   <p>信箱、精確農場位置與未選取的資料不會加入社群。取消公開並儲存後，其他農友將無法再從社群讀取；他人先前保存的副本無法收回。</p>
+   <p>信箱、精確農場位置與未選取的資料不會加入社群。取消公開並儲存後，其他農友將無法再從社群讀取。</p>
    <div class="social-actions"><button type="button" onclick="saveSocialProfile(this)">儲存公開範圍</button><button type="button" onclick="withdrawSocialProfile(this)">撤下我的公開農場</button></div>
   </details>
-<section class="social-card" id="postComposer">
- <h2>分享你的田間日常</h2><p id="postAccountIdentity" style="color:#244d32;font-weight:700;overflow-wrap:anywhere"></p><p>聊聊心情、分享資訊，或直接上傳今天拍的照片。</p>
- <label for="postText">想分享什麼？</label><textarea id="postText" maxlength="2000" rows="4" placeholder="今天的農場有什麼新鮮事？" oninput="updatePostCounter()"></textarea><div id="postCounter">0 / 2000</div>
- <label class="post-upload" for="postFiles">＋ 加入照片（最多 3 張）</label><input id="postFiles" type="file" accept="image/jpeg,image/png,image/webp" multiple onchange="selectPostPhotos(this)">
- <div id="postPhotos" class="social-grid"></div>
- <p>貼文與留言會分享給已登入的農友。農場履歷仍依「公開範圍」設定，發文不會公開其他私人資料。</p>
- <button type="button" id="publishPost" onclick="publishSocialPost(this)">發布貼文</button><div id="postStatus" role="status" aria-live="polite"></div>
-</section>
-<section><h2>農友動態</h2><p>最新分享、栽培心得與生活小事。</p><div id="postFeed" class="post-feed"></div><button type="button" id="postMore" hidden onclick="loadMorePosts(this)">載入更多貼文</button></section>
-
-  <section><h2>本週精選農場</h2><p>從已公開農場每週輪換展示，讓不同農友被看見。</p><div id="socialFeatured" class="social-grid"></div></section>
-  <section><div class="social-actions"><h2>探索農友</h2><button id="socialFollowFilter" type="button" aria-pressed="false" onclick="socialFollowingOnly=!socialFollowingOnly; renderSocialFeed()">只看已追蹤</button></div><div id="socialFeed" class="social-grid"></div><button id="socialMore" type="button" hidden onclick="loadSocialPage()">載入更多農友</button></section>
-  <section id="socialVisit" class="social-card" hidden tabindex="-1"></section>
  </div>
 </section>
 
@@ -4683,7 +4828,7 @@ function renderConsumerTraceData(data, uid) {
   if (intro) intro.hidden = true;
   if (profile) {
     profile.hidden = false;
-    profile.innerHTML = `<div class="trace-profile-card"><div class="trace-profile-main"><img src="${consumerEscape(data.photo || 'https://jun2009980303-bot.github.io/SKYSEF/assets/images/icons/user.png')}" alt="農夫頭像" onerror="this.src='https://jun2009980303-bot.github.io/SKYSEF/assets/images/icons/user.png'"><div><h2>${consumerEscape(data.farmer || '在地小農')}</h2><p>📍 ${consumerEscape(data.location || '台灣在地')}</p></div></div><div class="trace-stats"><span><b>${records.length}</b> 筆紀錄</span><span><b>${consumerTracePhotos.length}</b> 張照片</span><span>已更新履歷</span></div></div>`;
+    profile.innerHTML = `<div class="trace-profile-card"><div class="trace-profile-main"><img id="traceFarmerAvatar" src="${consumerEscape(data.photo || 'https://jun2009980303-bot.github.io/SKYSEF/assets/images/icons/user.png')}" alt="農夫頭像" onerror="this.src='https://jun2009980303-bot.github.io/SKYSEF/assets/images/icons/user.png'"><div><h2 id="traceFarmerName">${consumerEscape(data.farmer || '在地小農')}</h2><p id="traceFarmerLocation">📍 ${consumerEscape(data.location || '台灣在地')}</p><p id="traceFarmerTitle" class="trace-farmer-title">${consumerEscape(data.currentTitle || '用心耕作的農友')}</p></div></div><div class="trace-stats"><span><b>${records.length}</b> 筆農事紀錄</span><span><b>${consumerTracePhotos.length}</b> 張農場照片</span><span><b>✓</b> 履歷已更新</span></div></div>`;
   }
   const hint = document.getElementById('consumerLastTraceHint');
   if (hint) hint.textContent = `${data.farmer || '農場'} · ${data.location || '台灣在地'}`;
@@ -5969,7 +6114,7 @@ function switchView(viewId) {
   if (viewId === 'viewConsumer') { initChart(); renderDailyTimeline(); generateRandomWiki(); setTimeout(loadConsumerPublicProfile, 120); }
   if (viewId === 'viewTask') { renderTaskView(); }
   if (viewId === 'viewCommunity') openCommunity();
-  else { clearSocialVisit(); stopPostFeed(); }
+  else { clearSocialVisit(); stopPostFeed(); stopFollowingPostFeed(); if(typeof clearFeaturedFarmAvatars==='function')clearFeaturedFarmAvatars(); }
 }
 
 function generateRandomWiki() {
@@ -6357,7 +6502,7 @@ function saveAccountAvatar(input) {
   const file=input?.files?.[0]; if(!file) return;
   if(!/^image\/(jpeg|png|webp)$/.test(file.type) || file.size>5*1024*1024){accountMessage('請選擇 5MB 以內的 JPG、PNG 或 WebP 圖片。'); input.value=''; return;}
   const reader=new FileReader(); reader.onload=()=>{
-    const img=new Image(); img.onload=()=>{const scale=Math.min(1,400/Math.max(img.width,img.height)); const c=document.createElement('canvas'); c.width=Math.round(img.width*scale); c.height=Math.round(img.height*scale); c.getContext('2d').drawImage(img,0,0,c.width,c.height); const data=c.toDataURL('image/jpeg',.82); farmProfile.photo=data; accountStorage.setItem('puli_farm_profile',JSON.stringify(farmProfile)); const p=document.getElementById('accountAvatarPreview'); if(p){p.src=data;p.style.display='block';} renderMePage(); renderHomeWidgets(); accountMessage('頭像已更新。');}; img.src=reader.result;
+    const img=new Image(); img.onload=()=>{const scale=Math.min(1,400/Math.max(img.width,img.height)); const c=document.createElement('canvas'); c.width=Math.round(img.width*scale); c.height=Math.round(img.height*scale); c.getContext('2d').drawImage(img,0,0,c.width,c.height); const data=c.toDataURL('image/jpeg',.82); farmProfile.photo=data; accountStorage.setItem('puli_farm_profile',JSON.stringify(farmProfile)); const p=document.getElementById('accountAvatarPreview'); if(p){p.src=data;p.style.display='block';} renderMePage(); renderHomeWidgets(); syncCommunityAvatars(); if(typeof syncPublicProfile==='function')syncPublicProfile(); accountMessage('頭像已更新。');}; img.src=reader.result;
   }; reader.readAsDataURL(file);
 }
 
@@ -6746,6 +6891,9 @@ function closeQrModal() {
 
 
 
+function profileAvatarSource(photo='') {
+  return photo || ('data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#d7e8dc"/><circle cx="32" cy="24" r="11" fill="#9bb8a5"/><ellipse cx="32" cy="54" rx="18" ry="12" fill="#9bb8a5"/></svg>'));
+}
 function renderMePage() {
   renderConsumerGreeting();
   const av = document.getElementById('meAvatar');
@@ -6754,7 +6902,7 @@ function renderMePage() {
   if (nm) nm.textContent = farmProfile.farmer || '在地小農';
   if (ml) ml.textContent = (_fbAuth && _fbAuth.currentUser) ? (_fbAuth.currentUser.email || '') : '';
   if (av) {
-    av.src = farmProfile.photo || ('data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#d7e8dc"/><circle cx="32" cy="24" r="11" fill="#9bb8a5"/><ellipse cx="32" cy="54" rx="18" ry="12" fill="#9bb8a5"/></svg>'));
+    av.src = profileAvatarSource(farmProfile.photo);
   }
 }
 
@@ -6877,6 +7025,18 @@ async function loadConsumerPublicProfile() {
     const profileSnap = await _fbDb.collection('public_profiles').doc(uid).get();
     if (profileSnap.exists) {
       const p = profileSnap.data();
+      const traceProfile = document.getElementById('consumerTraceProfile');
+      if (traceProfile && traceProfile.hidden) {
+        renderConsumerTraceData({...p, logs: [], photos: []}, uid);
+      }
+      const traceName = document.getElementById('traceFarmerName');
+      const traceLocation = document.getElementById('traceFarmerLocation');
+      const traceTitle = document.getElementById('traceFarmerTitle');
+      const traceAvatar = document.getElementById('traceFarmerAvatar');
+      if (traceName && p.farmer) traceName.textContent = p.farmer;
+      if (traceLocation && p.location) traceLocation.textContent = '📍 ' + p.location;
+      if (traceTitle && p.currentTitle) traceTitle.textContent = p.currentTitle;
+      if (traceAvatar && p.photo) traceAvatar.src = p.photo;
       if (nameEl && p.farmer)   nameEl.textContent  = p.farmer;
       if (locEl  && p.location) locEl.textContent   = '📍 ' + p.location;
       if (titleEl && p.currentTitle) titleEl.textContent = p.currentTitle;
@@ -7004,9 +7164,9 @@ window.onload = function() {
 };
 </script>
 <script>// Community only stores explicitly selected, public snapshots; never the full private profile.
-let socialUser = null, socialProfiles = [], socialFollowing = new Set(), socialFollowingOnly = false;
+let socialUser = null, socialProfiles = [], socialFollowing = new Set(), socialFollowingOnly = false, socialFollowingLoaded = false;
 let socialPhotos = [], socialLogs = [], socialCursor = null, socialGeneration = 0, socialLoading = false;
-let socialVisitUnsubscribe = null, socialLikeUnsubscribes = [];
+let socialVisitUnsubscribe = null, socialLikeUnsubscribes = [], featuredAvatarUnsubscribes = [];
 const socialEscape = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const socialImage = value => /^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(value || '') ? value : '';
 const socialMessage = message => document.getElementById('socialStatus').textContent = message;
@@ -7018,10 +7178,13 @@ function socialRequireUser() {
 }
 function socialError(error) { socialMessage(error.code === 'permission-denied' ? '社群尚未取得存取權限。請先完成 Firebase 社群規則設定。' : (error.message || '連線失敗，請稍後再試。')); }
 function clearSocialVisit() { if(socialVisitUnsubscribe) socialVisitUnsubscribe(); socialVisitUnsubscribe=null; socialLikeUnsubscribes.forEach(fn=>fn()); socialLikeUnsubscribes=[]; }
+function clearFeaturedFarmAvatars(){featuredAvatarUnsubscribes.forEach(fn=>fn());featuredAvatarUnsubscribes=[];}
 function resetCommunity() {
  resetPosts();
- socialGeneration++; clearSocialVisit(); socialUser=null; socialProfiles=[]; socialFollowing.clear(); socialCursor=null; socialLoading=false;
- for(const id of ['socialFeed','socialFeatured','socialVisit','socialPhotoChoices','socialLogChoices']) document.getElementById(id).replaceChildren();
+ stopFollowingPostFeed();
+ clearFeaturedFarmAvatars();
+ socialGeneration++; clearSocialVisit(); socialUser=null; socialProfiles=[]; socialFollowing.clear(); socialFollowingLoaded=false; socialCursor=null; socialLoading=false;
+ for(const id of ['socialFeed','socialFeatured','followingPostFeed','socialVisit','socialPhotoChoices','socialLogChoices']) document.getElementById(id).replaceChildren();
  document.getElementById('socialVisit').hidden=true;
  document.getElementById('socialPublic').checked=false; document.getElementById('socialAchievement').checked=false;
 }
@@ -7029,22 +7192,73 @@ async function socialKey(value) {
  const bytes=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(value));
  return Array.from(new Uint8Array(bytes)).map(v=>v.toString(16).padStart(2,'0')).join('');
 }
+function switchCommunityPanel(panel,button){
+ document.querySelectorAll('[data-community-tab]').forEach(tab=>tab.classList.toggle('active',tab===button));
+ document.getElementById('communityPanelLatest').hidden=panel!=='latest';
+ document.getElementById('communityPanelFeatured').hidden=panel!=='featured';
+ document.getElementById('communityPanelExplore').hidden=panel!=='explore';
+ document.getElementById('communityPanelFollowing').hidden=panel!=='following';
+ const visit=document.getElementById('socialVisit');
+ if(visit&&!visit.hidden){clearSocialVisit();visit.hidden=true;visit.replaceChildren()}
+ if(panel==='explore'){
+  socialFollowingOnly=false;
+  if(typeof renderSocialFeed==='function')renderSocialFeed();
+ }
+ if(panel==='following'&&typeof startFollowingPostFeed==='function')startFollowingPostFeed();
+ else if(typeof stopFollowingPostFeed==='function')stopFollowingPostFeed();
+}
+function displayedProfileAvatar(){
+ const avatar=document.getElementById('meAvatar');
+ return avatar?(avatar.src||''):'';
+}
+function setCommunityAvatar(img,source=''){
+ if(!img)return;
+ const fallback=profileAvatarSource('');
+ img.onerror=()=>{img.onerror=null;img.src=fallback};
+ img.src=source||fallback;
+}
+function syncCommunityAvatars(){
+ const source=displayedProfileAvatar()||profileAvatarSource(farmProfile.photo),ownUid=_fbAuth?.currentUser?.uid||'';
+ setCommunityAvatar(document.getElementById('postComposerAvatar'),source);
+ document.querySelectorAll('[data-post-author-uid]').forEach(img=>{if(img.dataset.postAuthorUid===ownUid&&source)img.src=source});
+ document.querySelectorAll('[data-featured-farmer-uid]').forEach(img=>{if(img.dataset.featuredFarmerUid===ownUid)setCommunityAvatar(img,source)});
+}
+let communityProfileAvatarObserver=null;
+function observeProfileAvatarForCommunity(){
+ const avatar=document.getElementById('meAvatar');if(!avatar)return;
+ if(communityProfileAvatarObserver)communityProfileAvatarObserver.disconnect();
+ communityProfileAvatarObserver=new MutationObserver(syncCommunityAvatars);
+ communityProfileAvatarObserver.observe(avatar,{attributes:true,attributeFilter:['src']});
+}
+function subscribePostAvatar(post,index,feed='latest'){
+ const container=document.getElementById(feed==='following'?'followingPostFeed':'postFeed');
+ const avatar=container?.querySelector('[data-post-avatar-index="'+index+'"]');if(!avatar)return;
+ if(post.authorUid===_fbAuth?.currentUser?.uid){const source=displayedProfileAvatar();if(source)avatar.src=source;return}
+ avatar.removeAttribute('src');if(!_fbDb||!post.authorUid)return;
+ postInteractionWatchers(feed).push(_fbDb.collection('farmTraces').doc(post.authorUid).onSnapshot(snap=>{
+  if(!avatar.isConnected)return;const photo=snap.exists?socialImage(String(snap.data().photo||'')):'';
+  if(photo)avatar.src=photo;else avatar.removeAttribute('src');
+ },()=>{if(avatar.isConnected)avatar.removeAttribute('src')}));
+}
 async function openCommunity() {
- const consumerMode=document.body.classList.contains('consumer-mode');
- const communityTitle=document.querySelector('#viewCommunity header h1');
- const communitySub=document.querySelector('#viewCommunity header p');
+ const communityTitle=document.querySelector('#viewCommunity .community-hero h1');
+ const communitySub=document.querySelector('#viewCommunity .community-hero p');
  const composerTitle=document.querySelector('#postComposer h2');
- const composerHint=document.querySelector('#postComposer p:nth-of-type(2)');
- if(communityTitle)communityTitle.textContent=consumerMode?'消費者交流':'農友交流';
- if(communitySub)communitySub.textContent=consumerMode?'分享選購問題、生活心情，也看看農友的真實紀錄。':'看看彼此的田間日常，分享栽培的收穫。';
- if(composerTitle)composerTitle.textContent=consumerMode?'分享你的想法':'分享你的田間日常';
- if(composerHint)composerHint.textContent=consumerMode?'聊聊想買的作物、料理心得，或今天的心情。':'聊聊心情、分享資訊，或直接上傳今天拍的照片。';
+ if(communityTitle)communityTitle.textContent='交流';
+ if(communitySub)communitySub.textContent='分享選購問題、生活心情，也看看農友的真實紀錄。';
+ if(composerTitle)composerTitle.textContent='分享你的想法';
+ renderMePage();
+ observeProfileAvatarForCommunity();
+ syncCommunityAvatars();
+ switchCommunityPanel('latest',document.querySelector('[data-community-tab="latest"]'));
  resetCommunity(); const generation=socialGeneration;
  try {
   const uid=socialRequireUser(); socialUser=uid; socialMessage('正在載入農友…');
   const [profile, follows]=await Promise.all([socialRef(uid).get(),_fbDb.collection('communityFollowing').doc(uid).collection('farms').get()]);
   if(generation!==socialGeneration)return;
   socialFollowing=new Set(follows.docs.map(d=>d.id));
+  socialFollowingLoaded=true;
+  if(document.querySelector('[data-community-tab="following"]')?.classList.contains('active'))startFollowingPostFeed();
   const own=profile.exists?profile.data():{};
   document.getElementById('socialName').value=own.name || farmProfile.farmer || '';
   document.getElementById('socialPublic').checked=own.published===true;
@@ -7075,16 +7289,30 @@ async function loadSocialPage() {
 }
 function socialFarmCard(p) {
  const i=socialProfiles.findIndex(x=>x.uid===p.uid);
- return `<article class="social-card"><h3>${socialEscape(p.name)}</h3><p>${socialEscape(p.achievement||'一起分享田間日常')}</p><p>${(p.photos||[]).length} 張公開照片 · ${(p.records||[]).length} 筆栽培紀錄</p><div class="social-actions"><button onclick="visitSocialFarm(${i})">拜訪農場</button>${p.uid!==socialUser?`<button aria-pressed="${socialFollowing.has(p.uid)}" onclick="toggleSocialFollow(${i},this)">${socialFollowing.has(p.uid)?'已追蹤 · 取消':'追蹤農友'}</button>`:'<span>我的農場</span>'}</div></article>`;
+ return `<article class="social-card community-farm-card"><h3>${socialEscape(p.name)}</h3><p>${socialEscape(p.achievement||'一起分享田間日常')}</p><p>${(p.photos||[]).length} 張公開照片 · ${(p.records||[]).length} 筆栽培紀錄</p><div class="social-actions"><button onclick="visitSocialFarm(${i})">拜訪農場</button>${p.uid!==socialUser?`<button aria-pressed="${socialFollowing.has(p.uid)}" onclick="toggleSocialFollow(${i},this)">${socialFollowing.has(p.uid)?'已追蹤 · 取消':'追蹤農友'}</button>`:'<span>我的農場</span>'}</div></article>`;
+}
+function featuredFarmCard(p,index){
+ const i=socialProfiles.findIndex(x=>x.uid===p.uid),fallback=socialEscape(profileAvatarSource(''));
+ return `<article class="social-card community-farm-card featured-farm-card"><div class="featured-farm-head"><img class="featured-farm-avatar" data-featured-avatar-index="${index}" data-featured-farmer-uid="${socialEscape(p.uid)}" src="${fallback}" alt="${socialEscape(p.name||'農友')}的頭像"><div class="featured-farm-copy"><h3>${socialEscape(p.name)}</h3><p class="featured-farm-achievement">${socialEscape(p.achievement||'一起分享田間日常')}</p></div></div><p class="featured-farm-stats"><span>📷 ${(p.photos||[]).length} 張公開照片</span><span>🌿 ${(p.records||[]).length} 筆栽培紀錄</span></p><div class="social-actions"><button onclick="visitSocialFarm(${i})">拜訪農場</button>${p.uid!==socialUser?`<button aria-pressed="${socialFollowing.has(p.uid)}" onclick="toggleSocialFollow(${i},this)">${socialFollowing.has(p.uid)?'取消追蹤':'追蹤'}</button>`:'<span>我的農場</span>'}</div></article>`;
+}
+function subscribeFeaturedFarmAvatars(farms){
+ clearFeaturedFarmAvatars();const fallback=profileAvatarSource(''),ownUid=_fbAuth?.currentUser?.uid||'';
+ farms.forEach((farm,index)=>{const avatar=document.querySelector(`[data-featured-avatar-index="${index}"]`);if(!avatar)return;
+  if(farm.uid===ownUid){setCommunityAvatar(avatar,displayedProfileAvatar()||fallback);return}
+  setCommunityAvatar(avatar,fallback);if(!_fbDb||!farm.uid)return;
+  featuredAvatarUnsubscribes.push(_fbDb.collection('farmTraces').doc(farm.uid).onSnapshot(snap=>{if(!avatar.isConnected)return;const photo=snap.exists?socialImage(String(snap.data().photo||'')):'';setCommunityAvatar(avatar,photo||fallback)},()=>{if(avatar.isConnected)setCommunityAvatar(avatar,fallback)}));
+ });
 }
 function renderSocialFeed() {
  document.getElementById('socialFollowFilter').setAttribute('aria-pressed',String(socialFollowingOnly));
  const farms=socialProfiles.filter(p=>p.published);
- document.getElementById('socialFeed').innerHTML=farms.filter(p=>!socialFollowingOnly||socialFollowing.has(p.uid)).map(socialFarmCard).join('')||'<p>目前沒有符合的公開農場。可以先設定自己的公開範圍，或載入更多農友。</p>';
+ document.getElementById('socialFeed').innerHTML=farms.map(socialFarmCard).join('')||'<p>目前沒有符合的公開農場。可以先設定自己的公開範圍，或載入更多農友。</p>';
  // Monday-based weekly rotation among loaded, consenting public farms.
  const week=Math.floor((Date.now()-Date.UTC(1970,0,5))/604800000);
  const score=uid=>{let n=week;for(const c of uid)n=(Math.imul(n,31)+c.charCodeAt(0))|0;return n>>>0};
- document.getElementById('socialFeatured').innerHTML=[...farms].sort((a,b)=>score(a.uid)-score(b.uid)||a.uid.localeCompare(b.uid)).slice(0,3).map(socialFarmCard).join('')||'<p>等待農友分享第一座公開農場。</p>';
+ const featuredFarms=[...farms].sort((a,b)=>score(a.uid)-score(b.uid)||a.uid.localeCompare(b.uid)).slice(0,3);
+ document.getElementById('socialFeatured').innerHTML=featuredFarms.map(featuredFarmCard).join('')||'<article class="social-card featured-empty-state"><img src="assets/community/sprout-icon.png" alt=""><h3>本週精選準備中</h3><p>等待農友分享第一座公開農場。</p></article>';
+ subscribeFeaturedFarmAvatars(featuredFarms);
 }
 async function toggleSocialFollow(index,btn) {
  btn.disabled=true;
@@ -7131,10 +7359,21 @@ function visitSocialFarmUid(uid) {
 }
 </script>
 <script>let postImages=[],postUploading=false,postPublishing=false,postDocuments=[],postLimit=12,postStream=null,postWatchers=[],postSession=0,postDraftUid=null;
+let followingPostDocuments=[],followingPostStreams=[],followingPostWatchers=[],followingPostSession=0;
 const postRef=id=>_fbDb.collection('communityPosts').doc(id);
 const postMessage=message=>document.getElementById('postStatus').textContent=message;
 function updatePostCounter(){document.getElementById('postCounter').textContent=`${document.getElementById('postText').value.length} / 2000`}
-function stopPostFeed(){postSession++;if(postStream)postStream();postStream=null;postWatchers.forEach(fn=>fn());postWatchers=[];}
+function postDocumentsFor(feed){return feed==='following'?followingPostDocuments:postDocuments}
+function postFeedElement(feed){return document.getElementById(feed==='following'?'followingPostFeed':'postFeed')}
+function postIdPrefix(feed){return feed==='following'?'followingPost':'post'}
+function postInteractionWatchers(feed){return feed==='following'?followingPostWatchers:postWatchers}
+function clearPostInteractionWatchers(feed){
+ const watchers=postInteractionWatchers(feed);watchers.forEach(fn=>fn());
+ if(feed==='following')followingPostWatchers=[];else postWatchers=[];
+ for(const key of commentStreams.keys())if(key.startsWith(feed+':'))commentStreams.delete(key);
+}
+function stopPostFeed(){postSession++;if(postStream)postStream();postStream=null;clearPostInteractionWatchers('latest');}
+function stopFollowingPostFeed(){followingPostSession++;followingPostStreams.forEach(fn=>fn());followingPostStreams=[];clearPostInteractionWatchers('following');followingPostDocuments=[];}
 function resetPosts(){document.getElementById('postAccountIdentity').textContent='';stopPostFeed();postDocuments=[];document.getElementById('postFeed').replaceChildren();
  const uid=_fbAuth?.currentUser?.uid||null;
  if(uid!==postDraftUid){postImages=[];document.getElementById('postText').value='';document.getElementById('postFiles').value='';postDraftUid=uid;renderPostPhotos();updatePostCounter();}
@@ -7169,39 +7408,77 @@ function startPostFeed(){document.getElementById('postAccountIdentity').textCont
  },error=>{document.getElementById('postFeed').textContent=error.code==='permission-denied'?'貼文功能尚未開通，請先發布新版 Firebase 規則。':'貼文暫時無法載入，請重新整理再試。';});}catch(error){postMessage(error.message)}
 }
 function loadMorePosts(){postLimit+=12;startPostFeed()}
-function renderPosts(){
- // Keep typed comments and expanded threads across live feed updates.
- const drafts=new Map([...document.querySelectorAll('[data-comment-draft]')].map(el=>[el.dataset.commentDraft,el.value]));
- const expanded=new Set([...document.querySelectorAll('[data-comment-panel]:not([hidden])')].map(el=>el.dataset.commentPanel));
- postWatchers.forEach(fn=>fn());postWatchers=[];
- document.getElementById('postFeed').innerHTML=postDocuments.map((p,i)=>`<article class="social-card"><div class="post-header"><div class="post-author-wrap"><img class="post-avatar" src="${p.authorUid===_fbAuth?.currentUser?.uid?(farmProfile.photo||''):''}" alt="頭像" onerror="this.style.display='none'"><button class="post-author" onclick="visitSocialFarmUid(postDocuments[${i}].authorUid)">${socialEscape(p.authorName)}</button></div><time class="post-date">${socialEscape(postDate(p.createdAt))}</time></div><p class="post-body">${socialEscape(p.text)}</p><div class="social-grid">${(p.photos||[]).map(img=>`<img class="social-photo" src="${socialEscape(socialImage(img))}" alt="農友分享的照片" loading="lazy">`).join('')}</div><div class="social-actions"><button id="postLike-${i}" disabled>載入按讚…</button><button id="postCommentToggle-${i}" onclick="togglePostComments(${i})" aria-expanded="false">留言</button>${p.authorUid===_fbAuth?.currentUser?.uid?`<button onclick="deleteSocialPost(${i},this)">刪除我的貼文</button>`:''}</div><div id="postComments-${i}" data-comment-panel="${socialEscape(p.id)}" class="post-comments" hidden><div id="postCommentList-${i}"></div><button id="postOlder-${i}" hidden onclick="showOlderComments(${i})">顯示較早留言</button><form class="post-comment-form" onsubmit="event.preventDefault();submitPostComment(${i},this)"><textarea data-comment-draft="${socialEscape(p.id)}" rows="2" maxlength="500" aria-label="留言內容" placeholder="分享你的想法…" required></textarea><button type="submit">送出</button></form><div id="postCommentStatus-${i}" role="status"></div></div></article>`).join('')||'<div class="social-card"><h3>還沒有貼文</h3><p>分享一張照片或一句心情，開始第一段農友交流。</p></div>';
- postDocuments.forEach((p,i)=>{
- const draft=document.querySelector(`[data-comment-draft="${CSS.escape(p.id)}"]`);if(drafts.has(p.id))draft.value=drafts.get(p.id);
- const btn=document.getElementById(`postLike-${i}`);
- postWatchers.push(postRef(p.id).collection('likes').onSnapshot(snap=>{const liked=snap.docs.some(d=>d.id===_fbAuth?.currentUser?.uid);btn.disabled=false;btn.setAttribute('aria-pressed',String(liked));btn.textContent=`${liked?'♥ 已按讚':'♡ 按讚'} · ${snap.size}`;btn.onclick=()=>togglePostLike(p.id,liked,btn)},()=>{btn.textContent='按讚暫時無法使用';btn.disabled=true;}));
- if(expanded.has(p.id))togglePostComments(i);
+function followingEmptyState(title,message){
+ postFeedElement('following').innerHTML=`<div class="social-card"><h3>${socialEscape(title)}</h3><p>${socialEscape(message)}</p></div>`;
+}
+function postCreatedAtValue(timestamp){
+ if(timestamp&&typeof timestamp.toMillis==='function')return timestamp.toMillis();
+ if(Number.isFinite(timestamp?.seconds))return timestamp.seconds*1000+Math.floor((timestamp.nanoseconds||0)/1000000);
+ return 0;
+}
+function startFollowingPostFeed(){
+ const feed=postFeedElement('following');stopFollowingPostFeed();
+ if(!socialFollowingLoaded){feed.textContent='正在載入追蹤貼文…';return}
+ const followedIds=[...socialFollowing];
+ if(!followedIds.length){followingEmptyState('還沒有追蹤農友','前往「探索農友」找到喜歡的農友，追蹤後就能在這裡看到他們的貼文。');return}
+ const generation=followingPostSession,chunks=[];
+ for(let i=0;i<followedIds.length;i+=10)chunks.push(followedIds.slice(i,i+10));
+ const results=new Map(),ready=new Set();let failed=false;
+ feed.textContent='正在載入追蹤貼文…';
+ const commit=()=>{
+  if(generation!==followingPostSession||ready.size<chunks.length)return;
+  followingPostDocuments=[...new Map([...results.values()].flat().map(post=>[post.id,post])).values()].sort((a,b)=>postCreatedAtValue(b.createdAt)-postCreatedAtValue(a.createdAt)||b.id.localeCompare(a.id));
+  if(!followingPostDocuments.length&&failed){followingEmptyState('追蹤貼文暫時無法載入','請稍後再試，或重新進入交流頁。');return}
+  renderPosts('following');
+  if(failed)socialMessage('部分追蹤貼文暫時無法載入。');
+ };
+ chunks.forEach((ids,index)=>{
+  const query=_fbDb.collection('communityPosts').where('authorUid','in',ids);
+  const unsubscribe=query.onSnapshot(snap=>{
+   if(generation!==followingPostSession)return;
+   results.set(index,snap.docs.map(doc=>({...doc.data(),id:doc.id})));ready.add(index);commit();
+  },()=>{if(generation!==followingPostSession)return;results.set(index,[]);ready.add(index);failed=true;commit()});
+  followingPostStreams.push(unsubscribe);
  });
 }
+function renderPosts(feed='latest'){
+ // Keep typed comments and expanded threads across live feed updates.
+ const documents=postDocumentsFor(feed),container=postFeedElement(feed),prefix=postIdPrefix(feed);
+ const drafts=new Map([...container.querySelectorAll('[data-comment-draft]')].map(el=>[el.dataset.commentDraft,el.value]));
+ const expanded=new Set([...container.querySelectorAll('[data-comment-panel]:not([hidden])')].map(el=>el.dataset.commentPanel));
+ clearPostInteractionWatchers(feed);
+ const empty=feed==='following'?'<div class="social-card"><h3>追蹤的農友還沒有貼文</h3><p>有新分享時，會依發布時間顯示在這裡。</p></div>':'<div class="social-card"><h3>還沒有貼文</h3><p>分享一張照片或一句心情，開始第一段農友交流。</p></div>';
+ container.innerHTML=documents.map((p,i)=>`<article class="social-card"><div class="post-header"><div class="post-author-wrap"><img class="post-avatar" data-post-avatar-index="${i}" data-post-author-uid="${socialEscape(p.authorUid)}" alt="頭像"><div class="post-author-meta"><div class="post-author-line"><button class="post-author" onclick="visitPostAuthor('${feed}',${i})">${socialEscape(p.authorName)}</button><img class="post-author-sprout" src="assets/community/sprout-icon.png" alt=""></div><time class="post-date">${socialEscape(postDate(p.createdAt))}</time></div></div><span class="post-menu" aria-hidden="true">⋮</span></div><p class="post-body">${socialEscape(p.text)}</p><div class="social-grid">${(p.photos||[]).map(img=>`<img class="social-photo" src="${socialEscape(socialImage(img))}" alt="農友分享的照片" loading="lazy">`).join('')}</div><div class="social-actions"><button id="${prefix}Like-${i}" disabled>載入按讚…</button><button id="${prefix}CommentToggle-${i}" onclick="togglePostComments('${feed}',${i})" aria-expanded="false">留言</button>${p.authorUid===_fbAuth?.currentUser?.uid?`<button onclick="deleteSocialPost('${feed}',${i},this)">刪除我的貼文</button>`:''}</div><div id="${prefix}Comments-${i}" data-comment-panel="${socialEscape(p.id)}" class="post-comments" hidden><div id="${prefix}CommentList-${i}"></div><button id="${prefix}Older-${i}" hidden onclick="showOlderComments('${feed}',${i})">顯示較早留言</button><form class="post-comment-form" onsubmit="event.preventDefault();submitPostComment('${feed}',${i},this)"><textarea data-comment-draft="${socialEscape(p.id)}" rows="2" maxlength="500" aria-label="留言內容" placeholder="分享你的想法…" required></textarea><button type="submit">送出</button></form><div id="${prefix}CommentStatus-${i}" role="status"></div></div></article>`).join('')||empty;
+ documents.forEach((p,i)=>{
+  subscribePostAvatar(p,i,feed);
+  const draft=container.querySelector(`[data-comment-draft="${CSS.escape(p.id)}"]`);if(draft&&drafts.has(p.id))draft.value=drafts.get(p.id);
+  const btn=document.getElementById(`${prefix}Like-${i}`);
+  postInteractionWatchers(feed).push(postRef(p.id).collection('likes').onSnapshot(snap=>{const liked=snap.docs.some(d=>d.id===_fbAuth?.currentUser?.uid);btn.disabled=false;btn.setAttribute('aria-pressed',String(liked));btn.textContent=`${liked?'♥ 已按讚':'♡ 按讚'} · ${snap.size}`;btn.onclick=()=>togglePostLike(p.id,liked,btn)},()=>{btn.textContent='按讚暫時無法使用';btn.disabled=true;}));
+  if(expanded.has(p.id))togglePostComments(feed,i);
+ });
+}
+function visitPostAuthor(feed,index){const post=postDocumentsFor(feed)[index];if(post)visitSocialFarmUid(post.authorUid)}
 async function togglePostLike(id,liked,btn){btn.disabled=true;try{const mine=postRef(id).collection('likes').doc(socialRequireUser());if(liked)await mine.delete();else await mine.set({createdAt:firebase.firestore.FieldValue.serverTimestamp()})}catch(error){postMessage(error.code==='permission-denied'?'無法按讚，貼文可能已刪除或尚未設定權限。':error.message)}finally{btn.disabled=false}}
 const commentStreams=new Map(),commentLimits=new Map();
-function togglePostComments(index){const p=postDocuments[index],panel=document.getElementById(`postComments-${index}`);panel.hidden=!panel.hidden;document.getElementById(`postCommentToggle-${index}`).setAttribute('aria-expanded',String(!panel.hidden));if(!panel.hidden)watchPostComments(index);}
-function showOlderComments(index){const id=postDocuments[index].id;commentLimits.set(id,(commentLimits.get(id)||20)+20);watchPostComments(index)}
-function watchPostComments(index){
- const p=postDocuments[index];if(commentStreams.has(p.id))commentStreams.get(p.id)();
- const limit=commentLimits.get(p.id)||20;
+function togglePostComments(feed,index){const p=postDocumentsFor(feed)[index],prefix=postIdPrefix(feed),panel=document.getElementById(`${prefix}Comments-${index}`);if(!p||!panel)return;panel.hidden=!panel.hidden;document.getElementById(`${prefix}CommentToggle-${index}`).setAttribute('aria-expanded',String(!panel.hidden));if(!panel.hidden)watchPostComments(feed,index);}
+function showOlderComments(feed,index){const post=postDocumentsFor(feed)[index];if(!post)return;const key=`${feed}:${post.id}`;commentLimits.set(key,(commentLimits.get(key)||20)+20);watchPostComments(feed,index)}
+function watchPostComments(feed,index){
+ const p=postDocumentsFor(feed)[index];if(!p)return;const prefix=postIdPrefix(feed),streamKey=`${feed}:${p.id}`;
+ if(commentStreams.has(streamKey))commentStreams.get(streamKey)();
+ const limit=commentLimits.get(streamKey)||20;
  const unsub=postRef(p.id).collection('comments').orderBy('createdAt','desc').limit(limit).onSnapshot(snap=>{
- const list=document.getElementById(`postCommentList-${index}`);if(!list)return;
+ const list=document.getElementById(`${prefix}CommentList-${index}`);if(!list)return;
  list.replaceChildren();if(!snap.size){list.textContent='還沒有留言，來打聲招呼吧。'}
  [...snap.docs].reverse().forEach(doc=>{const c=doc.data(),row=document.createElement('article');row.className='post-comment';const author=document.createElement('button');author.className='post-author';author.textContent=c.authorName;author.onclick=()=>visitSocialFarmUid(c.authorUid);const time=document.createElement('p');time.className='post-date';time.textContent=postDate(c.createdAt);const text=document.createElement('p');text.className='post-comment-text';text.textContent=c.text;row.append(author,time,text);
  if(c.authorUid===_fbAuth?.currentUser?.uid){const remove=document.createElement('button');remove.textContent='刪除我的留言';remove.onclick=async()=>{const uid=_fbAuth?.currentUser?.uid;if(uid!==c.authorUid){postMessage('只能刪除自己的留言。');return;}remove.disabled=true;try{await postRef(p.id).collection('comments').doc(doc.id).delete()}catch(error){postMessage(error.message)}finally{remove.disabled=false}};row.append(remove)}list.append(row);});
- document.getElementById(`postOlder-${index}`).hidden=snap.size<limit;
- },()=>{const list=document.getElementById(`postCommentList-${index}`);if(list)list.textContent='留言暫時無法載入，貼文可能已撤下。';});
- commentStreams.set(p.id,unsub);postWatchers.push(unsub);
+ document.getElementById(`${prefix}Older-${index}`).hidden=snap.size<limit;
+ },()=>{const list=document.getElementById(`${prefix}CommentList-${index}`);if(list)list.textContent='留言暫時無法載入，貼文可能已撤下。';});
+ commentStreams.set(streamKey,unsub);postInteractionWatchers(feed).push(unsub);
 }
-async function submitPostComment(index,form){const targetPostId=postDocuments[index].id,input=form.querySelector('textarea'),btn=form.querySelector('button'),status=document.getElementById(`postCommentStatus-${index}`);btn.disabled=true;
+async function submitPostComment(feed,index,form){const post=postDocumentsFor(feed)[index];if(!post)return;const targetPostId=post.id,input=form.querySelector('textarea'),btn=form.querySelector('button'),status=document.getElementById(`${postIdPrefix(feed)}CommentStatus-${index}`);btn.disabled=true;
  try{const uid=socialRequireUser(),text=input.value.trim();if(!text||text.length>500)throw new Error('請輸入 1～500 字的留言。');const payload={authorUid:uid,authorName:await socialAuthorName(uid),text,createdAt:firebase.firestore.FieldValue.serverTimestamp()};if(socialRequireUser()!==uid)throw new Error('帳號已變更。');await postRef(targetPostId).collection('comments').add(payload);input.value='';status.textContent='留言已送出';}catch(error){status.textContent=error.code==='permission-denied'?'留言無法送出，請確認規則已更新且貼文仍存在。':error.message}finally{btn.disabled=false}}
-async function deleteSocialPost(index,btn){
- const post=postDocuments[index],uid=_fbAuth?.currentUser?.uid,epoch=accountEpoch;
+async function deleteSocialPost(feed,index,btn){
+ const post=postDocumentsFor(feed)[index],uid=_fbAuth?.currentUser?.uid,epoch=accountEpoch;
  if(!post||!uid||post.authorUid!==uid||!privateSessionValid(epoch)){postMessage('這不是目前帳號的貼文，無法刪除。');return;}
  const id=post.id;
  if(!confirm('確定刪除目前帳號發布的這則貼文？'))return;
