@@ -1653,6 +1653,43 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   background:rgba(187,139,41,0.07);
 }
 
+/* 農場扭蛋機：素材優化（禮物標題圖示、扭蛋機主圖、閃亮裝飾、次數徽章）*/
+#viewFarmer.home-v2 .hb-gachacard .hb-gacha-gift {
+  width:clamp(17px,4.8vw,21px);
+  height:clamp(17px,4.8vw,21px);
+  object-fit:contain;
+  margin-right:3px;
+  vertical-align:middle;
+  filter:drop-shadow(0 1px 2px rgba(150,90,20,0.22));
+}
+#viewFarmer.home-v2 .hb-gacha-sparkle {
+  position:absolute;
+  top:clamp(3px,0.8dvh,8px);
+  right:clamp(5px,2vw,10px);
+  width:clamp(18px,5.2vw,26px);
+  height:auto;
+  opacity:0.9;
+  pointer-events:none;
+  z-index:1;
+  filter:drop-shadow(0 1px 2px rgba(210,150,30,0.22));
+}
+#viewFarmer.home-v2 .hb-gacha-top img {
+  width:calc(var(--gacha-image-size) * 1.32);
+  max-width:calc(100% + 6px);
+  filter:
+    drop-shadow(0 9px 10px rgba(127,84,15,0.17))
+    drop-shadow(0 1px 1px rgba(255,255,255,0.4));
+}
+#viewFarmer.home-v2 .hb-gacha-countbox {
+  border:1.5px solid rgba(240,178,58,0.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.96),
+    0 4px 10px rgba(126,82,13,0.10);
+}
+#viewFarmer.home-v2 .hb-gcount b {
+  font-size:clamp(19px,5.4vw,24px);
+}
+
 #bottomTabbar {
   background:
     linear-gradient(180deg, rgba(255,254,250,0.975), rgba(250,249,244,0.97));
@@ -4399,9 +4436,10 @@ body:has(#viewConsumer.active) #loginOverlay { display: none; }
     <div class="hb-tkbtn"><img src="assets/images/home/tasks/btn_task_detail.png" alt=""><span>查看所有任務</span></div>
   </div>
   <div class="hb-card hb-gachacard" onclick="switchView('viewGallery')">
-    <div class="hb-head" style="justify-content:center;">🎁 農場扭蛋機</div>
+    <img class="hb-gacha-sparkle" src="assets/images/home/gacha/sparkle.png" alt="" aria-hidden="true">
+    <div class="hb-head" style="justify-content:center;"><img class="hb-gacha-gift" src="assets/images/home/gacha/gift.png" alt="">農場扭蛋機</div>
     <div class="hb-gacha-main">
-    <div class="hb-gacha-top"><img src="assets/images/gacha-machine-green.png" alt=""></div>
+    <div class="hb-gacha-top"><img src="assets/images/home/gacha/machine.png" alt=""></div>
     <div class="hb-gacha-desc">完成每日任務<br>獲得扭蛋抽獎機會！</div>
     <div class="hb-gacha-countbox">
       <div class="hb-gacha-countlabel">今日剩餘次數</div>
