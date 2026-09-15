@@ -928,6 +928,79 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   right:10px;
 }
 
+/* 今日任務：使用真實素材（標題滴、進度環、勾選、按鈕）*/
+#viewFarmer.home-v2 .hb-taskcard .hb-tk-titleic {
+  width:clamp(18px,5vw,22px);
+  height:clamp(18px,5vw,22px);
+  object-fit:contain;
+  flex:0 0 auto;
+  filter:drop-shadow(0 1px 2px rgba(40,70,40,0.15));
+}
+#viewFarmer.home-v2 .hb-taskcard .hb-ring-outer {
+  position:relative;
+  width:clamp(78px,min(12.5dvh,24vw),104px);
+  height:clamp(78px,min(12.5dvh,24vw),104px);
+  background:none !important;
+  border:0 !important;
+  box-shadow:none !important;
+  border-radius:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+#viewFarmer.home-v2 .hb-taskcard .hb-ring-img {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  pointer-events:none;
+  filter:drop-shadow(0 2px 5px rgba(40,70,40,0.10));
+}
+#viewFarmer.home-v2 .hb-taskcard .hb-ring-val {
+  position:relative;
+  z-index:2;
+  font-size:clamp(16px,4.6vw,21px);
+  font-weight:800;
+  color:var(--brand) !important;
+  line-height:1;
+}
+#viewFarmer.home-v2 .hb-taskcard .hb-tkchk {
+  width:clamp(15px,4.2vw,18px);
+  height:clamp(15px,4.2vw,18px);
+  object-fit:contain;
+  flex:0 0 auto;
+  pointer-events:none;
+}
+#viewFarmer.home-v2 .hb-taskcard .hb-tkrow { color:#7c8a72 !important; font-weight:650; }
+#viewFarmer.home-v2 .hb-taskcard .hb-tkrow.hb-tkdone { color:#2c3a30 !important; font-weight:750; }
+#viewFarmer.home-v2 .hb-taskcard .hb-tkbtn {
+  position:relative;
+  width:calc(100% - 6px);
+  margin:var(--duo-content-gap) auto 0;
+  flex-shrink:0;
+  line-height:0;
+}
+#viewFarmer.home-v2 .hb-taskcard .hb-tkbtn img {
+  width:100%;
+  height:auto;
+  display:block;
+  object-fit:contain;
+  filter:drop-shadow(0 3px 8px rgba(27,110,55,0.20));
+}
+#viewFarmer.home-v2 .hb-taskcard .hb-tkbtn span {
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff !important;
+  font-size:clamp(12px,3.2vw,14px);
+  font-weight:800;
+  letter-spacing:0.01em;
+  text-shadow:0 1px 2px rgba(18,78,40,0.4);
+}
+
 /* 農場扭蛋機 */
 #viewFarmer.home-v2 .hb-gachacard {
   display:flex;
@@ -4306,24 +4379,23 @@ body:has(#viewConsumer.active) #loginOverlay { display: none; }
 
 <div class="hb-duo">
   <div class="hb-card hb-taskcard" onclick="switchView('viewTask')">
-    <div class="hb-head">💧 今日任務</div>
+    <div class="hb-head"><img class="hb-tk-titleic" src="assets/images/home/tasks/icon_task_drop.png" alt="">今日任務</div>
     <div class="hb-ring-row">
       <div class="hb-ring-col">
         <div class="hb-ring-outer" id="homeRingOuter">
-          <div class="hb-ring-inner">
-            <span id="homeRingText">0/6</span>
-          </div>
+          <img class="hb-ring-img" src="assets/images/home/tasks/task_progress_ring.png" alt="">
+          <span class="hb-ring-val" id="homeRingText">0/6</span>
         </div>
         <div class="hb-ring-sub">已完成<b id="homeRingSubText">0 項</b></div>
       </div>
       <div class="hb-tklist">
-        <div class="hb-tkrow hb-tkdone"><span class="hb-tkdot">✓</span>澆水</div>
-        <div class="hb-tkrow hb-tkdone"><span class="hb-tkdot">✓</span>施肥</div>
-        <div class="hb-tkrow"><span class="hb-tkdot"></span>除草</div>
-        <div class="hb-tkrow"><span class="hb-tkdot"></span>巡視農場</div>
+        <div class="hb-tkrow" data-task="澆水"><img class="hb-tkchk" src="assets/images/home/tasks/task_check_empty.png" alt="">澆水</div>
+        <div class="hb-tkrow" data-task="施肥"><img class="hb-tkchk" src="assets/images/home/tasks/task_check_empty.png" alt="">施肥</div>
+        <div class="hb-tkrow" data-task="除草"><img class="hb-tkchk" src="assets/images/home/tasks/task_check_empty.png" alt="">除草</div>
+        <div class="hb-tkrow" data-task="巡視農場"><img class="hb-tkchk" src="assets/images/home/tasks/task_check_empty.png" alt="">巡視農場</div>
       </div>
     </div>
-    <div class="hb-tkcta"><span>查看任務詳情</span><span aria-hidden="true">›</span></div>
+    <div class="hb-tkbtn"><img src="assets/images/home/tasks/btn_task_detail.png" alt=""><span>查看所有任務</span></div>
   </div>
   <div class="hb-card hb-gachacard" onclick="switchView('viewGallery')">
     <div class="hb-head" style="justify-content:center;">🎁 農場扭蛋機</div>
@@ -6894,12 +6966,20 @@ function renderHomeWidgets() {
   ];
   const done = taskDefs.filter(t => t.done).length;
   const pct = Math.round(done / taskDefs.length * 100);
-  const ringOuter = document.getElementById('homeRingOuter');
   const ringText  = document.getElementById('homeRingText');
   const ringSub   = document.getElementById('homeRingSubText');
-  if (ringOuter) ringOuter.style.background = `conic-gradient(#37B24D ${pct}%, #E5E7EB 0)`;
   if (ringText) ringText.textContent = done + '/' + taskDefs.length;
   if (ringSub) ringSub.textContent = done + ' 項';
+  // 今日任務清單勾選狀態：依實際 state.manual 動態顯示（不寫死）
+  const _tkEmpty = 'assets/images/home/tasks/task_check_empty.png';
+  const _tkDone  = 'assets/images/home/tasks/task_check_done.png';
+  document.querySelectorAll('#viewFarmer .hb-taskcard .hb-tkrow').forEach(row => {
+    const nm = row.getAttribute('data-task');
+    const isDone = !!(state.manual && state.manual[nm]);
+    row.classList.toggle('hb-tkdone', isDone);
+    const chk = row.querySelector('.hb-tkchk');
+    if (chk) chk.src = isDone ? _tkDone : _tkEmpty;
+  });
 
   // 扭蛋剩餘次數
   const tc = document.getElementById('homeTicketCount');
