@@ -688,17 +688,17 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   display:flex;
   align-items:center;
   justify-content:flex-start;
-  gap:clamp(3px,1vw,5px);
+  gap:clamp(3px,0.9vw,4px);
   min-width:0;
-  padding:clamp(6px,1dvh,9px) clamp(4px,1.4vw,7px);
+  padding:clamp(8px,1.4dvh,12px) clamp(4px,1.2vw,6px);
   background:linear-gradient(180deg,#ffffff,#f6faf1);
   border:1px solid rgba(60,90,55,0.07);
-  border-radius:clamp(13px,3.6vw,16px);
-  box-shadow:0 2px 6px rgba(40,70,40,0.06);
+  border-radius:clamp(14px,4vw,18px);
+  box-shadow:0 3px 8px rgba(40,70,40,0.08);
 }
 #viewFarmer.home-v2 .hb-metric-ic {
-  width:clamp(24px,7.4vw,31px);
-  height:clamp(24px,7.4vw,31px);
+  width:clamp(27px,8vw,33px);
+  height:clamp(27px,8vw,33px);
   object-fit:contain;
   object-position:center;
   max-width:100%;
@@ -707,7 +707,7 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 }
 /* 開始紀錄：直接使用完整按鈕素材，幾乎滿版、置中、保持比例、整顆可點 */
 #viewFarmer.home-v2 .hb-recordbtn {
-  width:88%;
+  width:74%;
   margin:0 auto;
   padding:0;
   border:0;
@@ -739,7 +739,7 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   white-space:nowrap;
 }
 #viewFarmer.home-v2 .hb-metric-vl {
-  font-size:clamp(10.5px,3vw,13px);
+  font-size:clamp(10.5px,2.9vw,12.5px);
   font-weight:800;
   color:#2c3a30;
   white-space:nowrap;
@@ -803,6 +803,7 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 }
 #viewFarmer.home-v2 .hb-summary + .hb-card > .hb-head {
   margin-bottom:var(--upper-content-gap);
+  font-size:clamp(14px,4vw,15.5px);   /* 統一與「今日農場紀錄」相同 */
 }
 #viewFarmer.home-v2 .hb-quickrow {
   flex:1 1 auto;
@@ -849,7 +850,7 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 #viewFarmer.home-v2 .hb-gachacard .hb-head {
   min-height:16px;
   margin-bottom:var(--duo-content-gap);
-  font-size:13px;
+  font-size:clamp(14px,4vw,15.5px);   /* 統一與「今日農場紀錄」相同 */
   line-height:1.2;
 }
 
@@ -1457,8 +1458,8 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 }
 #viewFarmer.home-v2 .hb-taskcard .hb-head,
 #viewFarmer.home-v2 .hb-gachacard .hb-head {
-  font-weight:850;
-  letter-spacing:-0.025em;
+  font-weight:800;
+  letter-spacing:-0.022em;
 }
 
 #viewFarmer.home-v2 .hb-taskcard .hb-ring-outer {
