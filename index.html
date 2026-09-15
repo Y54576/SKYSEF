@@ -719,10 +719,10 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 }
 #viewFarmer.home-v2 .hb-recordbtn img {
   width:100%;
-  height:auto;
+  height:clamp(34px,4.6dvh,40px);   /* 壓低高度讓按鈕更扁（維持長度）*/
   display:block;
-  object-fit:contain;
-  filter:drop-shadow(0 5px 12px rgba(27,110,55,0.22));
+  object-fit:fill;
+  filter:drop-shadow(0 4px 10px rgba(27,110,55,0.20));
 }
 #viewFarmer.home-v2 .hb-recordbtn:active { transform:scale(0.985); filter:brightness(0.98); }
 #viewFarmer.home-v2 .hb-metric-tx {
