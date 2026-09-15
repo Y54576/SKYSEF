@@ -373,7 +373,7 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 .hb-wrap > * { flex-shrink:0; }
 .hb-logo { width:36px; height:36px; object-fit:contain; flex-shrink:0; }
 /* Formoya 完整標誌（葉子 + 福萌芽 Formoya 文字） */
-.hb-logo-full { height:34px; width:auto; object-fit:contain; flex-shrink:0; filter:drop-shadow(0 1px 2px rgba(255,255,255,0.6)); }
+.hb-logo-full { width:56px; height:auto; aspect-ratio:1/1; object-fit:contain; flex-shrink:0; filter:drop-shadow(0 1px 2px rgba(255,255,255,0.6)); }
 /* 我的點數藥丸徽章（數字為即時 EXP，依 UID 隔離，不寫死於圖片） */
 .hb-points { display:inline-flex; align-items:center; gap:8px; flex-shrink:0; cursor:pointer;
   background:linear-gradient(180deg,#fffdf6,#fdf3d4); border:1.5px solid rgba(241,204,120,0.95);
@@ -628,7 +628,8 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   aspect-ratio:auto;
 }
 #viewFarmer.home-v2 .hb-logo-full {
-  height:clamp(30px,8.5vw,36px);
+  width:clamp(50px,15vw,60px);
+  height:auto;
 }
 #viewFarmer.home-v2 .hb-points {
   padding:clamp(4px,1.2vw,5px) clamp(10px,3vw,13px) clamp(4px,1.2vw,5px) clamp(6px,1.8vw,7px);
@@ -4379,7 +4380,7 @@ body:has(#viewConsumer.active) #loginOverlay { display: none; }
 
 <div class="hero-banner">
 <div class="hb-topbar hero-topbar">
-  <img class="hb-logo-full" src="assets/images/logo.png" alt="福萌芽 Formoya">
+  <img class="hb-logo-full" src="assets/images/logo-formoya.png" alt="福萌芽 Formoya">
   <button class="hb-points" onclick="switchView('viewMe')" aria-label="我的點數">
     <img class="hb-points-coin" src="assets/images/others/coin.png" alt="">
     <span class="hb-points-txt"><span class="hb-points-label">我的點數</span><span class="hb-points-val" id="homePointsVal">0</span></span>
