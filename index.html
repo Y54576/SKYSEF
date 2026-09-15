@@ -707,7 +707,7 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 }
 /* 開始紀錄：直接使用完整按鈕素材，幾乎滿版、置中、保持比例、整顆可點 */
 #viewFarmer.home-v2 .hb-recordbtn {
-  width:74%;
+  width:90%;
   margin:0 auto;
   padding:0;
   border:0;
@@ -867,9 +867,9 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:clamp(3px,1.4vw,8px);
+  gap:clamp(5px,1.6vw,8px);
 }
-#viewFarmer.home-v2 .hb-taskcard .hb-ring-col { gap:clamp(1px,0.3dvh,3px); }
+#viewFarmer.home-v2 .hb-taskcard .hb-ring-col { gap:clamp(0px,0.15dvh,2px); }
 #viewFarmer.home-v2 .hb-taskcard .hb-ring-outer {
   width:var(--ring-size);
   height:var(--ring-size);
@@ -894,12 +894,13 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   flex:0 1 auto;
   min-width:0;
   align-self:center;
-  gap:clamp(3px,0.55dvh,6px);
+  gap:clamp(6px,1.5dvh,12px);
 }
 #viewFarmer.home-v2 .hb-taskcard .hb-tkrow {
   min-height:15px;
-  gap:clamp(3px,1vw,5px);
-  font-size:clamp(11px,3vw,13px);
+  align-items:center;
+  gap:clamp(4px,1.4vw,6px);
+  font-size:clamp(10.5px,2.8vw,12px);
   line-height:1.2;
   overflow:visible;
   text-overflow:clip;
@@ -938,8 +939,8 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 }
 #viewFarmer.home-v2 .hb-taskcard .hb-ring-outer {
   position:relative;
-  width:clamp(78px,min(12.5dvh,24vw),104px);
-  height:clamp(78px,min(12.5dvh,24vw),104px);
+  width:clamp(80px,min(12dvh,23vw),98px);
+  height:clamp(80px,min(12dvh,23vw),98px);
   background:none !important;
   border:0 !important;
   box-shadow:none !important;
@@ -976,8 +977,8 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 #viewFarmer.home-v2 .hb-taskcard .hb-tkrow.hb-tkdone { color:#2c3a30 !important; font-weight:750; }
 #viewFarmer.home-v2 .hb-taskcard .hb-tkbtn {
   position:relative;
-  width:calc(100% - 6px);
-  margin:var(--duo-content-gap) auto 0;
+  width:80%;
+  margin:clamp(2px,0.5dvh,5px) auto clamp(5px,1.6dvh,11px);
   flex-shrink:0;
   line-height:0;
 }
@@ -986,7 +987,7 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   height:auto;
   display:block;
   object-fit:contain;
-  filter:drop-shadow(0 3px 8px rgba(27,110,55,0.20));
+  filter:drop-shadow(0 2px 5px rgba(27,110,55,0.14));
 }
 #viewFarmer.home-v2 .hb-taskcard .hb-tkbtn span {
   position:absolute;
