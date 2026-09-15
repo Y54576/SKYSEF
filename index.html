@@ -796,6 +796,10 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   padding-block:var(--upper-card-padding-block);
   display:flex;
   flex-direction:column;
+  /* 板寬對齊上方「今日農場紀錄」卡（左右各外擴 3px）*/
+  width:calc(100% + 6px);
+  margin-left:-3px;
+  margin-right:-3px;
 }
 #viewFarmer.home-v2 .hb-summary + .hb-card > .hb-head {
   margin-bottom:var(--upper-content-gap);
