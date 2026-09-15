@@ -719,9 +719,9 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 }
 #viewFarmer.home-v2 .hb-recordbtn img {
   width:100%;
-  height:clamp(34px,4.6dvh,40px);   /* 壓低高度讓按鈕更扁（維持長度）*/
+  height:auto;
   display:block;
-  object-fit:fill;
+  object-fit:contain;   /* 不壓縮：按鈕已裁成較扁的比例，文字維持原比例 */
   filter:drop-shadow(0 4px 10px rgba(27,110,55,0.20));
 }
 #viewFarmer.home-v2 .hb-recordbtn:active { transform:scale(0.985); filter:brightness(0.98); }
