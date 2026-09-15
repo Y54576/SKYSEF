@@ -705,55 +705,25 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   flex-shrink:0;
   filter:drop-shadow(0 1px 2px rgba(40,70,40,0.14));
 }
-/* 開始紀錄：扁藥丸按鈕（CSS），可自由控制高度；文字為 HTML 不變形、上下不裁切 */
+/* 開始紀錄：直接使用完整按鈕素材，幾乎滿版、置中、保持比例、整顆可點 */
 #viewFarmer.home-v2 .hb-recordbtn {
-  width:86%;
+  width:90%;
   margin:0 auto;
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  height:clamp(38px,4.9dvh,44px);
-  padding:0 clamp(10px,4vw,20px);
-  box-sizing:border-box;
-  background:linear-gradient(180deg,#4ac35f 0%,#2ba455 55%,#1f9049 100%);
-  border:1.5px solid rgba(10,110,56,0.5);
-  border-radius:999px;
-  box-shadow:0 4px 10px rgba(27,110,55,0.22), inset 0 1px 0 rgba(255,255,255,0.38), inset 0 -2px 0 rgba(12,90,45,0.22);
+  padding:0;
+  border:0;
+  background:transparent;
   cursor:pointer;
-  overflow:hidden;
+  display:block;
   -webkit-tap-highlight-color:transparent;
   transition:transform 120ms ease, filter 120ms ease;
 }
-#viewFarmer.home-v2 .hb-rb-inner {
-  position:relative;
-  z-index:2;
-  display:inline-flex;
-  align-items:center;
-  gap:clamp(6px,2vw,9px);
-  color:#fff !important;
-  font-size:clamp(14px,4vw,17px);
-  font-weight:800;
-  letter-spacing:0.03em;
-  text-shadow:0 1px 2px rgba(15,78,40,0.35);
-}
-#viewFarmer.home-v2 .hb-rb-pencil {
-  width:clamp(18px,5vw,22px);
+#viewFarmer.home-v2 .hb-recordbtn img {
+  width:100%;
   height:auto;
-  filter:drop-shadow(0 1px 1px rgba(15,78,40,0.25));
+  display:block;
+  object-fit:contain;
+  filter:drop-shadow(0 5px 12px rgba(27,110,55,0.22));
 }
-#viewFarmer.home-v2 .hb-rb-leaf {
-  position:absolute;
-  bottom:-4px;
-  width:clamp(26px,7.5vw,36px);
-  height:auto;
-  z-index:1;
-  pointer-events:none;
-  opacity:0.9;
-  filter:drop-shadow(0 1px 2px rgba(16,70,32,0.2));
-}
-#viewFarmer.home-v2 .hb-rb-leaf-l { left:8px; transform:rotate(8deg); }
-#viewFarmer.home-v2 .hb-rb-leaf-r { right:8px; transform:scaleX(-1) rotate(8deg); }
 #viewFarmer.home-v2 .hb-recordbtn:active { transform:scale(0.985); filter:brightness(0.98); }
 #viewFarmer.home-v2 .hb-metric-tx {
   display:flex;
@@ -4395,7 +4365,7 @@ body:has(#viewConsumer.active) #loginOverlay { display: none; }
     <div class="hb-metric"><img class="hb-metric-ic" src="assets/images/home/metrics/ic/humidity.png" alt=""><div class="hb-metric-tx"><span class="hb-metric-lb">濕度</span><span class="hb-metric-vl" id="homeSumHum">--%</span></div></div>
     <div class="hb-metric"><img class="hb-metric-ic" src="assets/images/home/metrics/ic/soil-ph.png" alt=""><div class="hb-metric-tx"><span class="hb-metric-lb">土壤 pH</span><span class="hb-metric-vl" id="homeSumPh">--</span></div></div>
   </div>
-  <button class="hb-recordbtn" onclick="openQuickLogModal()" aria-label="開始紀錄"><img class="hb-rb-leaf hb-rb-leaf-l" src="assets/images/decorations/leaf-left.png" alt="" aria-hidden="true"><span class="hb-rb-inner"><img class="hb-rb-pencil" src="assets/images/icons/icon-start-record.png" alt="">開始紀錄</span><img class="hb-rb-leaf hb-rb-leaf-r" src="assets/images/decorations/leaf-left.png" alt="" aria-hidden="true"></button>
+  <button class="hb-recordbtn" onclick="openQuickLogModal()" aria-label="開始紀錄"><img src="assets/images/home/start-record-btn.png" alt="開始紀錄"></button>
 </div>
 
 <div class="hb-card">
