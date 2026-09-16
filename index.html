@@ -194,77 +194,165 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 .achieve-progress-bar { height:5px; background:rgba(255,255,255,0.1); border-radius:3px; overflow:hidden; margin-bottom:5px; }
 .achieve-progress-fill { height:100%; background:linear-gradient(90deg,#80e5a0,#64b5f6); border-radius:3px; transition:width 0.8s ease; }
 .achieve-desc { font-size:11px; color:rgba(255,255,255,0.38); }
-/* ── 任務頁淺色主題 ─────────────────────────────────────── */
-#viewTask.task-light { color:#233; }
-#viewTask .tk-header { display:flex; align-items:flex-start; justify-content:space-between; padding:20px 0 14px; }
-#viewTask .tk-h2 { font-size:24px; font-weight:800; margin:0; color:#1c2b22 !important; letter-spacing:1px; text-shadow:none; }
+/* ── 任務頁：農場遊戲化主題（2026 重製） ───────────────── */
+#viewTask.task-light { color:#233b2d; position:relative; background:#dff0e6; }
+/* 使用上傳的農場背景圖（S__23527427.jpg）：農田上方＋奶油色中段＋底部音符裝飾。
+   以 cover + top center 呈現，手機直式可完整保留上到下的構圖；僅任務頁，不影響其他頁 */
+#viewTask.task-light::before { content:''; position:fixed; inset:0; background:url('assets/images/S__23527427.jpg') top center / cover no-repeat; background-color:#f7f3d8; pointer-events:none; z-index:0; }
+#viewTask.task-light .container { position:relative; z-index:1; }
+#viewTask .tk-header { display:flex; align-items:flex-start; justify-content:space-between; padding:34px 2px 10px; }
+#viewTask .tk-h2 { font-size:24px; font-weight:800; margin:0; color:#1c2b22 !important; letter-spacing:0.5px; text-shadow:none; }
 #viewTask .tk-sub { font-size:13px; color:rgba(30,50,40,0.55); margin-top:4px; }
-#viewTask .tk-gear { width:42px; height:42px; border-radius:50%; border:none; background:rgba(255,255,255,0.75); color:#5a6b60; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 10px rgba(0,0,0,0.08); flex-shrink:0; }
-#viewTask .tk-card { box-sizing:border-box; min-width:0; background:rgba(255,255,255,0.72); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,0.65); border-radius:22px; padding:18px 18px 16px; box-shadow:0 6px 24px rgba(30,60,40,0.08); }
-#viewTask .tk-card-head { font-size:16px; font-weight:800; color:#1c2b22; margin-bottom:12px; display:flex; align-items:baseline; justify-content:space-between; }
-#viewTask .tk-card-count { font-size:12px; font-weight:600; color:rgba(30,50,40,0.45); }
-#viewTask .tk-footnote { font-size:11px; color:rgba(30,50,40,0.35); margin-top:10px; text-align:center; }
-#viewTask .task-two-col { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:12px; margin-bottom:16px; align-items:stretch; }
-#viewTask #achievementPanel { display:flex; flex-direction:column; height:0; min-height:100%; overflow:hidden; }
-#viewTask #achievementList { flex:1; min-height:0; overflow-y:auto; scrollbar-width:thin; padding-right:2px; }
-#viewTask.task-light .container > .tk-card:last-child { margin-bottom:80px; }
-#viewTask .tk-exp-row1 { display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
-#viewTask .tk-exp-title { font-size:17px; font-weight:800; color:#1c2b22; }
-#viewTask .tk-exp-total { font-size:14px; font-weight:700; color:#2e9e5b; }
-#viewTask .tk-exp-row2 { display:flex; align-items:center; justify-content:space-between; font-size:12px; color:rgba(30,50,40,0.55); margin-bottom:8px; }
+#viewTask .tk-gear { width:44px; height:44px; border-radius:50%; border:none; background:#fff; color:#5a6b60; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 14px rgba(44,87,55,0.14); flex-shrink:0; transition:transform 0.15s; }
+#viewTask .tk-gear:hover { transform:scale(1.06) rotate(20deg); }
+#viewTask .tk-card { box-sizing:border-box; min-width:0; background:#ffffff; border:1px solid rgba(255,255,255,0.9); border-radius:26px; padding:15px 17px 13px; box-shadow:0 14px 34px rgba(40,80,45,0.16); }
+#viewTask .tk-card-head { font-size:18px; font-weight:800; color:#182a20; margin-bottom:9px; display:flex; align-items:center; gap:9px; }
+#viewTask .tk-head-emoji { font-size:23px; line-height:1; }
+#viewTask .tk-card-count { margin-left:auto; align-self:center; font-size:13px; font-weight:600; color:rgba(30,50,40,0.42); }
+#viewTask .tk-footnote { font-size:12px; color:rgba(30,50,40,0.4); margin-top:12px; text-align:center; }
+/* 手機／平板：單欄（今日任務在上、成就在下、全寬）；只有寬螢幕(桌機)才並排 */
+#viewTask .task-two-col { display:grid; grid-template-columns:1fr; gap:14px; margin-bottom:14px; align-items:start; }
+#viewTask #dailyTaskPanel, #viewTask #achievementPanel { width:100%; min-width:0; box-sizing:border-box; }
+#viewTask #achievementPanel { display:flex; flex-direction:column; }
+/* 成就清單：限制高度、內部捲動，讓卡片比例貼近參考圖（今日任務較高、成就較精簡） */
+#viewTask #achievementList { flex:1; min-height:0; max-height:214px; overflow-y:auto; scrollbar-width:thin; padding-right:2px; }
+#viewTask #achievementList::-webkit-scrollbar { width:6px; }
+#viewTask #achievementList::-webkit-scrollbar-thumb { background:rgba(120,170,120,0.4); border-radius:6px; }
+/* 本頁不顯示音樂播放器（音樂播放器已移回全域並保持隱藏） */
+#viewTask.task-light .container { gap:14px; padding-bottom:0; }
+/* 沿用標準的視窗內捲動（height:100vh overflow-y:auto）；底部僅保留剛好蓋過
+   固定導覽列所需的最小距離，讓稱號與導覽列更貼近 */
+#viewTask.task-light.view-screen { padding-bottom:90px; }
+#viewTask.task-light .container > *:last-child { margin-bottom:0; }
+/* 桌機／大畫面：今日任務 + 成就 並排 */
+@media (min-width:900px) {
+  #viewTask .task-two-col { grid-template-columns:1fr 1fr; gap:16px; }
+  #viewTask #achievementList { max-height:360px; }
+}
+
+/* EXP 面板 */
+#viewTask #expPanel { position:relative; overflow:visible; }
+#viewTask .tk-exp-sprout { position:absolute; top:-38px; right:18px; font-size:48px; line-height:1; z-index:2; filter:drop-shadow(0 6px 10px rgba(60,120,70,0.28)); pointer-events:none; }
+#viewTask .tk-exp-row1 { display:flex; align-items:center; gap:12px; margin-bottom:7px; }
+#viewTask .tk-exp-badge { width:44px; height:44px; border-radius:13px; background:linear-gradient(160deg,#e2f6df,#cdeecb); display:flex; align-items:center; justify-content:center; font-size:23px; flex-shrink:0; box-shadow:inset 0 0 0 1px rgba(120,190,120,0.35); }
+#viewTask .tk-exp-title { font-size:22px; font-weight:800; color:#152820; flex:1; min-width:0; }
+#viewTask .tk-exp-total { font-size:16px; font-weight:800; color:#2e9e5b; white-space:nowrap; }
+#viewTask .tk-exp-row2 { display:flex; align-items:center; justify-content:space-between; gap:10px; font-size:13px; color:rgba(30,50,40,0.55); margin-bottom:7px; }
 #viewTask .tk-exp-row2 span { color:inherit; }
-#viewTask .tk-exp-bar { height:8px; border-radius:8px; background:rgba(30,50,40,0.10); overflow:hidden; }
-#viewTask .tk-exp-fill { height:100%; border-radius:8px; background:linear-gradient(90deg,#7fd8a2,#a5e6bd); transition:width 0.8s ease; }
-#viewTask .tk-hint { font-size:12px; font-weight:700; color:#2e9e5b; margin:-4px 0 10px; }
-#viewTask .tk-task { display:flex; align-items:center; gap:11px; padding:12px 2px; border-bottom:1px solid rgba(30,50,40,0.07); }
+#viewTask .tk-exp-bar { height:12px; border-radius:12px; background:#e9ede6; overflow:hidden; }
+#viewTask .tk-exp-fill { height:100%; border-radius:12px; background:linear-gradient(90deg,#3fbf6e,#7fe0a2); transition:width 0.8s ease; box-shadow:0 1px 3px rgba(60,160,90,0.4) inset; }
+
+/* 今日任務 */
+#viewTask #dailyTaskPanel { border:2px solid #9adf9a; box-shadow:0 10px 30px rgba(90,180,90,0.16); position:relative; }
+#viewTask .tk-hint { font-size:13px; font-weight:700; color:#2e9e5b; margin:-6px 0 12px; }
+/* 任務列：單行（勾選框 + 名稱 + 標籤 + 經驗值靠右） */
+#viewTask .tk-task { position:relative; z-index:1; display:flex; align-items:center; gap:10px; padding:9px 2px; border-bottom:1px solid rgba(30,50,40,0.07); }
 #viewTask .tk-task:last-of-type { border-bottom:none; }
-#viewTask .tk-check { width:24px; height:24px; border-radius:7px; border:2px solid rgba(30,50,40,0.22); background:rgba(255,255,255,0.6); flex-shrink:0; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:0.15s; }
-#viewTask .tk-check.done { background:#59c17f; border-color:#59c17f; }
+#viewTask .tk-check { width:28px; height:28px; border-radius:8px; border:2.5px solid #cdd6cd; background:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:0.15s; flex-shrink:0; }
+#viewTask .tk-check svg { width:15px; height:12px; }
+#viewTask .tk-check.done { background:#33bf6b; border-color:#33bf6b; box-shadow:0 3px 8px rgba(51,191,107,0.35); }
 #viewTask .tk-check.auto { cursor:default; }
-#viewTask .tk-task-name { flex:1; font-size:14px; font-weight:700; color:#233b2d; }
-#viewTask .tk-task-name.done { color:rgba(30,50,40,0.35); text-decoration:line-through; }
-#viewTask .tk-tag { font-size:12px; font-weight:700; padding:3px 10px; border-radius:9px; flex-shrink:0; }
-#viewTask .tk-tag.auto { background:rgba(80,140,255,0.12); color:#4f7ef7; }
-#viewTask .tk-tag.manual { background:rgba(30,50,40,0.07); color:rgba(30,50,40,0.5); }
-#viewTask .tk-exp-tag { font-size:12px; font-weight:800; color:#c98a12; background:rgba(255,200,60,0.18); border-radius:9px; padding:3px 9px; flex-shrink:0; }
-#viewTask .tk-ach { display:flex; align-items:flex-start; gap:12px; padding:11px 2px; border-bottom:1px solid rgba(30,50,40,0.07); }
+#viewTask .tk-check:not(.auto):hover { border-color:#33bf6b; }
+#viewTask .tk-task-name { flex-shrink:0; font-size:15px; font-weight:800; color:#1e3325; white-space:nowrap; }
+#viewTask .tk-task-name.done { color:rgba(30,50,40,0.4); }
+#viewTask .tk-tag { flex-shrink:0; font-size:11px; font-weight:700; padding:3px 11px; border-radius:20px; }
+#viewTask .tk-tag.auto { background:#e0ecff; color:#3f7bf0; }
+#viewTask .tk-tag.manual { background:#dff3e4; color:#2fa25c; }
+#viewTask .tk-exp-tag { margin-left:auto; flex-shrink:0; font-size:14px; font-weight:800; color:#e08a12; background:#fff0d0; border-radius:11px; padding:6px 14px; }
+
+/* 成就 */
+#viewTask .tk-ach { display:flex; align-items:center; gap:11px; padding:8px 2px; border-bottom:1px solid rgba(30,50,40,0.07); }
 #viewTask .tk-ach:last-of-type { border-bottom:none; }
-#viewTask .tk-ach-icon { width:46px; height:46px; border-radius:13px; display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; background:rgba(120,200,150,0.16); }
-#viewTask .tk-ach:nth-child(2n) .tk-ach-icon { background:rgba(255,190,90,0.18); }
-#viewTask .tk-ach:nth-child(3n) .tk-ach-icon { background:rgba(120,170,255,0.15); }
-#viewTask .tk-ach-body { flex:1; min-width:0; }
-#viewTask .tk-ach-name { font-size:14px; font-weight:700; color:#1c2b22; margin-bottom:2px; }
-#viewTask .tk-ach-desc { font-size:12px; color:rgba(30,50,40,0.5); }
-#viewTask .tk-ach-bar { height:5px; border-radius:5px; background:rgba(30,50,40,0.08); overflow:hidden; margin-top:7px; }
-#viewTask .tk-ach-fill { height:100%; border-radius:5px; background:#5f9df7; }
-#viewTask .tk-ach-right { flex-shrink:0; font-size:12px; font-weight:700; color:rgba(30,50,40,0.55); padding-top:4px; }
-#viewTask .tk-ach-pill { background:#3cb371; color:#fff; font-size:12px; font-weight:700; padding:5px 14px; border-radius:20px; }
-#viewTask .tk-title-row { display:flex; gap:10px; overflow-x:auto; padding:2px 0 6px; scrollbar-width:none; }
+#viewTask .tk-ach-icon { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:23px; flex-shrink:0; background:#e4f6e7; }
+#viewTask .tk-ach:nth-child(7n+2) .tk-ach-icon { background:#fff1cc; }
+#viewTask .tk-ach:nth-child(7n+3) .tk-ach-icon { background:#e0ecff; }
+#viewTask .tk-ach:nth-child(7n+4) .tk-ach-icon { background:#fce7d6; }
+#viewTask .tk-ach:nth-child(7n+5) .tk-ach-icon { background:#e4f6e7; }
+#viewTask .tk-ach:nth-child(7n+6) .tk-ach-icon { background:#efe4ff; }
+#viewTask .tk-ach:nth-child(7n)   .tk-ach-icon { background:#e0f5f1; }
+/* 成就內容：名稱一行；說明與進度條同一行（省高度、不截斷） */
+#viewTask .tk-ach-body { flex:1; min-width:0; display:grid; grid-template-columns:auto minmax(0,1fr); align-items:center; column-gap:9px; row-gap:2px; }
+#viewTask .tk-ach-name { grid-column:1 / -1; grid-row:1; font-size:14px; font-weight:800; color:#182a20; }
+#viewTask .tk-ach-desc { grid-column:1; grid-row:2; font-size:12px; color:rgba(30,50,40,0.5); white-space:nowrap; }
+#viewTask .tk-ach-bar { grid-column:2; grid-row:2; height:7px; border-radius:7px; background:#eaeee8; overflow:hidden; margin-top:0; align-self:center; }
+#viewTask .tk-ach-fill { height:100%; border-radius:7px; background:linear-gradient(90deg,#3f8bf0,#6aa9ff); transition:width 0.6s ease; }
+#viewTask .tk-ach-right { flex-shrink:0; align-self:center; font-size:14px; font-weight:800; color:rgba(30,50,40,0.5); }
+#viewTask .tk-ach-pill { background:#2fb367; color:#fff; font-size:13px; font-weight:800; padding:6px 14px; border-radius:20px; box-shadow:0 3px 8px rgba(47,179,103,0.28); white-space:nowrap; }
+
+/* 稱號區塊背景：純淨、無任何裝飾底圖（純淺奶油色，完全不透明，卡片後方一律乾淨） */
+#viewTask #titlePanel { background:#fdfaf3; background-image:none; }
+#viewTask #titlePanel .tk-title-row { background:transparent; background-image:none; }
+/* 稱號：橫向輪播（一次看 3 張、其餘可左右滑動；不讓整頁橫向溢出） */
+#viewTask .tk-title-row { display:flex; gap:11px; overflow-x:auto; max-width:100%; padding:2px 2px 4px; scrollbar-width:none; -webkit-overflow-scrolling:touch; scroll-snap-type:x proximity; overscroll-behavior-x:contain; }
 #viewTask .tk-title-row::-webkit-scrollbar { display:none; }
-#viewTask .tk-chip { position:relative; flex:0 0 auto; width:96px; border-radius:16px; padding:14px 8px 12px; text-align:center; background:rgba(255,255,255,0.65); border:1.5px solid rgba(30,50,40,0.10); }
-#viewTask .tk-chip.current { border-color:#59c17f; background:rgba(120,220,160,0.12); }
-#viewTask .tk-chip.locked { opacity:0.75; }
-#viewTask .tk-chip-lock { position:absolute; top:7px; right:9px; font-size:10px; color:rgba(30,50,40,0.4); }
-#viewTask .tk-chip-icon { font-size:24px; line-height:1; margin-bottom:7px; }
-#viewTask .tk-chip-name { font-size:12px; font-weight:800; color:#233b2d; margin-bottom:4px; }
-#viewTask .tk-chip-req { font-size:10px; color:rgba(30,50,40,0.45); font-weight:600; }
+/* 外層包裝：作為排版單位，維持三張卡等寬等高、間距一致；裁切任何超出卡片的內容 */
+#viewTask .tk-chip-wrap { position:relative; box-sizing:border-box; flex:0 0 auto; width:150px; scroll-snap-align:start; overflow:hidden; border-radius:16px; }
+/* 卡片本體：任何卡面裝飾都必須裁切在卡片邊界內 */
+/* 卡片本體：乾淨的純色柔和圓角外卡（背景色與邊框色由各卡帶入），只有邊框與陰影，無任何裝飾 */
+#viewTask .tk-chip { position:relative; box-sizing:border-box; overflow:hidden; width:100%; aspect-ratio:4 / 3; border-radius:16px; text-align:center; background:#eef3ea; border:2px solid rgba(60,80,60,0.12); box-shadow:0 4px 12px rgba(40,80,45,0.12); z-index:1; padding:9px; }
+#viewTask .tk-chip.current { box-shadow:0 6px 16px rgba(70,170,100,0.28); }
+/* 上傳的稱號圖：原圖不改，置中容納於乾淨外卡內（四周留出純色邊，外圍不出現任何葉片） */
+#viewTask .tk-chip-art { position:absolute; top:3%; left:2.5%; width:95%; height:94%; object-fit:contain; z-index:1; display:block; }
+#viewTask .tk-chip-art.tk-art-off { display:none; }
+#viewTask .tk-chip.locked .tk-chip-art { filter:grayscale(0.28) brightness(0.96); }
+/* 文字退回卡（僅在圖片載入失敗時顯示，填滿整張卡） */
+#viewTask .tk-chip-fallback { position:absolute; inset:0; z-index:0; box-sizing:border-box; border:2px solid; border-radius:inherit; padding:8px; display:none; flex-direction:column; justify-content:center; align-items:center; }
+#viewTask .tk-chip-art.tk-art-off + .tk-chip-fallback { display:flex; }
+#viewTask .tk-chip.locked .tk-chip-fallback { filter:saturate(0.7); }
+/* 鎖：獨立 UI 疊層，位於卡圖之上，只有未解鎖才渲染 */
+#viewTask .tk-chip-lock { position:absolute; top:6px; right:6px; z-index:3; width:22px; height:22px; border-radius:7px; background:#f6c945; box-shadow:0 2px 6px rgba(60,50,0,0.28); display:flex; align-items:center; justify-content:center; font-size:12px; line-height:1; }
+#viewTask .tk-chip-icon { position:relative; font-size:34px; line-height:1; margin-bottom:6px; z-index:1; }
+#viewTask .tk-chip-name { position:relative; font-size:15px; font-weight:800; color:#233b2d; margin-bottom:3px; z-index:1; line-height:1.15; letter-spacing:0.5px; }
+#viewTask .tk-chip-name.long { font-size:13px; letter-spacing:0.2px; }
+#viewTask .tk-chip-req { position:relative; font-size:13px; font-weight:700; letter-spacing:0.3px; z-index:1; }
+
 @media (max-width:600px) {
-  #viewTask .tk-card { padding:13px 12px 12px; }
-  #viewTask .tk-task { display:grid; grid-template-columns:22px 1fr auto; gap:5px 8px; align-items:center; padding:10px 0; }
-  #viewTask .tk-check { width:22px; height:22px; grid-column:1; grid-row:1 / span 2; }
-  #viewTask .tk-task-name { grid-column:2 / 4; grid-row:1; font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  #viewTask .tk-tag { grid-column:2; grid-row:2; justify-self:start; font-size:10px; padding:2px 8px; }
-  #viewTask .tk-exp-tag { grid-column:3; grid-row:2; font-size:10px; padding:2px 7px; }
-  #viewTask .tk-ach { gap:8px; padding:9px 0; }
-  #viewTask .tk-ach-icon { width:34px; height:34px; border-radius:10px; font-size:17px; }
+  /* 手機版：整頁壓縮到單一 390×844 畫面內，無需垂直捲動 */
+  #viewTask.task-light.view-screen { padding-left:14px; padding-right:14px; padding-bottom:40px; }
+  #viewTask.task-light .container { gap:7px; }
+  #viewTask .tk-header { padding:32px 2px 3px; }
+  #viewTask .tk-h2 { font-size:20px; }
+  #viewTask .tk-sub { font-size:11px; margin-top:1px; }
+  #viewTask .tk-card { padding:9px 13px 6px; border-radius:19px; }
+  #viewTask .tk-card-head { font-size:15px; margin-bottom:4px; gap:7px; }
+  #viewTask .tk-head-emoji { font-size:16px; }
+  #viewTask .tk-card-count { font-size:11px; }
+  #viewTask .task-two-col { gap:7px; margin-bottom:7px; }
+  /* EXP 卡片：更矮 */
+  #viewTask .tk-exp-sprout { top:-22px; font-size:32px; }
+  #viewTask .tk-exp-row1 { gap:10px; margin-bottom:3px; }
+  #viewTask .tk-exp-badge { width:36px; height:36px; border-radius:10px; font-size:19px; }
+  #viewTask .tk-exp-title { font-size:18px; }
+  #viewTask .tk-exp-total { font-size:14px; }
+  #viewTask .tk-exp-row2 { font-size:11px; margin-bottom:3px; }
+  #viewTask .tk-exp-bar { height:8px; }
+  /* 今日任務：單行、緊縮列高（6 列全顯示） */
+  #viewTask .tk-hint { font-size:11px; margin:-1px 0 3px; }
+  #viewTask .tk-task { padding:3px 0; gap:8px; }
+  #viewTask .tk-check { width:23px; height:23px; border-radius:7px; }
+  #viewTask .tk-check svg { width:13px; height:10px; }
+  #viewTask .tk-task-name { font-size:14px; }
+  #viewTask .tk-tag { font-size:10px; padding:2px 8px; }
+  #viewTask .tk-exp-tag { font-size:12px; padding:4px 11px; }
+  #viewTask .tk-footnote { font-size:9px; margin-top:3px; }
+  /* 成就：只顯示精簡摘要（限制高度＋內部捲動保留全部資料） */
+  #viewTask #achievementList { max-height:98px; }
+  #viewTask .tk-ach { padding:5px 0; gap:9px; }
+  #viewTask .tk-ach-icon { width:34px; height:34px; border-radius:10px; font-size:18px; }
   #viewTask .tk-ach-name { font-size:13px; }
   #viewTask .tk-ach-desc { font-size:10px; }
-  #viewTask .tk-ach-right { font-size:10px; padding-top:2px; }
-  #viewTask .tk-ach-pill { font-size:10px; padding:3px 9px; }
-  #viewTask .tk-card-head { font-size:14px; }
-  #viewTask .tk-card-count { font-size:10px; }
-  #viewTask .tk-hint { font-size:10px; }
-  #viewTask .tk-footnote { font-size:9px; }
+  #viewTask .tk-ach-bar { height:6px; }
+  #viewTask .tk-ach-right { font-size:12px; }
+  #viewTask .tk-ach-pill { font-size:11px; padding:3px 10px; }
+  /* 稱號：手機恰好顯示 3 張、等寬；其餘左右滑動（不讓第 4 張露出） */
+  #viewTask .tk-title-row { gap:10px; padding:1px 2px 1px; }
+  #viewTask .tk-chip-wrap { flex:0 0 calc((100% - 20px) / 3); width:auto; }
+  #viewTask .tk-chip { padding:8px 7px 7px; border-radius:14px; }
+  #viewTask .tk-chip-icon { font-size:25px; margin-bottom:2px; }
+  #viewTask .tk-chip-name { font-size:13px; margin-bottom:1px; }
+  #viewTask .tk-chip-name.long { font-size:11.5px; }
+  #viewTask .tk-chip-req { font-size:11px; }
+  #viewTask .tk-chip-spark { display:none; }
 }
 /* ── 首頁：2026 單畫面精簡版（真實 PNG 素材） ───────────── */
 :root { --brand:#37B24D; --bg-app:#F7FBF6; }
@@ -281,9 +369,21 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   gap:9px; box-sizing:border-box; justify-content:flex-start;
   max-width:100%;
 }
-.hb-topbar { flex:0 0 auto; display:flex; align-items:center; gap:10px; position:relative; z-index:2; }
+.hb-topbar { flex:0 0 auto; display:flex; align-items:center; justify-content:space-between; gap:10px; position:relative; z-index:3; }
 .hb-wrap > * { flex-shrink:0; }
 .hb-logo { width:36px; height:36px; object-fit:contain; flex-shrink:0; }
+/* Formoya 完整標誌（葉子 + 福萌芽 Formoya 文字） */
+.hb-logo-full { width:56px; height:auto; aspect-ratio:1/1; object-fit:contain; flex-shrink:0; filter:drop-shadow(0 1px 2px rgba(255,255,255,0.6)); }
+/* 我的點數藥丸徽章（數字為即時 EXP，依 UID 隔離，不寫死於圖片） */
+.hb-points { display:inline-flex; align-items:center; gap:8px; flex-shrink:0; cursor:pointer;
+  background:linear-gradient(180deg,#fffdf6,#fdf3d4); border:1.5px solid rgba(241,204,120,0.95);
+  border-radius:999px; padding:7px 14px 7px 8px; box-shadow:0 4px 12px rgba(190,150,40,0.20), inset 0 1px 0 rgba(255,255,255,0.9);
+  line-height:normal; -webkit-tap-highlight-color:transparent; }
+.hb-points:active { transform:translateY(1px); box-shadow:0 2px 6px rgba(190,150,40,0.20), inset 0 1px 0 rgba(255,255,255,0.9); }
+.hb-points-coin { width:24px; height:24px; object-fit:contain; flex-shrink:0; filter:drop-shadow(0 1px 1px rgba(160,110,20,0.25)); }
+.hb-points-txt { display:flex; flex-direction:column; align-items:flex-start; justify-content:center; }
+.hb-points-label { font-size:10px; font-weight:800; color:#8a6a12 !important; letter-spacing:0.01em; line-height:1.25; white-space:nowrap; }
+.hb-points-val { font-size:17px; font-weight:900; color:#5f4708 !important; letter-spacing:0.01em; line-height:1.15; }
 .hb-brand { flex:1; min-width:0; }
 .hb-brand-t { font-size:15px; font-weight:800; color:#1F2937 !important; line-height:1.1; }
 .hb-brand-s { font-size:9px; color:#6B7280 !important; font-weight:600; }
@@ -301,8 +401,8 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   height:235px;
   padding:calc(env(safe-area-inset-top,0px) + 12px) 18px 0;
   background:
-    linear-gradient(180deg, rgba(190,227,248,0.55) 0%, rgba(223,243,230,0.5) 55%, rgba(201,232,184,0.6) 100%),
-    url('assets/images/hero-farm-background.jpg') center 68% / cover no-repeat;
+    linear-gradient(180deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 45%, rgba(197,231,181,0.14) 100%),
+    url('assets/images/home/home-bg.png') center top / cover no-repeat;
   background-color:#BEE3F8;
   border-radius:0 0 32px 32px;
   overflow:hidden;
@@ -481,6 +581,8 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   padding:0 var(--home-inline) var(--nav-content-gap);
   box-sizing:border-box;
   overflow:visible;
+  /* 整頁背景：只保留上方農場景色區塊，下方以柔和淺綠純色填滿（不要下方的葉子／花草）*/
+  background:url('assets/images/home/home-bg-top.png') top center / 100% auto no-repeat, #f0f8ea;
 }
 @supports (height:100dvh) {
   #viewFarmer.home-v2 .hb-wrap {
@@ -501,8 +603,8 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   border-radius:0 0 clamp(22px,7vw,30px) clamp(22px,7vw,30px);
 }
 #viewFarmer.home-v2 .hero-greet {
-  margin-top:clamp(3px,0.7dvh,7px);
-  max-width:88%;
+  margin-top:clamp(14px,4.5dvh,40px);
+  max-width:60%;
   min-width:0;
 }
 #viewFarmer.home-v2 .hb-greet-row { min-width:0; }
@@ -519,20 +621,25 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   line-height:1.25;
 }
 #viewFarmer.home-v2 .hero-farmer {
-  right:clamp(-8px,-1vw,-2px);
-  width:clamp(145px,40vw,190px);
-  height:clamp(125px,20dvh,175px);
-  max-height:78%;
+  right:clamp(-6px,-1vw,0px);
+  width:clamp(140px,42vw,182px);
+  height:clamp(135px,22dvh,188px);
+  max-height:86%;
   aspect-ratio:auto;
 }
-#viewFarmer.home-v2 .hb-logo {
-  width:clamp(32px,9vw,38px);
-  height:clamp(32px,9vw,38px);
+#viewFarmer.home-v2 .hb-logo-full {
+  width:clamp(50px,15vw,60px);
+  height:auto;
 }
-#viewFarmer.home-v2 .hb-rbtn {
-  width:clamp(38px,11vw,45px);
-  height:clamp(38px,11vw,45px);
-  padding:clamp(7px,2.2vw,9px);
+#viewFarmer.home-v2 .hb-points {
+  padding:clamp(4px,1.2vw,5px) clamp(10px,3vw,13px) clamp(4px,1.2vw,5px) clamp(6px,1.8vw,7px);
+}
+#viewFarmer.home-v2 .hb-points-coin {
+  width:clamp(21px,6vw,25px);
+  height:clamp(21px,6vw,25px);
+}
+#viewFarmer.home-v2 .hb-points-val {
+  font-size:clamp(14px,4.2vw,17px);
 }
 
 /* 今日農場紀錄與快速操作維持內容高度 */
@@ -547,17 +654,23 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   line-height:1.2;
 }
 #viewFarmer.home-v2 .hb-summary {
-  min-height:var(--summary-min-height);
-  margin-top:0;
-  padding:var(--upper-card-padding-block) var(--card-padding-inline);
+  min-height:0;
+  /* 上移貼近 hero（略為重疊）*/
+  margin-top:-14px;
+  margin-left:-3px;
+  margin-right:-3px;
+  width:calc(100% + 6px);
+  position:relative;
+  z-index:5;
+  padding:clamp(9px,1.3dvh,12px) clamp(11px,3.4vw,14px) clamp(9px,1.3dvh,12px);
   display:grid;
   grid-template-rows:auto auto auto auto;
-  align-content:center;
-  row-gap:var(--upper-content-gap);
+  align-content:start;
+  row-gap:clamp(5px,0.8dvh,7px);
 }
 #viewFarmer.home-v2 .hb-summary .hb-head {
   margin-bottom:0;
-  font-size:13px;
+  font-size:clamp(14px,4vw,15.5px);
 }
 #viewFarmer.home-v2 .hb-note {
   margin:0;
@@ -567,52 +680,103 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 #viewFarmer.home-v2 .hb-chiprow {
   display:grid;
   grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:0;
+  gap:clamp(4px,1.2vw,6px);
   min-width:0;
   margin-bottom:0;
 }
-#viewFarmer.home-v2 .hb-chip {
-  width:auto;
+/* 指標卡：HTML/CSS 大卡，左側較大 3D 圖示 + 右側標籤/數值（數值動態）*/
+#viewFarmer.home-v2 .hb-metric {
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:clamp(3px,0.9vw,4px);
   min-width:0;
-  padding:0 clamp(2px,1vw,5px);
-  gap:clamp(2px,0.9vw,5px);
+  padding:clamp(8px,1.4dvh,12px) clamp(4px,1.2vw,6px);
+  background:linear-gradient(180deg,#ffffff,#f6faf1);
+  border:1px solid rgba(60,90,55,0.07);
+  border-radius:clamp(14px,4vw,18px);
+  box-shadow:0 3px 8px rgba(40,70,40,0.08);
 }
-#viewFarmer.home-v2 .hb-chip:first-child { padding-left:0; }
-#viewFarmer.home-v2 .hb-chip-ico,
-#viewFarmer.home-v2 .hb-chip:first-child .hb-chip-ico {
-  width:clamp(22px,7vw,30px);
-  height:clamp(22px,7vw,30px);
-  font-size:clamp(19px,5.6vw,23px);
-}
-#viewFarmer.home-v2 .hb-chip-ico img {
-  width:115%;
-  height:115%;
-  max-width:none;
+#viewFarmer.home-v2 .hb-metric-ic {
+  width:clamp(27px,8vw,33px);
+  height:clamp(27px,8vw,33px);
   object-fit:contain;
-  pointer-events:none;
+  object-position:center;
+  max-width:100%;
+  flex-shrink:0;
+  filter:drop-shadow(0 1px 2px rgba(40,70,40,0.14));
 }
-#viewFarmer.home-v2 .hb-chip:first-child .hb-chip-ico img {
-  width:110%;
-  height:110%;
+/* 開始紀錄：直接使用完整按鈕素材，幾乎滿版、置中、保持比例、整顆可點 */
+#viewFarmer.home-v2 .hb-recordbtn {
+  width:90%;
+  margin:0 auto;
+  padding:0;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  display:block;
+  -webkit-tap-highlight-color:transparent;
+  transition:transform 120ms ease, filter 120ms ease;
 }
-#viewFarmer.home-v2 .hb-chip-val {
-  font-size:clamp(11px,3vw,14px);
-  line-height:1.2;
+#viewFarmer.home-v2 .hb-recordbtn img {
+  width:100%;
+  height:auto;
+  display:block;
+  object-fit:contain;
+  filter:drop-shadow(0 5px 12px rgba(27,110,55,0.22));
 }
-#viewFarmer.home-v2 .hb-chip-label {
-  font-size:clamp(9px,2.45vw,10.5px);
-  line-height:1.2;
+#viewFarmer.home-v2 .hb-recordbtn:active { transform:scale(0.985); filter:brightness(0.98); }
+#viewFarmer.home-v2 .hb-metric-tx {
+  display:flex;
+  flex-direction:column;
+  flex:1 1 auto;
+  min-width:0;
+  line-height:1.12;
 }
-#viewFarmer.home-v2 .hb-chip-label-pill { padding:1px clamp(4px,1.6vw,7px); }
+#viewFarmer.home-v2 .hb-metric-lb {
+  font-size:clamp(9px,2.5vw,10.5px);
+  font-weight:700;
+  color:#7b8a6f;
+  white-space:nowrap;
+}
+#viewFarmer.home-v2 .hb-metric-vl {
+  font-size:clamp(10.5px,2.9vw,12.5px);
+  font-weight:800;
+  color:#2c3a30;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
 #viewFarmer.home-v2 .hb-bigbtn {
-  height:clamp(38px,5dvh,42px);
-  min-height:38px;
+  height:clamp(36px,4.6dvh,41px);
+  min-height:36px;
   font-size:clamp(12px,3.4vw,14px);
   display:flex;
   align-items:center;
   justify-content:center;
   gap:6px;
+  position:relative;
+  overflow:hidden;
 }
+#viewFarmer.home-v2 .hb-bigbtn-label {
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  position:relative;
+  z-index:2;
+}
+#viewFarmer.home-v2 .hb-btn-leaf {
+  position:absolute;
+  bottom:-5px;
+  width:clamp(26px,7.5vw,34px);
+  height:auto;
+  pointer-events:none;
+  z-index:1;
+  opacity:0.8;
+  filter:drop-shadow(0 1px 2px rgba(16,70,32,0.22));
+}
+#viewFarmer.home-v2 .hb-btn-leaf-l { left:6px; transform:rotate(10deg); }
+#viewFarmer.home-v2 .hb-btn-leaf-r { right:6px; transform:scaleX(-1) rotate(10deg); }
 #viewFarmer.home-v2 .hb-section-icon {
   width:clamp(18px,4.8vw,22px);
   height:clamp(18px,4.8vw,22px);
@@ -633,9 +797,14 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   padding-block:var(--upper-card-padding-block);
   display:flex;
   flex-direction:column;
+  /* 板寬對齊上方「今日農場紀錄」卡（左右各外擴 3px）*/
+  width:calc(100% + 6px);
+  margin-left:-3px;
+  margin-right:-3px;
 }
 #viewFarmer.home-v2 .hb-summary + .hb-card > .hb-head {
   margin-bottom:var(--upper-content-gap);
+  font-size:clamp(14px,4vw,15.5px);   /* 統一與「今日農場紀錄」相同 */
 }
 #viewFarmer.home-v2 .hb-quickrow {
   flex:1 1 auto;
@@ -682,7 +851,7 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 #viewFarmer.home-v2 .hb-gachacard .hb-head {
   min-height:16px;
   margin-bottom:var(--duo-content-gap);
-  font-size:13px;
+  font-size:clamp(14px,4vw,15.5px);   /* 統一與「今日農場紀錄」相同 */
   line-height:1.2;
 }
 
@@ -699,9 +868,9 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   display:flex;
   align-items:center;
   justify-content:center;
-  gap:clamp(3px,1.4vw,8px);
+  gap:clamp(5px,1.6vw,8px);
 }
-#viewFarmer.home-v2 .hb-taskcard .hb-ring-col { gap:clamp(1px,0.3dvh,3px); }
+#viewFarmer.home-v2 .hb-taskcard .hb-ring-col { gap:clamp(0px,0.15dvh,2px); }
 #viewFarmer.home-v2 .hb-taskcard .hb-ring-outer {
   width:var(--ring-size);
   height:var(--ring-size);
@@ -726,12 +895,13 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   flex:0 1 auto;
   min-width:0;
   align-self:center;
-  gap:clamp(3px,0.55dvh,6px);
+  gap:clamp(6px,1.5dvh,12px);
 }
 #viewFarmer.home-v2 .hb-taskcard .hb-tkrow {
   min-height:15px;
-  gap:clamp(3px,1vw,5px);
-  font-size:clamp(11px,3vw,13px);
+  align-items:center;
+  gap:clamp(4px,1.4vw,6px);
+  font-size:clamp(10.5px,2.8vw,12px);
   line-height:1.2;
   overflow:visible;
   text-overflow:clip;
@@ -758,6 +928,79 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 #viewFarmer.home-v2 .hb-taskcard .hb-tkcta span:last-child {
   position:absolute;
   right:10px;
+}
+
+/* 今日任務：使用真實素材（標題滴、進度環、勾選、按鈕）*/
+#viewFarmer.home-v2 .hb-taskcard .hb-tk-titleic {
+  width:clamp(18px,5vw,22px);
+  height:clamp(18px,5vw,22px);
+  object-fit:contain;
+  flex:0 0 auto;
+  filter:drop-shadow(0 1px 2px rgba(40,70,40,0.15));
+}
+#viewFarmer.home-v2 .hb-taskcard .hb-ring-outer {
+  position:relative;
+  width:clamp(80px,min(12dvh,23vw),98px);
+  height:clamp(80px,min(12dvh,23vw),98px);
+  background:none !important;
+  border:0 !important;
+  box-shadow:none !important;
+  border-radius:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+#viewFarmer.home-v2 .hb-taskcard .hb-ring-img {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  pointer-events:none;
+  filter:drop-shadow(0 2px 5px rgba(40,70,40,0.10));
+}
+#viewFarmer.home-v2 .hb-taskcard .hb-ring-val {
+  position:relative;
+  z-index:2;
+  font-size:clamp(16px,4.6vw,21px);
+  font-weight:800;
+  color:var(--brand) !important;
+  line-height:1;
+}
+#viewFarmer.home-v2 .hb-taskcard .hb-tkchk {
+  width:clamp(15px,4.2vw,18px);
+  height:clamp(15px,4.2vw,18px);
+  object-fit:contain;
+  flex:0 0 auto;
+  pointer-events:none;
+}
+#viewFarmer.home-v2 .hb-taskcard .hb-tkrow { color:#7c8a72 !important; font-weight:650; }
+#viewFarmer.home-v2 .hb-taskcard .hb-tkrow.hb-tkdone { color:#2c3a30 !important; font-weight:750; }
+#viewFarmer.home-v2 .hb-taskcard .hb-tkbtn {
+  position:relative;
+  width:80%;
+  margin:clamp(2px,0.5dvh,5px) auto clamp(5px,1.6dvh,11px);
+  flex-shrink:0;
+  line-height:0;
+}
+#viewFarmer.home-v2 .hb-taskcard .hb-tkbtn img {
+  width:100%;
+  height:auto;
+  display:block;
+  object-fit:contain;
+  filter:drop-shadow(0 2px 5px rgba(27,110,55,0.14));
+}
+#viewFarmer.home-v2 .hb-taskcard .hb-tkbtn span {
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff !important;
+  font-size:clamp(12px,3.2vw,14px);
+  font-weight:800;
+  letter-spacing:0.01em;
+  text-shadow:0 1px 2px rgba(18,78,40,0.4);
 }
 
 /* 農場扭蛋機 */
@@ -1018,22 +1261,12 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 }
 
 #viewFarmer.home-v2 .hero-banner {
-  background:
-    linear-gradient(90deg, rgba(252,255,252,0.50) 0%, rgba(250,254,250,0.20) 46%, rgba(248,253,248,0) 72%),
-    linear-gradient(180deg, rgba(203,235,247,0.03) 0%, rgba(239,248,232,0.02) 60%, rgba(232,243,222,0.20) 100%),
-    url('assets/images/hero-farm-background.jpg') center 68% / cover no-repeat;
-  box-shadow:
-    inset 0 -1px 0 rgba(255,255,255,0.76),
-    0 12px 28px rgba(35,74,47,0.085);
+  /* hero 背景改為透明，讓整頁背景圖連續延伸（不再是 hero 專屬背景）*/
+  background:transparent;
+  box-shadow:none;
 }
 #viewFarmer.home-v2 .hero-banner::after {
-  content:"";
-  position:absolute;
-  inset:auto 0 0;
-  height:26%;
-  z-index:0;
-  pointer-events:none;
-  background:linear-gradient(180deg, transparent, rgba(238,246,232,0.24));
+  display:none;
 }
 #viewFarmer.home-v2 .hb-brand-t {
   color:var(--text-primary) !important;
@@ -1097,30 +1330,18 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 }
 #viewFarmer.home-v2 .hb-summary {
   position:relative;
-  background:
-    radial-gradient(circle at 4% 0%, rgba(66,157,88,0.09), transparent 34%),
-    linear-gradient(145deg, rgba(255,254,249,0.995), rgba(248,252,246,0.985));
-  border-color:rgba(40,91,58,0.13);
-  box-shadow:var(--shadow-elevated);
+  background:linear-gradient(180deg,#ffffff,#fdfdfb);
+  border:1px solid rgba(40,91,58,0.08);
+  border-radius:24px;
+  box-shadow:0 12px 26px rgba(24,60,38,0.14), 0 2px 6px rgba(24,60,38,0.06);
 }
 #viewFarmer.home-v2 .hb-summary::before {
-  content:"";
-  position:absolute;
-  top:clamp(8px,1.25dvh,11px);
-  bottom:clamp(8px,1.25dvh,11px);
-  left:0;
-  width:3px;
-  border-radius:0 3px 3px 0;
-  background:linear-gradient(180deg, #63BE76, var(--brand-green));
-  opacity:0.82;
-  pointer-events:none;
+  display:none;
 }
 #viewFarmer.home-v2 .hb-summary + .hb-card {
-  background:
-    radial-gradient(circle at 0% 0%, rgba(64,151,83,0.085), transparent 42%),
-    linear-gradient(145deg, #F5F9F4, #EEF4EF);
-  border-color:rgba(42,83,55,0.10);
-  box-shadow:var(--shadow-card);
+  background:linear-gradient(180deg,#ffffff,#fdfdfb);
+  border-color:rgba(40,91,58,0.08);
+  box-shadow:0 12px 26px rgba(24,60,38,0.14), 0 2px 6px rgba(24,60,38,0.06);
 }
 #viewFarmer.home-v2 .hb-head {
   color:var(--text-primary) !important;
@@ -1133,10 +1354,10 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 }
 #viewFarmer.home-v2 .hb-summary .hb-section-icon {
   box-sizing:border-box;
-  padding:2px;
-  border-radius:8px;
-  background:rgba(232,245,233,0.82);
-  box-shadow:inset 0 0 0 1px rgba(39,143,80,0.08);
+  padding:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
 }
 #viewFarmer.home-v2 .hb-note {
   color:var(--text-secondary) !important;
@@ -1156,24 +1377,25 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   background:rgba(47,167,90,0.08);
 }
 #viewFarmer.home-v2 .hb-chip:not(:first-child) {
-  border-left-color:rgba(45,77,58,0.075);
+  border-left:0;
 }
 #viewFarmer.home-v2 .hb-chip-ico {
-  border-radius:10px;
-  background:rgba(255,255,255,0.50);
-  box-shadow:inset 0 0 0 1px rgba(43,79,56,0.045);
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
 }
 #viewFarmer.home-v2 .hb-chip-ico img {
-  filter:drop-shadow(0 2px 3px rgba(35,78,48,0.12));
+  filter:drop-shadow(0 1px 2px rgba(35,78,48,0.14));
+}
+/* target：標籤在上（小、柔和棕），數值在下（深色、較粗）*/
+#viewFarmer.home-v2 .hb-chip-label {
+  color:#8A7A55 !important;
+  font-weight:700;
 }
 #viewFarmer.home-v2 .hb-chip-val {
-  color:var(--text-primary) !important;
+  color:#2C3A30 !important;
   font-weight:800;
-  letter-spacing:-0.025em;
-}
-#viewFarmer.home-v2 .hb-chip-label {
-  color:var(--text-secondary) !important;
-  font-weight:600;
+  letter-spacing:-0.02em;
 }
 #viewFarmer.home-v2 .hb-chip-label-pill {
   color:var(--brand-green-dark) !important;
@@ -1220,70 +1442,61 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   color:#21362A !important;
   letter-spacing:-0.018em;
 }
+/* 快速操作：四顆獨立彩色藥丸，各自的 3D 圓形圖示（素材 03_37_xx）*/
 #viewFarmer.home-v2 .hb-quickrow {
-  gap:1px;
-  padding:1px;
-  border:1px solid rgba(38,77,51,0.09);
-  border-radius:var(--radius-control);
-  background:rgba(56,91,67,0.09);
-  box-shadow:
-    inset 0 1px 2px rgba(33,66,45,0.045),
-    0 1px 0 rgba(255,255,255,0.74);
+  gap:clamp(7px,1.6vw,10px);
+  padding:0;
+  border:0;
+  background:transparent;
+  box-shadow:none;
 }
 #viewFarmer.home-v2 .hb-qitem {
-  border:0;
-  border-radius:0;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,0.52);
-  transition:background-color 160ms ease, box-shadow 160ms ease, filter 160ms ease;
+  border:1px solid rgba(255,255,255,0.7);
+  border-radius:clamp(14px,4vw,18px);
+  padding:clamp(4px,0.7dvh,7px) clamp(8px,2.4vw,12px) clamp(4px,0.7dvh,7px) clamp(5px,1.4vw,7px);
+  gap:clamp(6px,1.8vw,9px);
+  box-shadow:0 4px 12px rgba(31,65,43,0.08), inset 0 1px 0 rgba(255,255,255,0.7);
+  transition:box-shadow 160ms ease, filter 160ms ease, transform 120ms ease;
   -webkit-tap-highlight-color:transparent;
 }
-#viewFarmer.home-v2 .hb-qitem:nth-child(1) {
-  background:rgba(246,251,246,0.90) !important;
-  border-radius:calc(var(--radius-control) - 2px) 0 0 0;
-}
-#viewFarmer.home-v2 .hb-qitem:nth-child(2) {
-  background:rgba(246,249,252,0.90) !important;
-  border-radius:0 calc(var(--radius-control) - 2px) 0 0;
-}
-#viewFarmer.home-v2 .hb-qitem:nth-child(3) {
-  background:rgba(250,247,251,0.90) !important;
-  border-radius:0 0 0 calc(var(--radius-control) - 2px);
-}
-#viewFarmer.home-v2 .hb-qitem:nth-child(4) {
-  background:rgba(253,249,242,0.92) !important;
-  border-radius:0 0 calc(var(--radius-control) - 2px) 0;
-}
+#viewFarmer.home-v2 .hb-qitem.qa-camera { background:linear-gradient(180deg,#eef9ee,#dff1e0) !important; border-color:rgba(120,190,130,0.35); }
+#viewFarmer.home-v2 .hb-qitem.qa-upload { background:linear-gradient(180deg,#eef5fd,#dcebfb) !important; border-color:rgba(120,170,225,0.32); }
+#viewFarmer.home-v2 .hb-qitem.qa-qr     { background:linear-gradient(180deg,#f5eefd,#eaddfa) !important; border-color:rgba(170,135,220,0.32); }
+#viewFarmer.home-v2 .hb-qitem.qa-task   { background:linear-gradient(180deg,#fdf7e6,#fcefcf) !important; border-color:rgba(225,190,110,0.36); }
 #viewFarmer.home-v2 .hb-qitem:hover {
-  filter:brightness(0.99);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.72),
-    0 2px 7px rgba(31,65,43,0.055);
+  filter:brightness(1.01);
+  box-shadow:0 6px 16px rgba(31,65,43,0.12), inset 0 1px 0 rgba(255,255,255,0.75);
 }
 #viewFarmer.home-v2 .hb-qitem:active {
-  transform:none;
-  filter:brightness(0.955);
-  box-shadow:inset 0 2px 5px rgba(31,65,43,0.09);
+  transform:scale(0.98);
+  filter:brightness(0.97);
+  box-shadow:0 2px 6px rgba(31,65,43,0.10), inset 0 1px 2px rgba(31,65,43,0.06);
 }
 #viewFarmer.home-v2 .hb-qic {
-  background:linear-gradient(180deg, rgba(255,255,255,0.96), rgba(248,250,247,0.88));
-  border:1px solid rgba(43,75,55,0.09);
-  border-radius:calc(var(--radius-control) - 4px);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.96),
-    0 3px 8px rgba(28,63,40,0.09);
+  width:clamp(32px,9.5vw,40px);
+  height:clamp(32px,9.5vw,40px);
+  background:transparent;
+  border:0;
+  border-radius:50%;
+  box-shadow:0 2px 6px rgba(28,63,40,0.14);
+  overflow:hidden;
 }
 #viewFarmer.home-v2 .hb-qic img {
-  filter:drop-shadow(0 1px 2px rgba(35,68,45,0.12));
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:50%;
+  filter:none;
 }
 #viewFarmer.home-v2 .hb-qn {
-  color:var(--text-primary) !important;
-  font-weight:760;
+  color:#243b2e !important;
+  font-weight:800;
   letter-spacing:-0.018em;
 }
 #viewFarmer.home-v2 .hb-qarrow {
-  color:rgba(55,76,63,0.28) !important;
-  font-size:0.9em;
-  font-weight:650;
+  color:rgba(55,76,63,0.34) !important;
+  font-size:1em;
+  font-weight:700;
 }
 
 #viewFarmer.home-v2 .hb-duo {
@@ -1320,8 +1533,8 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 }
 #viewFarmer.home-v2 .hb-taskcard .hb-head,
 #viewFarmer.home-v2 .hb-gachacard .hb-head {
-  font-weight:850;
-  letter-spacing:-0.025em;
+  font-weight:800;
+  letter-spacing:-0.022em;
 }
 
 #viewFarmer.home-v2 .hb-taskcard .hb-ring-outer {
@@ -1441,6 +1654,43 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   background:rgba(187,139,41,0.07);
 }
 
+/* 農場扭蛋機：素材優化（禮物標題圖示、扭蛋機主圖、閃亮裝飾、次數徽章）*/
+#viewFarmer.home-v2 .hb-gachacard .hb-gacha-gift {
+  width:clamp(17px,4.8vw,21px);
+  height:clamp(17px,4.8vw,21px);
+  object-fit:contain;
+  margin-right:3px;
+  vertical-align:middle;
+  filter:drop-shadow(0 1px 2px rgba(150,90,20,0.22));
+}
+#viewFarmer.home-v2 .hb-gacha-sparkle {
+  position:absolute;
+  top:clamp(3px,0.8dvh,8px);
+  right:clamp(5px,2vw,10px);
+  width:clamp(18px,5.2vw,26px);
+  height:auto;
+  opacity:0.9;
+  pointer-events:none;
+  z-index:1;
+  filter:drop-shadow(0 1px 2px rgba(210,150,30,0.22));
+}
+#viewFarmer.home-v2 .hb-gacha-top img {
+  width:calc(var(--gacha-image-size) * 1.32);
+  max-width:calc(100% + 6px);
+  filter:
+    drop-shadow(0 9px 10px rgba(127,84,15,0.17))
+    drop-shadow(0 1px 1px rgba(255,255,255,0.4));
+}
+#viewFarmer.home-v2 .hb-gacha-countbox {
+  border:1.5px solid rgba(240,178,58,0.5);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.96),
+    0 4px 10px rgba(126,82,13,0.10);
+}
+#viewFarmer.home-v2 .hb-gcount b {
+  font-size:clamp(19px,5.4vw,24px);
+}
+
 #bottomTabbar {
   background:
     linear-gradient(180deg, rgba(255,254,250,0.975), rgba(250,249,244,0.97));
@@ -1507,17 +1757,47 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 }
 
 /* 我的頁 */
-#viewMe .me-card { box-sizing:border-box; background:rgba(255,255,255,0.78); backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,0.65); border-radius:22px; padding:22px 18px; box-shadow:0 6px 24px rgba(30,60,40,0.08); margin-bottom:14px; }
+/* My 頁專屬背景圖：滿版置中、cover 不變形；圖片不存在時以柔和淺綠為後備色，畫面不會破圖 */
+#viewMe.view-screen { position:relative; background:transparent; }
+#viewMe::before { content:''; position:fixed; inset:0; z-index:0; pointer-events:none; background:#eaf3e6 url('assets/images/my-bg.jpg') top center / cover no-repeat; }
+#viewMe > .container { position:relative; z-index:1; }
+#viewMe .me-card { box-sizing:border-box; background:rgba(255,255,255,0.80); backdrop-filter:blur(14px); border:1px solid rgba(255,255,255,0.65); border-radius:22px; padding:18px 18px; box-shadow:0 6px 24px rgba(30,60,40,0.08); margin-bottom:9px; }
+/* 我的點數卡（對齊素材 05_09_39 的奶油色藥丸樣式） */
+#viewMe .me-points { margin-top:10px; display:flex; align-items:center; justify-content:center; gap:8px; background:linear-gradient(180deg,#fff9e9,#fdf0cc); border:1.5px solid #f1d98a; border-radius:16px; padding:11px 16px; font-size:14px; font-weight:800; color:#8a6d1f; box-shadow:0 3px 10px rgba(210,180,90,0.16); }
+#viewMe .me-points b { font-size:19px; color:#6e5410; }
 #viewMe .me-avatar { width:84px; height:84px; border-radius:50%; object-fit:cover; background:rgba(30,50,40,0.1); border:3px solid #7fd8a2; display:block; margin:0 auto 12px; }
+/* 可編輯頭像：外框可點、右下角相機小徽章，維持乾淨可愛風 */
+#viewMe .me-avatar-wrap { position:relative; width:84px; height:84px; margin:0 auto 12px; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+#viewMe .me-avatar-wrap .me-avatar { margin:0; }
+#viewMe .me-avatar-wrap:active { transform:scale(0.97); }
+#viewMe .me-avatar-edit { position:absolute; right:-1px; bottom:-1px; width:24px; height:24px; border-radius:50%; background:#fff; border:1.5px solid rgba(30,50,40,0.12); box-shadow:0 2px 6px rgba(30,60,40,0.22); display:flex; align-items:center; justify-content:center; line-height:1; pointer-events:none; color:#222; }
+#viewMe .me-avatar-edit svg { width:13px; height:13px; display:block; }
 #viewMe .me-name { text-align:center; font-size:19px; font-weight:800; color:#1c2b22; }
 #viewMe .me-mail { text-align:center; font-size:12px; color:rgba(30,50,40,0.5); margin-top:3px; }
+/* 頭像卡背景板（素材 05_09_49 綠色底板）；文字/頭像置於其上仍清晰 */
+#viewMe .me-profile { background:url('assets/images/me-softcard.png') center/cover no-repeat; border:1px solid rgba(255,255,255,0.7); }
+/* 功能選單卡：對齊目標截圖（彩色圓形圖示 + 標題 + 副標 + 箭頭 + 分隔線） */
+#viewMe .me-menu { padding:4px 16px; }
+#viewMe .me-menu-row { display:flex; align-items:center; gap:13px; padding:12px 2px; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+#viewMe .me-menu-row:active { opacity:0.65; }
+#viewMe .me-menu-ic { flex:0 0 auto; width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:26px; line-height:1; }
+#viewMe .me-menu-ic.ic-green { background:#dcecd2; }
+#viewMe .me-menu-ic.ic-gold  { background:#fbf0cd; }
+#viewMe .me-menu-ic.ic-teal  { background:#d6ebe8; }
+#viewMe .me-menu-txt { flex:1 1 auto; min-width:0; }
+#viewMe .me-menu-title { font-size:17px; font-weight:800; color:#1c3325; line-height:1.25; }
+#viewMe .me-menu-sub { font-size:12.5px; color:#8a9a8f; margin-top:3px; line-height:1.25; }
+#viewMe .me-menu-arrow { flex:0 0 auto; font-size:24px; color:rgba(30,50,40,0.26); }
+#viewMe .me-menu-div { height:1px; background:rgba(30,50,40,0.08); }
+#viewMe .me-logout-ic { display:inline-flex; align-items:center; }
 #viewMe .me-row { display:flex; align-items:center; justify-content:space-between; padding:14px 4px; border-bottom:1px solid rgba(30,50,40,0.07); font-size:14px; font-weight:700; color:#233b2d; cursor:pointer; }
 #viewMe .me-row:last-child { border-bottom:none; }
 #viewMe .me-row span { color:inherit; }
 #viewFarmer .hm-qbtn span { color:inherit; }
 #viewFarmer .hm-titem, #viewFarmer .hm-gacha-text, #viewFarmer .hm-gacha-count { color:#233b2d; }
 #viewMe .me-row span:last-child { color:rgba(30,50,40,0.35); }
-#viewMe .me-logout { width:100%; border:none; border-radius:14px; padding:13px; background:rgba(229,57,53,0.1); color:#e53935; font-size:14px; font-weight:800; cursor:pointer; font-family:inherit; }
+/* 登出按鈕（對齊素材 05_10_28 的粉色藥丸） */
+#viewMe .me-logout { width:100%; border:none; border-radius:16px; padding:15px; background:linear-gradient(180deg,#fdeaea,#fbdada); color:#e0574f; font-size:15px; font-weight:800; cursor:pointer; font-family:inherit; box-shadow:0 3px 10px rgba(220,120,110,0.16); display:flex; align-items:center; justify-content:center; gap:7px; }
 .gacha-modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.88); z-index: 999; align-items: center; justify-content: center; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
 .gacha-modal-overlay.active { display: flex; }
 .gacha-modal-card { background: linear-gradient(160deg,#0a1f12,#0d2a1a); border-radius: 28px; padding: 26px 22px 22px; text-align: center; max-width: 300px; width: 88%; position: relative; overflow: hidden; animation: popIn 0.45s cubic-bezier(0.175,0.885,0.32,1.275); border: 1.5px solid rgba(255,255,255,0.12); }
@@ -4073,8 +4353,8 @@ body:has(#viewConsumer.active) #loginOverlay { display: none; }
 <div class="ticket-fab" title="抽獎券">🎟 <span class="ticket-count-bubble" id="ticketBadge">0</span></div>
 <div class="ticket-toast" id="ticketToast"></div>
 
-<button class="settings-fab" onclick="openSettings()" title="設定"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
 
+<!-- 音樂播放器（全域，預設隱藏；任務頁不顯示） -->
 <div class="music-player" id="musicPlayer">
   <div class="music-player-bar" id="musicBar">
     <div class="music-cover" onclick="toggleMusicPlayer()" title="收合"><img src="assets/images/music-cover.png" alt=""></div>
@@ -4094,74 +4374,73 @@ body:has(#viewConsumer.active) #loginOverlay { display: none; }
   </div>
 </div>
 
+
 <div id="viewFarmer" class="view-screen home-v2">
 <div class="hb-wrap">
 
 <div class="hero-banner">
 <div class="hb-topbar hero-topbar">
-  <img class="hb-logo" src="assets/images/logo.png" alt="">
-  <div class="hb-brand"><div class="hb-brand-t">福萌芽 Formoya</div><div class="hb-brand-s">記錄每一步農場成長</div></div>
-  <span class="hb-notif-wrap"><button class="hb-rbtn" onclick="switchView('viewTask')"><img src="assets/images/icons/bell.png" alt=""></button><span class="hb-notif-dot"></span></span>
-  <button class="hb-rbtn" onclick="switchView('viewMe')">
-    <img id="homeAvatarImg" src="" alt="" style="width:100%;height:100%;border-radius:50%;object-fit:cover;display:none;" onerror="this.style.display='none'">
-    <img id="homeAvatarFallback" src="assets/images/icons/user.png" alt="" style="width:100%;height:100%;object-fit:contain;">
+  <img class="hb-logo-full" src="assets/images/logo-formoya.png" alt="福萌芽 Formoya">
+  <button class="hb-points" onclick="switchView('viewMe')" aria-label="我的點數">
+    <img class="hb-points-coin" src="assets/images/others/coin.png" alt="">
+    <span class="hb-points-txt"><span class="hb-points-label">我的點數</span><span class="hb-points-val" id="homePointsVal">0</span></span>
   </button>
 </div>
 
   <div class="hero-greet">
-    <div class="hb-greet-row"><div class="hb-greet-h" id="homeGreeting">午安！</div><img class="hb-greet-leaf" src="assets/images/decorations/leaf-left.png" alt=""></div>
+    <div class="hb-greet-row"><div class="hb-greet-h" id="homeGreeting">午安！</div></div>
     <div class="hb-greet-sub">記錄每一步，串聯信任的農業未來</div>
   </div>
-  <img class="hero-farmer" src="assets/images/hero-farmer-mascot.png" alt="">
+  <img class="hero-farmer" src="assets/images/home/home-farmer.png" alt="">
 </div>
 
 <div class="hb-card hb-summary">
   <div class="hb-head"><img class="hb-section-icon" src="assets/images/icons/icon-farm-section.png" alt="">今日農場紀錄<span class="hb-seeall" onclick="switchView('viewConsumer')">查看全部 ›</span></div>
-  <div class="hb-note" id="homeSumNote">點擊下方按鈕開始今天的第一筆紀錄</div>
+  <div class="hb-note" id="homeSumNote">點擊下方按鈕開始今天的第一筆紀錄吧！</div>
   <div class="hb-chiprow">
-    <div class="hb-chip"><span class="hb-chip-ico"><img src="assets/images/crops/crop-water-spinach.png" alt=""></span><div class="hb-chip-text"><div class="hb-chip-val" id="homeSumCrop">尚未紀錄</div><div class="hb-chip-label hb-chip-label-pill">作物</div></div></div>
-    <div class="hb-chip"><span class="hb-chip-ico"><img src="assets/images/data/icon-temperature.png" alt=""></span><div class="hb-chip-text"><div class="hb-chip-val" id="homeSumTemp">--°C</div><div class="hb-chip-label">溫度</div></div></div>
-    <div class="hb-chip"><span class="hb-chip-ico"><img src="assets/images/data/icon-humidity.png" alt=""></span><div class="hb-chip-text"><div class="hb-chip-val" id="homeSumHum">--%</div><div class="hb-chip-label">濕度</div></div></div>
-    <div class="hb-chip"><span class="hb-chip-ico"><img src="assets/images/data/icon-soil-ph.png" alt=""></span><div class="hb-chip-text"><div class="hb-chip-val" id="homeSumPh">--</div><div class="hb-chip-label">土壤 pH</div></div></div>
+    <div class="hb-metric"><img class="hb-metric-ic" src="assets/images/home/metrics/ic/crop.png" alt=""><div class="hb-metric-tx"><span class="hb-metric-lb">作物</span><span class="hb-metric-vl" id="homeSumCrop">--</span></div></div>
+    <div class="hb-metric"><img class="hb-metric-ic" src="assets/images/home/metrics/ic/temperature.png" alt=""><div class="hb-metric-tx"><span class="hb-metric-lb">溫度</span><span class="hb-metric-vl" id="homeSumTemp">--°C</span></div></div>
+    <div class="hb-metric"><img class="hb-metric-ic" src="assets/images/home/metrics/ic/humidity.png" alt=""><div class="hb-metric-tx"><span class="hb-metric-lb">濕度</span><span class="hb-metric-vl" id="homeSumHum">--%</span></div></div>
+    <div class="hb-metric"><img class="hb-metric-ic" src="assets/images/home/metrics/ic/soil-ph.png" alt=""><div class="hb-metric-tx"><span class="hb-metric-lb">土壤 pH</span><span class="hb-metric-vl" id="homeSumPh">--</span></div></div>
   </div>
-  <button class="hb-bigbtn" onclick="openQuickLogModal()"><img class="hb-record-icon" src="assets/images/icons/icon-start-record.png" alt="">開始記錄</button>
+  <button class="hb-recordbtn" onclick="openQuickLogModal()" aria-label="開始紀錄"><img src="assets/images/home/start-record-btn.png" alt="開始紀錄"></button>
 </div>
 
 <div class="hb-card">
   <div class="hb-head">🌱 快速操作</div>
   <div class="hb-quickrow">
-    <button class="hb-qitem" onclick="startCamera()" style="background:#E8F5E9;"><span class="hb-qic"><img src="assets/images/icons/icon-camera.png" alt=""></span><span class="hb-qn">拍攝照片</span><span class="hb-qarrow">›</span></button>
-    <button class="hb-qitem" onclick="document.getElementById('farmerPhotoInput').click()" style="background:#E8F0FE;"><span class="hb-qic"><img src="assets/images/icons/icon-upload.png" alt=""></span><span class="hb-qn">上傳照片</span><span class="hb-qarrow">›</span></button>
-    <button class="hb-qitem" onclick="generateConsumerQR(); openQrModal();" style="background:#F3E8FD;"><span class="hb-qic"><img src="assets/images/icons/icon-qr.png" alt=""></span><span class="hb-qn">產生 QR Code</span><span class="hb-qarrow">›</span></button>
-    <button class="hb-qitem" onclick="switchView('viewTask')" style="background:#FFF3E0;"><span class="hb-qic"><img src="assets/images/icons/icon-task.png" alt=""></span><span class="hb-qn">我的任務</span><span class="hb-qarrow">›</span></button>
+    <button class="hb-qitem qa-camera" onclick="startCamera()"><span class="hb-qic"><img src="assets/images/home/quick/qa-camera.png" alt=""></span><span class="hb-qn">拍攝照片</span><span class="hb-qarrow">›</span></button>
+    <button class="hb-qitem qa-upload" onclick="document.getElementById('farmerPhotoInput').click()"><span class="hb-qic"><img src="assets/images/home/quick/qa-upload.png" alt=""></span><span class="hb-qn">上傳照片</span><span class="hb-qarrow">›</span></button>
+    <button class="hb-qitem qa-qr" onclick="generateConsumerQR(); openQrModal();"><span class="hb-qic"><img src="assets/images/home/quick/qa-qr.png" alt=""></span><span class="hb-qn">產生 QR Code</span><span class="hb-qarrow">›</span></button>
+    <button class="hb-qitem qa-task" onclick="switchView('viewTask')"><span class="hb-qic"><img src="assets/images/home/quick/qa-task.png" alt=""></span><span class="hb-qn">我的任務</span><span class="hb-qarrow">›</span></button>
   </div>
 </div>
 
 <div class="hb-duo">
   <div class="hb-card hb-taskcard" onclick="switchView('viewTask')">
-    <div class="hb-head">💧 今日任務</div>
+    <div class="hb-head"><img class="hb-tk-titleic" src="assets/images/home/tasks/icon_task_drop.png" alt="">今日任務</div>
     <div class="hb-ring-row">
       <div class="hb-ring-col">
         <div class="hb-ring-outer" id="homeRingOuter">
-          <div class="hb-ring-inner">
-            <span id="homeRingText">0/6</span>
-          </div>
+          <img class="hb-ring-img" src="assets/images/home/tasks/task_progress_ring.png" alt="">
+          <span class="hb-ring-val" id="homeRingText">0/6</span>
         </div>
         <div class="hb-ring-sub">已完成<b id="homeRingSubText">0 項</b></div>
       </div>
       <div class="hb-tklist">
-        <div class="hb-tkrow hb-tkdone"><span class="hb-tkdot">✓</span>澆水</div>
-        <div class="hb-tkrow hb-tkdone"><span class="hb-tkdot">✓</span>施肥</div>
-        <div class="hb-tkrow"><span class="hb-tkdot"></span>除草</div>
-        <div class="hb-tkrow"><span class="hb-tkdot"></span>巡視農場</div>
+        <div class="hb-tkrow" data-task="澆水"><img class="hb-tkchk" src="assets/images/home/tasks/task_check_empty.png" alt="">澆水</div>
+        <div class="hb-tkrow" data-task="施肥"><img class="hb-tkchk" src="assets/images/home/tasks/task_check_empty.png" alt="">施肥</div>
+        <div class="hb-tkrow" data-task="除草"><img class="hb-tkchk" src="assets/images/home/tasks/task_check_empty.png" alt="">除草</div>
+        <div class="hb-tkrow" data-task="巡視農場"><img class="hb-tkchk" src="assets/images/home/tasks/task_check_empty.png" alt="">巡視農場</div>
       </div>
     </div>
-    <div class="hb-tkcta"><span>查看任務詳情</span><span aria-hidden="true">›</span></div>
+    <div class="hb-tkbtn"><img src="assets/images/home/tasks/btn_task_detail.png" alt=""><span>查看所有任務</span></div>
   </div>
   <div class="hb-card hb-gachacard" onclick="switchView('viewGallery')">
-    <div class="hb-head" style="justify-content:center;">🎁 農場扭蛋機</div>
+    <img class="hb-gacha-sparkle" src="assets/images/home/gacha/sparkle.png" alt="" aria-hidden="true">
+    <div class="hb-head" style="justify-content:center;"><img class="hb-gacha-gift" src="assets/images/home/gacha/gift.png" alt="">農場扭蛋機</div>
     <div class="hb-gacha-main">
-    <div class="hb-gacha-top"><img src="assets/images/gacha-machine-green.png" alt=""></div>
+    <div class="hb-gacha-top"><img src="assets/images/home/gacha/machine.png" alt=""></div>
     <div class="hb-gacha-desc">完成每日任務<br>獲得扭蛋抽獎機會！</div>
     <div class="hb-gacha-countbox">
       <div class="hb-gacha-countlabel">今日剩餘次數</div>
@@ -4239,22 +4518,37 @@ body:has(#viewConsumer.active) #loginOverlay { display: none; }
 </div>
 
 <div id="viewMe" class="view-screen">
-<div class="container" style="max-width:560px;">
-  <div class="hm-header" style="padding:18px 0 14px;">
-    <div class="hm-title" style="color:#1c2b22;">我的</div>
-  </div>
-  <div class="me-card">
-    <img class="me-avatar" id="meAvatar" src="" alt="">
+<div class="container" style="max-width:560px; padding-top:56px;">
+  <div class="me-card me-profile">
+    <input type="file" id="avatarInput" accept="image/*" style="display:none;" onchange="handleAvatarUpload(event)">
+    <div class="me-avatar-wrap" onclick="changeAvatar()" title="更換頭像" role="button" aria-label="更換頭像">
+      <img class="me-avatar" id="meAvatar" src="" alt="頭像">
+      <span class="me-avatar-edit" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg></span>
+    </div>
     <div class="me-name" id="meName">在地小農</div>
     <div class="me-mail" id="meMail"></div>
   </div>
-  <div class="me-card">
-    <div class="me-row" onclick="openSettings()"><span>⚙️ 農場設定</span><span>›</span></div>
-    <div class="me-row" onclick="switchView('viewTask')"><span>⭐ 任務與成就</span><span>›</span></div>
-    <div class="me-row" onclick="switchView('viewGallery')"><span>📖 我的圖鑑</span><span>›</span></div>
+  <div class="me-card me-menu">
+    <div class="me-menu-row" onclick="openSettings()">
+      <div class="me-menu-ic ic-green">🌱</div>
+      <div class="me-menu-txt"><div class="me-menu-title">農場設定</div><div class="me-menu-sub">管理你的農場資訊與設備</div></div>
+      <div class="me-menu-arrow">›</div>
+    </div>
+    <div class="me-menu-div"></div>
+    <div class="me-menu-row" onclick="switchView('viewTask')">
+      <div class="me-menu-ic ic-gold">🏆</div>
+      <div class="me-menu-txt"><div class="me-menu-title">任務與成就</div><div class="me-menu-sub">完成任務，獲得成就與獎勵</div></div>
+      <div class="me-menu-arrow">›</div>
+    </div>
+    <div class="me-menu-div"></div>
+    <div class="me-menu-row" onclick="switchView('viewGallery')">
+      <div class="me-menu-ic ic-teal">📖</div>
+      <div class="me-menu-txt"><div class="me-menu-title">我的圖鑑</div><div class="me-menu-sub">查看你收藏的植物與知識</div></div>
+      <div class="me-menu-arrow">›</div>
+    </div>
   </div>
   <div class="me-card">
-    <button class="me-logout" onclick="doLogout()">登出帳號</button>
+    <button class="me-logout" onclick="doLogout()"><span class="me-logout-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>登出帳號</button>
   </div>
 </div>
 </div>
@@ -4267,12 +4561,6 @@ body:has(#viewConsumer.active) #loginOverlay { display: none; }
     <img src="assets/images/others/coin.png" alt="">
     <span id="galleryCoinCount">0</span>
   </div>
-  <button class="gallery-settings" type="button" aria-label="開啟設定" onclick="openSettings()">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <circle cx="12" cy="12" r="3"></circle>
-      <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21h-4v-.09A1.7 1.7 0 0 0 8.6 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H3v-4h.09A1.7 1.7 0 0 0 4.6 8.6a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 0 .4-1.1V3h4v.09A1.7 1.7 0 0 0 15.4 4.6a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.4 9c.16.38.37.72.6 1 .3.35.68.55 1.1.6H21v4h-.09a1.7 1.7 0 0 0-1.51.4Z"></path>
-    </svg>
-  </button>
   <div class="gallery-hero-copy">
     <div class="gallery-title-row">
       <h2 class="gallery-title">圖鑑</h2>
@@ -4347,26 +4635,25 @@ body:has(#viewConsumer.active) #loginOverlay { display: none; }
     <h2 class="tk-h2">任務 ・ 成就</h2>
     <div class="tk-sub">完成任務，累積經驗，成為更優秀的農夫！</div>
   </div>
-  <button class="tk-gear" onclick="openSettings()" title="設定"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
 </div>
 
 <div class="tk-card" id="expPanel" style="margin-bottom:16px;"></div>
 
 <div class="task-two-col">
   <div class="tk-card" id="dailyTaskPanel">
-    <div class="tk-card-head">今日任務 <span id="dailyTaskCount" class="tk-card-count"></span></div>
+    <div class="tk-card-head"><span class="tk-head-emoji">📅</span>今日任務 <span id="dailyTaskCount" class="tk-card-count"></span></div>
     <div id="dailyTaskList"></div>
     <div class="tk-footnote">每日午夜自動重置</div>
   </div>
 
   <div class="tk-card" id="achievementPanel">
-    <div class="tk-card-head">成就 <span id="achieveCount" class="tk-card-count"></span></div>
+    <div class="tk-card-head"><span class="tk-head-emoji">🏆</span>成就 <span id="achieveCount" class="tk-card-count"></span></div>
     <div id="achievementList"></div>
   </div>
 </div>
 
 <div class="tk-card" id="titlePanel">
-  <div class="tk-card-head">稱號 <span id="titleCount" class="tk-card-count"></span></div>
+  <div class="tk-card-head"><span class="tk-head-emoji">👑</span>稱號 <span id="titleCount" class="tk-card-count"></span></div>
   <div id="titleList" class="tk-title-row"></div>
 </div>
 
@@ -4542,15 +4829,19 @@ body:has(#viewConsumer.active) #loginOverlay { display: none; }
     <div class="settings-divider"></div>
 
     <div class="settings-section">
-      <div class="settings-section-label">音樂設定</div>
+      <div class="settings-section-label">音效與音樂</div>
+      <div class="settings-row">
+        <label>背景音樂</label>
+        <button id="settingsMusicBtn" onclick="setMusicOn(!_getMusicOn())" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;border-radius:10px;padding:7px 18px;font-size:13px;cursor:pointer;">🔊 開啟</button>
+      </div>
       <div class="settings-row">
         <label>音量</label>
         <input type="range" id="settingsVolume" min="0" max="100" value="60" oninput="setMusicVolume(this.value)">
         <span id="settingsVolumeVal" style="font-size:12px;color:rgba(255,255,255,0.55);min-width:28px;text-align:right;">60%</span>
       </div>
       <div class="settings-row">
-        <label>背景音樂</label>
-        <button id="settingsMuteBtn" onclick="toggleSettingsMute()" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;border-radius:10px;padding:7px 18px;font-size:13px;cursor:pointer;">🔊 開啟</button>
+        <label>音效</label>
+        <button id="settingsSfxBtn" onclick="setSfxOn(!_getSfxOn())" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;border-radius:10px;padding:7px 18px;font-size:13px;cursor:pointer;">🔊 開啟</button>
       </div>
     </div>
 
@@ -4560,6 +4851,14 @@ body:has(#viewConsumer.active) #loginOverlay { display: none; }
       <div class="settings-section-label">帳號</div>
       <button class="btn-settings-save" onclick="sendResetEmail()" style="margin-bottom:10px;">更改密碼（發送重設信）</button>
       <button class="btn-settings-logout" onclick="doLogout(); closeSettings();">登出帳號</button>
+    </div>
+
+    <div class="settings-divider"></div>
+
+    <div class="settings-section">
+      <div class="settings-section-label">關於</div>
+      <div class="settings-row" style="cursor:default;"><label>版本</label><span style="font-size:12px;color:rgba(255,255,255,0.6);">福萌芽 Formoya v1.0.0</span></div>
+      <div class="settings-row" style="cursor:default;"><label>更新資訊</label><span style="font-size:12px;color:rgba(255,255,255,0.6);">已是最新版本</span></div>
     </div>
 
   </div>
@@ -4641,6 +4940,37 @@ const consumerWikiImages = {
 "苦瓜": "assets/images/knowledge/knowledge-bitter-melon.png",
 "地瓜葉": "assets/images/knowledge/knowledge-sweet-potato-leaf.png"
 };
+
+// ── 使用者資料隔離 ────────────────────────────────────────
+// 每位登入者的 localStorage 一律以其 Firebase UID 命名空間化，
+// 讓不同帳號在同一裝置上完全獨立、互不繼承（EXP／抽獎券／扭蛋收藏／任務／成就／稱號／個人檔案…）。
+let _activeUid = null;
+(function () {
+  if (window.__lsScoped) return; window.__lsScoped = true;
+  const ls = window.localStorage;
+  const getRaw = ls.getItem.bind(ls), setRaw = ls.setItem.bind(ls), remRaw = ls.removeItem.bind(ls);
+  window._rawLS = { get: getRaw, set: setRaw, remove: remRaw };
+  // 只有應用程式的使用者資料 key 會被命名空間化；Firebase 自身的 key（firebase:*）不受影響。
+  const isUserKey = k => typeof k === 'string' && (k.indexOf('skysef_') === 0 || k.indexOf('puli_') === 0 || k.indexOf('liked_') === 0);
+  const scope = k => (_activeUid && isUserKey(k)) ? ('u:' + _activeUid + '::' + k) : k;
+  ls.getItem    = k => getRaw(scope(k));
+  ls.setItem    = (k, v) => setRaw(scope(k), v);
+  ls.removeItem = k => remRaw(scope(k));
+})();
+
+// 切換帳號時：先把記憶體內的狀態清成預設，避免短暫顯示上一位使用者的資料
+function _resetUserStateInMemory() {
+  _exp = 0; _tickets = 0; gallery = []; logs = []; farmProfile = { location: '', farmer: '' };
+  window._lastGachaChar = null;
+}
+// 登入後：只從「目前這位使用者」的命名空間載入資料
+function _loadUserStateFromStorage() {
+  _exp     = parseInt(localStorage.getItem('skysef_exp') || '0', 10);
+  _tickets = parseInt(localStorage.getItem('skysef_tickets') || '0', 10);
+  try { gallery = JSON.parse(localStorage.getItem('skysef_gallery') || '[]') || []; } catch (e) { gallery = []; }
+  try { logs = JSON.parse(localStorage.getItem('puli_dynamic_resume') || '[]') || []; } catch (e) { logs = []; }
+  try { farmProfile = JSON.parse(localStorage.getItem('puli_farm_profile') || 'null') || { location: '', farmer: '' }; } catch (e) { farmProfile = { location: '', farmer: '' }; }
+}
 
 let logs = JSON.parse(localStorage.getItem('puli_dynamic_resume')) || [];
 let farmProfile = JSON.parse(localStorage.getItem('puli_farm_profile')) || { location: '', farmer: '' };
@@ -4862,14 +5192,15 @@ const ACHIEVEMENTS = [
 ];
 
 // ── 經驗值 & 稱號系統 ────────────────────────────────────
+// 稱號進度（7 階）：img 為上傳的稱號卡圖（不含鎖，鎖由狀態控制的 UI 疊層繪製）
 const TITLES = [
-  { name:'農場新人',   req:0,    icon:'🌱' },
-  { name:'農事學徒',   req:100,  icon:'🌿' },
-  { name:'農場助手',   req:300,  icon:'🍃' },
-  { name:'農事達人',   req:600,  icon:'🌾' },
-  { name:'農場老手',   req:1000, icon:'🏡' },
-  { name:'農業先鋒',   req:2000, icon:'🏅' },
-  { name:'傳說農夫',   req:5000, icon:'👑' },
+  { name:'農場新人',   req:0,    icon:'🌱', img:'assets/images/titles/title1.png' },
+  { name:'農事學徒',   req:100,  icon:'🌿', img:'assets/images/titles/title2.png' },
+  { name:'豐收先鋒',   req:300,  icon:'🌾', img:'assets/images/titles/title3.png' },
+  { name:'田野守護者', req:600,  icon:'🛡️', img:'assets/images/titles/title4.png' },
+  { name:'生態巡察使', req:1000, icon:'🧭', img:'assets/images/titles/title5.png' },
+  { name:'智慧耕作師', req:1600, icon:'🧑‍🌾', img:'assets/images/titles/title6.png' },
+  { name:'傳奇農王',   req:2500, icon:'👑', img:'assets/images/titles/title7.png' },
 ];
 
 const EXP_REWARDS = {
@@ -4913,8 +5244,10 @@ function renderExpPanel() {
   const next = _getNextTitle();
   const pct = next ? Math.round(((_exp - cur.req) / (next.req - cur.req)) * 100) : 100;
   el.innerHTML = `
+    <div class="tk-exp-sprout">${cur.icon}</div>
     <div class="tk-exp-row1">
-      <span class="tk-exp-title">${cur.icon} ${cur.name}</span>
+      <span class="tk-exp-badge">${cur.icon}</span>
+      <span class="tk-exp-title">${cur.name}</span>
       <span class="tk-exp-total">總 EXP：${_exp}</span>
     </div>
     <div class="tk-exp-row2">
@@ -4929,16 +5262,34 @@ function renderTitles() {
   const countEl = document.getElementById('titleCount');
   if (!el) return;
   const cur = _getCurrentTitle();
+  // 每張稱號卡的乾淨純色外卡配色（solid=外卡底色、border=外卡邊框色；bg/req 供載入失敗的文字退回卡使用）
+  const TITLE_THEMES = [
+    { solid:'#e8f6e1', bg:'linear-gradient(160deg,#d8f3d0,#bfeab6)', border:'#bee3ae', req:'#2f8f4a' }, // 農場新人 綠
+    { solid:'#e4eefb', bg:'linear-gradient(160deg,#d7e8ff,#c3d9fb)', border:'#b4cff0', req:'#3f6fc4' }, // 農事學徒 藍
+    { solid:'#efe6fb', bg:'linear-gradient(160deg,#ecdcff,#ddc7fb)', border:'#cbb6ec', req:'#7a4fc4' }, // 豐收先鋒 紫
+    { solid:'#e7f4e8', bg:'linear-gradient(160deg,#e3f6e4,#cdeecf)', border:'#b2dcb8', req:'#2f8f4a' }, // 田野守護者 薄荷綠
+    { solid:'#e2f4f0', bg:'linear-gradient(160deg,#d4f3ee,#bfeae2)', border:'#abdcd1', req:'#2f9a86' }, // 生態巡察使 青綠
+    { solid:'#e7effb', bg:'linear-gradient(160deg,#dfeaff,#c8dcfb)', border:'#b6cdef', req:'#3f6fc4' }, // 智慧耕作師 天藍
+    { solid:'#faf2da', bg:'linear-gradient(160deg,#fff2c9,#ffe79a)', border:'#ead69a', req:'#b8901f' }, // 傳奇農王 琥珀
+  ];
   let unlocked = 0;
-  el.innerHTML = TITLES.map(t => {
-    const isUnlocked = _exp >= t.req;
+  el.innerHTML = TITLES.map((t, i) => {
+    const isUnlocked = _exp >= t.req;          // 解鎖狀態：由目前 EXP 決定
     if (isUnlocked) unlocked++;
     const isCur = cur.name === t.name;
-    return `<div class="tk-chip ${isCur ? 'current' : ''} ${isUnlocked ? '' : 'locked'}">
-      ${isUnlocked ? '' : '<span class="tk-chip-lock">🔒</span>'}
-      <div class="tk-chip-icon">${t.icon}</div>
-      <div class="tk-chip-name">${t.name}</div>
-      <div class="tk-chip-req">${t.req} EXP</div>
+    const theme = TITLE_THEMES[i % TITLE_THEMES.length];
+    const longName = t.name.length >= 5 ? ' long' : '';   // 較長的稱號自動縮字級，避免擁擠
+    // 卡面直接使用上傳的稱號圖；沒有圖時才顯示帶配色的文字退回卡。鎖為獨立 UI 疊層，只有未解鎖才顯示
+    return `<div class="tk-chip-wrap">
+      <div class="tk-chip ${isCur ? 'current' : ''} ${isUnlocked ? '' : 'locked'}" title="${t.name}（${t.req} EXP）" style="background:${theme.solid}; border-color:${theme.border};">
+      ${t.img ? `<img class="tk-chip-art" src="${t.img}" alt="${t.name}" loading="lazy" onerror="this.classList.add('tk-art-off')">` : ''}
+      <div class="tk-chip-fallback" style="background:${theme.bg}; border-color:${theme.border};">
+        <div class="tk-chip-icon">${t.icon}</div>
+        <div class="tk-chip-name${longName}">${t.name}</div>
+        <div class="tk-chip-req" style="color:${theme.req}">${t.req} EXP</div>
+      </div>
+      ${isUnlocked ? '' : '<span class="tk-chip-lock" aria-label="未解鎖">🔒</span>'}
+      </div>
     </div>`;
   }).join('');
   if (countEl) countEl.textContent = `${unlocked}/${TITLES.length} 已解鎖`;
@@ -5023,8 +5374,12 @@ function toggleManualTask(name) {
   const state = _getDailyTaskState();
   const wasUndone = !state.manual[name];
   state.manual[name] = !state.manual[name];
+  if (!state.awarded) state.awarded = {};
+  // 每個任務每天最多獎勵一次 EXP：即使反覆勾選／取消也不會重複加經驗
+  const shouldAward = wasUndone && !state.awarded[name];
+  if (shouldAward) state.awarded[name] = true;
   _saveDailyTaskState(state);
-  if (wasUndone) addExp(EXP_REWARDS.manualTask, `完成任務：${name}`);
+  if (shouldAward) addExp(EXP_REWARDS.manualTask, `完成任務：${name}`);
   renderTaskView();
   _tryAwardDailyTaskTicket();
 }
@@ -6184,14 +6539,48 @@ let _musicAudio = null;
 let _musicIndex = 0;
 let _musicCollapsed = false;
 
+// ── 全站單一背景音樂系統（不重複建立、切頁不中斷、依 UID 記憶偏好、尊重瀏覽器自動播放限制）──
+function _getMusicOn()  { const v = localStorage.getItem('skysef_music_on');  return v === null ? true : v === '1'; }
+function _getMusicVol() { const v = parseInt(localStorage.getItem('skysef_music_vol') || '60', 10); return isNaN(v) ? 60 : Math.max(0, Math.min(100, v)); }
+function _getSfxOn()    { const v = localStorage.getItem('skysef_sfx_on');     return v === null ? true : v === '1'; }
+
 function initMusicPlayer() {
+  if (_musicAudio) { _applyUserMusicPrefs(); return; }   // 已建立就不重建（避免重複實例／切頁重播）
   _musicAudio = new Audio(MUSIC_TRACKS[_musicIndex].file);
-  _musicAudio.volume = 0.3;
-  _musicAudio.addEventListener('ended', () => { _musicIndex = (_musicIndex + 1) % MUSIC_TRACKS.length; _loadTrack(); });
+  _musicAudio.loop = (MUSIC_TRACKS.length === 1);          // 單曲循環；多曲則播放結束換下一首
+  _musicAudio.volume = _getMusicVol() / 100;
+  _musicAudio.addEventListener('ended', () => { if (MUSIC_TRACKS.length > 1) { _musicIndex = (_musicIndex + 1) % MUSIC_TRACKS.length; _loadTrack(); } });
   _musicAudio.addEventListener('timeupdate', _updateProgress);
   _updateTrackUI();
-  document.getElementById('musicProgress').style.display = 'block';
-  _musicAudio.play().then(() => _setPlayBtn(true)).catch(() => _setPlayBtn(false));
+  const prog = document.getElementById('musicProgress'); if (prog) prog.style.display = 'block';
+  _armAutoplayUnlock();
+  _applyUserMusicPrefs();
+}
+
+// 依目前登入者的偏好套用音量與開/關（不重建音訊、不重置播放位置）
+function _applyUserMusicPrefs() {
+  if (!_musicAudio) return;
+  _musicAudio.volume = _getMusicVol() / 100;
+  if (_getMusicOn()) {
+    _musicAudio.play().then(() => _setPlayBtn(true)).catch(() => { _setPlayBtn(false); _armAutoplayUnlock(); });
+  } else {
+    _musicAudio.pause(); _setPlayBtn(false);
+  }
+}
+
+// 自動播放被瀏覽器擋下時，於第一次有效互動後才開始播放（且不強制、不產生 console 錯誤）
+function _armAutoplayUnlock() {
+  if (window.__mpArmed) return; window.__mpArmed = true;
+  const h = () => {
+    if (_musicAudio && _getMusicOn() && _musicAudio.paused) {
+      _musicAudio.play().then(() => _setPlayBtn(true)).catch(() => {});
+    }
+    window.removeEventListener('pointerdown', h);
+    window.removeEventListener('keydown', h);
+    window.__mpArmed = false;
+  };
+  window.addEventListener('pointerdown', h);
+  window.addEventListener('keydown', h);
 }
 
 function _loadTrack() {
@@ -6278,9 +6667,13 @@ function _tryInitFirebase() {
 
 async function loadFarmDataFromFirebase() {
   if (!_fbDb) return;
+  // 只讀取「目前登入者」的後端資料，避免跨帳號共用（改為 users/{uid}/... 命名空間）
+  const _u = _fbAuth && _fbAuth.currentUser;
+  if (!_u) return;
+  const _userDoc = _fbDb.collection('users').doc(_u.uid);
   try {
     // Load farm profile
-    const profileSnap = await _fbDb.collection('settings').doc('profile').get();
+    const profileSnap = await _userDoc.collection('settings').doc('profile').get();
     if (profileSnap.exists) {
       const p = profileSnap.data();
       if (p.location) { farmProfile.location = p.location; }
@@ -6288,7 +6681,7 @@ async function loadFarmDataFromFirebase() {
       updateProfileDisplay();
     }
     // Load farm logs
-    const logsSnap = await _fbDb.collection('logs').orderBy('timestamp', 'desc').limit(20).get();
+    const logsSnap = await _userDoc.collection('logs').orderBy('timestamp', 'desc').limit(20).get();
     if (!logsSnap.empty) {
       logs = logsSnap.docs.map(d => {
         const data = d.data();
@@ -6306,7 +6699,7 @@ async function loadFarmDataFromFirebase() {
       initChart();
     }
     // Load plant photo
-    const photoSnap = await _fbDb.collection('settings').doc('photo').get();
+    const photoSnap = await _userDoc.collection('settings').doc('photo').get();
     if (photoSnap.exists && photoSnap.data().url) {
       const url = photoSnap.data().url;
       document.getElementById('photoDisplayConsumer').innerHTML = `<img src="${url}" style="max-width:100%;max-height:180px;border-radius:15px;">`;
@@ -6318,11 +6711,13 @@ async function loadFarmDataFromFirebase() {
 // ── 設定 ─────────────────────────────────────────────────
 function openSettings() {
   updateProfileDisplay();
-  const vol = _musicAudio ? Math.round(_musicAudio.volume * 100) : 60;
+  const vol = _getMusicVol();
   const slider = document.getElementById('settingsVolume');
   const label  = document.getElementById('settingsVolumeVal');
   if (slider) slider.value = vol;
   if (label)  label.textContent = vol + '%';
+  _syncMusicBtn();
+  _syncSfxBtn();
   _syncMuteBtn();
   document.getElementById('settingsOverlay').classList.add('open');
 }
@@ -6344,32 +6739,47 @@ function saveSettingsFarmProfile() {
 
 let _settingsMuted = false;
 function setMusicVolume(v) {
-  const val = parseInt(v, 10);
+  const val = Math.max(0, Math.min(100, parseInt(v, 10) || 0));
+  localStorage.setItem('skysef_music_vol', String(val));   // 依 UID 記憶音量
   const label = document.getElementById('settingsVolumeVal');
   if (label) label.textContent = val + '%';
   if (_musicAudio) _musicAudio.volume = val / 100;
 }
 
-function toggleSettingsMute() {
-  if (!_musicAudio) return;
-  _settingsMuted = !_settingsMuted;
-  if (_settingsMuted) {
-    _musicAudio.pause();
-    _setPlayBtn(false);
-  } else {
-    _musicAudio.play().then(() => _setPlayBtn(true)).catch(() => {});
+// 背景音樂 ON / OFF（依 UID 記憶；關閉即暫停、開啟即播放，並處理自動播放限制）
+function setMusicOn(on) {
+  localStorage.setItem('skysef_music_on', on ? '1' : '0');
+  if (_musicAudio) {
+    if (on) { _musicAudio.play().then(() => _setPlayBtn(true)).catch(() => { _setPlayBtn(false); _armAutoplayUnlock(); }); }
+    else    { _musicAudio.pause(); _setPlayBtn(false); }
+  } else if (on) {
+    initMusicPlayer();
   }
-  _syncMuteBtn();
+  _syncMusicBtn(); _syncMuteBtn();
 }
+
+// 音效 ON / OFF（僅偏好開關並依 UID 記憶；專案目前無音效，不新增音效）
+function setSfxOn(on) {
+  localStorage.setItem('skysef_sfx_on', on ? '1' : '0');
+  _syncSfxBtn();
+}
+
+function _syncMusicBtn() {
+  const btn = document.getElementById('settingsMusicBtn');
+  if (btn) btn.textContent = _getMusicOn() ? '🔊 開啟' : '🔇 關閉';
+}
+function _syncSfxBtn() {
+  const btn = document.getElementById('settingsSfxBtn');
+  if (btn) btn.textContent = _getSfxOn() ? '🔊 開啟' : '🔇 關閉';
+}
+
+// 保留舊 API（避免其他呼叫點出錯）：改為切換 UID 記憶的背景音樂開關
+function toggleSettingsMute() { setMusicOn(!_getMusicOn()); }
 
 function _syncMuteBtn() {
   const btn = document.getElementById('settingsMuteBtn');
   if (!btn) return;
-  if (_settingsMuted || (_musicAudio && _musicAudio.paused)) {
-    btn.textContent = '🔇 關閉';
-  } else {
-    btn.textContent = '🔊 開啟';
-  }
+  btn.textContent = _getMusicOn() ? '🔊 開啟' : '🔇 關閉';
 }
 // ──────────────────────────────────────────────────────────
 
@@ -6405,10 +6815,19 @@ function initAuth() {
   _fbAuth.onAuthStateChanged(user => {
     const overlay = document.getElementById('loginOverlay');
     if (user) {
+      // 綁定目前登入者 → 重置記憶體狀態 → 只載入此使用者命名空間的資料 → 才渲染
+      _activeUid = user.uid;
+      _resetUserStateInMemory();
+      _loadUserStateFromStorage();
       overlay.classList.add('hidden');
       startApp();
+      _applyUserMusicPrefs();   // 套用「這位使用者」的音樂偏好（音量／開關），不重建音訊
       maybeShowProfileSetup();
     } else {
+      // 登出：清除此 UI 工作階段的記憶體狀態，避免下一位使用者繼承；但不刪除該帳號已保存的資料
+      _activeUid = null;
+      _resetUserStateInMemory();
+      if (_musicAudio) { _musicAudio.pause(); _setPlayBtn(false); }   // 停止上一位使用者的音樂
       overlay.classList.remove('hidden');
     }
   });
@@ -6544,6 +6963,10 @@ function renderHomeWidgets() {
   const wloc = document.getElementById('homeWeatherLoc');
   if (wloc) wloc.textContent = farmProfile.location || '台灣在地';
 
+  // 我的點數徽章（顯示目前登入者的即時積分／EXP，依 UID 隔離，不寫死於圖片）
+  const hpv = document.getElementById('homePointsVal');
+  if (hpv) hpv.textContent = _exp;
+
   // 今日農場紀錄摘要（取最新一筆日誌）
   const latest = logs[0];
   const sCrop = document.getElementById('homeSumCrop');
@@ -6551,18 +6974,19 @@ function renderHomeWidgets() {
   const sHum  = document.getElementById('homeSumHum');
   const sPh   = document.getElementById('homeSumPh');
   const sNote = document.getElementById('homeSumNote');
+  // 指標數值以 HTML 文字動態顯示（無資料顯示 --，有資料顯示實際值），依 UID 隔離
   if (latest) {
-    if (sCrop) sCrop.textContent = latest.type || '農場作物';
+    if (sCrop) sCrop.textContent = latest.type || '--';
     if (sTemp) sTemp.textContent = (latest.temp || latest.temp === 0 ? latest.temp : '--') + '°C';
     if (sHum)  sHum.textContent  = (latest.hum  || latest.hum  === 0 ? latest.hum  : '--') + '%';
     if (sPh)   sPh.textContent   = latest.ph || '--';
     if (sNote) sNote.textContent = latest.note || '（無備註）';
   } else {
-    if (sCrop) sCrop.textContent = '尚未紀錄';
+    if (sCrop) sCrop.textContent = '--';
     if (sTemp) sTemp.textContent = '--°C';
     if (sHum)  sHum.textContent  = '--%';
     if (sPh)   sPh.textContent   = '--';
-    if (sNote) sNote.textContent = '點擊下方按鈕開始今天的第一筆紀錄';
+    if (sNote) sNote.textContent = '點擊下方按鈕開始今天的第一筆紀錄吧！';
   }
 
   // 今日任務環狀進度 + 完整清單（6 項）
@@ -6582,12 +7006,20 @@ function renderHomeWidgets() {
   ];
   const done = taskDefs.filter(t => t.done).length;
   const pct = Math.round(done / taskDefs.length * 100);
-  const ringOuter = document.getElementById('homeRingOuter');
   const ringText  = document.getElementById('homeRingText');
   const ringSub   = document.getElementById('homeRingSubText');
-  if (ringOuter) ringOuter.style.background = `conic-gradient(#37B24D ${pct}%, #E5E7EB 0)`;
   if (ringText) ringText.textContent = done + '/' + taskDefs.length;
   if (ringSub) ringSub.textContent = done + ' 項';
+  // 今日任務清單勾選狀態：依實際 state.manual 動態顯示（不寫死）
+  const _tkEmpty = 'assets/images/home/tasks/task_check_empty.png';
+  const _tkDone  = 'assets/images/home/tasks/task_check_done.png';
+  document.querySelectorAll('#viewFarmer .hb-taskcard .hb-tkrow').forEach(row => {
+    const nm = row.getAttribute('data-task');
+    const isDone = !!(state.manual && state.manual[nm]);
+    row.classList.toggle('hb-tkdone', isDone);
+    const chk = row.querySelector('.hb-tkchk');
+    if (chk) chk.src = isDone ? _tkDone : _tkEmpty;
+  });
 
   // 扭蛋剩餘次數
   const tc = document.getElementById('homeTicketCount');
@@ -6626,9 +7058,51 @@ function renderMePage() {
   const ml = document.getElementById('meMail');
   if (nm) nm.textContent = farmProfile.farmer || '在地小農';
   if (ml) ml.textContent = (_fbAuth && _fbAuth.currentUser) ? (_fbAuth.currentUser.email || '') : '';
+  const pv = document.getElementById('mePointsVal');   // 目前登入者的積分（EXP），已依 UID 隔離
+  if (pv) pv.textContent = _exp;
   if (av) {
-    av.src = farmProfile.photo || ('data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#d7e8dc"/><circle cx="32" cy="24" r="11" fill="#9bb8a5"/><ellipse cx="32" cy="54" rx="18" ry="12" fill="#9bb8a5"/></svg>'));
+    av.src = farmProfile.photo || 'assets/images/default-avatar.png';   // 預設頭像
   }
+}
+
+// ── 可編輯頭像（依 UID 隔離，存於 puli_farm_profile.photo）──────────
+function changeAvatar() {
+  const inp = document.getElementById('avatarInput');
+  if (inp) { inp.value = ''; inp.click(); }   // 點頭像即開啟選圖
+}
+function handleAvatarUpload(event) {
+  const file = event.target.files && event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => _applyAvatar(e.target.result);
+  reader.readAsDataURL(file);
+}
+function _applyAvatar(dataUrl) {
+  // 置中裁成正方形再縮到 256，確保圓框內不變形；壓縮避免 localStorage 爆量
+  const img = new Image();
+  img.onload = function () {
+    const S = 256;
+    const side = Math.min(img.width, img.height);
+    const sx = (img.width - side) / 2, sy = (img.height - side) / 2;
+    const cv = document.createElement('canvas'); cv.width = S; cv.height = S;
+    cv.getContext('2d').drawImage(img, sx, sy, side, side, 0, 0, S, S);
+    _saveAvatar(cv.toDataURL('image/jpeg', 0.82));
+  };
+  img.onerror = function () { _saveAvatar(dataUrl); };
+  img.src = dataUrl;
+}
+function _saveAvatar(dataUrl) {
+  farmProfile.photo = dataUrl;
+  try {
+    localStorage.setItem('puli_farm_profile', JSON.stringify(farmProfile));  // 依 UID 命名空間化
+  } catch (e) {
+    showTicketToast('⚠ 圖片太大，請換一張'); return;
+  }
+  const av = document.getElementById('meAvatar'); if (av) av.src = dataUrl;      // 立即更新我的頁
+  const hi = document.getElementById('homeAvatarImg');                          // 同步首頁小頭像
+  const hf = document.getElementById('homeAvatarFallback');
+  if (hi) { hi.src = dataUrl; hi.style.display = 'block'; if (hf) hf.style.display = 'none'; }
+  showTicketToast('✓ 頭像已更新');
 }
 
 function maybeShowProfileSetup() {
@@ -6855,7 +7329,7 @@ async function syncPublicProfile() {
   const user = _fbAuth && _fbAuth.currentUser;
   if (!user || !_fbDb) return;
   try {
-    const photoSnap = await _fbDb.collection('settings').doc('photo').get();
+    const photoSnap = await _fbDb.collection('users').doc(user.uid).collection('settings').doc('photo').get();
     const photo = photoSnap.exists ? (photoSnap.data().url || '') : '';
     const curTitle = _getCurrentTitle ? _getCurrentTitle().name : '農場新人';
     await _fbDb.collection('public_profiles').doc(user.uid).set({
