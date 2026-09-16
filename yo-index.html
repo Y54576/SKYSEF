@@ -15940,6 +15940,33 @@ body:has(#viewGallery.active) {
   #viewGallery .gallery-series-items { grid-template-columns: repeat(4, minmax(0,1fr)); gap: 5px; }
 }
 </style>
+<style id="community-composer-size-fix">
+/* Restore a comfortable, full-width composer on phones and desktop. */
+#viewCommunity .social-wrap { width:100%; max-width:900px; box-sizing:border-box; margin-inline:auto; }
+#viewCommunity .community-composer { width:100%; min-height:190px; box-sizing:border-box; padding:18px 20px 16px; }
+#viewCommunity .community-composer-head { grid-template-columns:64px minmax(0,1fr); gap:14px; }
+#viewCommunity .community-composer-avatar { width:64px; height:64px; }
+#viewCommunity .community-composer-main { width:100%; min-width:0; }
+#viewCommunity .community-composer h2 { font-size:22px; line-height:1.25; margin:0 0 8px; }
+#viewCommunity .community-composer-sprout { position:absolute; top:18px; right:20px; width:28px; height:28px; }
+#viewCommunity #postText { min-height:88px; height:88px; max-height:180px; padding:12px 14px; font-size:16px; line-height:1.5; }
+#viewCommunity .composer-actions { margin-top:12px; gap:12px; }
+#viewCommunity .post-upload { font-size:14px; padding:7px 4px; }
+#viewCommunity .post-upload svg { width:20px; height:20px; }
+#viewCommunity .community-publish { min-width:96px; min-height:42px!important; padding:9px 18px!important; border-radius:13px!important; font-size:16px!important; }
+@media (max-width:480px) {
+  #viewCommunity .social-wrap { width:100%; padding-inline:12px; }
+  #viewCommunity .community-composer { min-height:178px; padding:16px 14px 14px; }
+  #viewCommunity .community-composer-head { grid-template-columns:52px minmax(0,1fr); gap:11px; }
+  #viewCommunity .community-composer-avatar { width:52px; height:52px; }
+  #viewCommunity .community-composer h2 { font-size:18px; margin-bottom:7px; }
+  #viewCommunity .community-composer-sprout { top:16px; right:14px; width:22px; height:22px; }
+  #viewCommunity #postText { height:78px; min-height:78px; max-height:160px; padding:10px 12px; font-size:15px; }
+  #viewCommunity .composer-actions { margin-top:10px; gap:9px; }
+  #viewCommunity .post-upload { font-size:13px; }
+  #viewCommunity .community-publish { min-width:84px; min-height:40px!important; padding:8px 14px!important; font-size:15px!important; }
+}
+</style>
 </head>
 <body class="auth-pending">
 <div id="bootLoading" role="status" aria-live="polite">
