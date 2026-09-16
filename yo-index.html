@@ -17224,7 +17224,6 @@ function openSettings() {
 }
 
 function closeSettings() {
-  for (const id of ['accountCurrentPassword','accountNewPassword','accountConfirmPassword']) document.getElementById(id).value='';
   document.getElementById('settingsOverlay').classList.remove('open');
 }
 
@@ -18102,6 +18101,112 @@ function handleAvatarUpload(event) {
   if (event && event.target && typeof saveAccountAvatar === 'function') saveAccountAvatar(event.target);
 }
 
+// Competition reliability: a Firestore delay must not trap users on the loading screen.
+const _competitionCloudLoadTimeoutMs = 3500;
+const _competitionLocalKey = (uid, key) => `skysef.private.local.v1.${uid}.${key}`;
+const _competitionLegacyKey = (uid, key) => `u:${uid}::${key}`;
+const _competitionCloudSetItem = accountStorage.setItem.bind(accountStorage);
+const _competitionCloudRemoveItem = accountStorage.removeItem.bind(accountStorage);
+
+accountStorage.setItem = function(key, value) {
+  if (!privateKeys.has(key)) return;
+  if (!accountReady || !_fbAuth?.currentUser || _fbAuth.currentUser.uid !== accountUid) throw new Error('帳號資料尚未載入，請稍後再試。');
+  const string = String(value);
+  localStorage.setItem(_competitionLocalKey(accountUid, key), string);
+  accountValues[key] = string;
+  try { _competitionCloudSetItem(key, string); }
+  catch (error) { accountNotice('✓ 已儲存在此裝置，雲端恢復後會再同步', true); }
+};
+accountStorage.removeItem = function(key) {
+  if (!privateKeys.has(key)) return;
+  if (accountUid) localStorage.removeItem(_competitionLocalKey(accountUid, key));
+  try { _competitionCloudRemoveItem(key); }
+  catch (error) { delete accountValues[key]; accountNotice('✓ 已在此裝置更新，雲端恢復後會再同步', true); }
+};
+
+function _competitionTimeout(promise, ms, label) {
+  return Promise.race([promise, new Promise((_, reject) => setTimeout(() => reject(new Error(label)), ms))]);
+}
+
+loadAccount = async function(uid) {
+  clearAccountSession();
+  const epoch = accountEpoch;
+  accountUid = uid;
+  accountNotice('正在讀取自己的帳號資料…');
+  const root = _fbDb.collection('privateAccounts').doc(uid);
+  let entries = {}, cloudValues = {}, cloudAvailable = true;
+  try {
+    const snap = await _competitionTimeout(root.collection('state').doc('manifest').get({source:'server'}), _competitionCloudLoadTimeoutMs, '雲端讀取逾時');
+    if (epoch !== accountEpoch || _fbAuth?.currentUser?.uid !== uid) return false;
+    entries = snap.exists ? (snap.data().entries || {}) : {};
+    await _competitionTimeout(Promise.all(Object.entries(entries).filter(([key]) => privateKeys.has(key)).map(async ([key, entry]) => {
+      const parts = await Promise.all((entry.parts || []).map(id => root.collection('chunks').doc(id).get({source:'server'})));
+      if (parts.some(part => !part.exists)) throw new Error('雲端帳號資料不完整');
+      const value = parts.map(part => part.data().value).join('');
+      if (value !== 'null') cloudValues[key] = value;
+    })), _competitionCloudLoadTimeoutMs, '雲端資料讀取逾時');
+  } catch (error) {
+    cloudAvailable = false;
+    console.warn('Cloud account unavailable; using the isolated on-device backup:', error);
+  }
+  if (epoch !== accountEpoch || _fbAuth?.currentUser?.uid !== uid) return false;
+
+  const localValues = {};
+  for (const key of privateKeys) {
+    const saved = localStorage.getItem(_competitionLocalKey(uid, key));
+    const legacy = localStorage.getItem(_competitionLegacyKey(uid, key));
+    const value = saved !== null ? saved : legacy;
+    if (value !== null && value !== 'null') localValues[key] = value;
+  }
+  let pending = {};
+  try { pending = JSON.parse(localStorage.getItem(pendingKey(uid)) || '{}'); }
+  catch (error) { console.warn('Ignored unreadable pending data:', error); }
+
+  const values = {...localValues, ...cloudValues};
+  for (const [key, item] of Object.entries(pending)) {
+    if (!privateKeys.has(key)) continue;
+    if (item.value === 'null') delete values[key]; else values[key] = item.value;
+  }
+  accountValues = values;
+  accountVersions = Object.fromEntries(Object.entries(entries).map(([key, entry]) => [key, entry.version]));
+  accountDirty = pending;
+  accountReady = true;
+  hydrateAccountGlobals();
+  for (const [key, value] of Object.entries(values)) {
+    try { localStorage.setItem(_competitionLocalKey(uid, key), value); } catch (error) {}
+  }
+  accountNotice(cloudAvailable ? '✓ 帳號資料已載入' : '✓ 已使用此裝置的安全備份，現在可以正常使用');
+  if (cloudAvailable && Object.keys(pending).length) flushAccount().catch(() => {});
+  return true;
+};
+
+accountMessage = function(text) {
+  const target = document.getElementById('accountStatus') || document.getElementById('loginErr');
+  if (target) target.textContent = text;
+  if (typeof showTicketToast === 'function' && text) showTicketToast(text);
+};
+
+doLogout = async function() {
+  if (_loggingOut) return;
+  _loggingOut = true;
+  try {
+    if (!_fbAuth) throw new Error('登入服務尚未連線，請重新整理後再試。');
+    await Promise.race([flushAccount().catch(() => {}), new Promise(resolve => setTimeout(resolve, 1200))]);
+    await _fbAuth.signOut();
+    if (typeof resetCommunity === 'function') resetCommunity();
+    if (_musicAudio) { _musicAudio.pause(); _setPlayBtn(false); }
+    setLoginMode('login'); showLogin();
+  } catch (error) { alert('登出失敗：' + (error.code ? _authErrMsg(error.code) : error.message)); }
+  finally { _loggingOut = false; }
+};
+
+const _competitionOriginalGenerateRandomWiki = generateRandomWiki;
+generateRandomWiki = function() {
+  if (!document.getElementById('wikiTitle') || !document.getElementById('wikiText')) return;
+  return _competitionOriginalGenerateRandomWiki();
+};
+
+
 function initMergedFarmerUi() {
   renderAtlasCategoryTabs();
   const scroller = document.getElementById('galleryTabs');
@@ -18456,5 +18561,18 @@ async function deleteSocialPost(feed,index,btn){
 }
 
 </script>
+
+<div id="mergedCompatibilityFields" hidden aria-hidden="true">
+  <input id="accountCurrentPassword" type="password"><input id="accountNewPassword" type="password">
+  <input id="accountConfirmPassword" type="password"><input id="accountNewEmail" type="email">
+  <span id="accountEmail"></span><span id="accountVerified"></span><span id="accountStatus"></span>
+  <span id="accountSyncStatus"></span><button id="accountRetry" type="button"></button>
+  <img id="accountAvatarPreview" alt="">
+  <div id="farmerLogList"></div><div id="farmerPhotoPreview"></div><div id="photoButtons"></div>
+  <input id="photoUpload" type="file"><div id="resumeList"></div>
+  <input id="settingFarmer"><input id="settingLocation">
+  <span id="wikiTitle"></span><span id="wikiText"></span><img id="wikiImage" alt="">
+</div>
+
 </body>
 </html>
