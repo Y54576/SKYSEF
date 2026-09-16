@@ -17211,31 +17211,47 @@ function _tryInitFirebase() {
 
 // ── 設定 ─────────────────────────────────────────────────
 function openSettings() {
-  updateProfileDisplay();
-  const vol = _getMusicVol();
-  const slider = document.getElementById('settingsVolume');
-  const label  = document.getElementById('settingsVolumeVal');
-  if (slider) slider.value = vol;
-  if (label)  label.textContent = vol + '%';
-  _syncMusicBtn();
-  _syncSfxBtn();
-  _syncMuteBtn();
-  document.getElementById('settingsOverlay').classList.add('open');
+  try {
+    if (typeof label !== 'undefined' && label) label.textContent = (typeof vol !== 'undefined' ? vol : 0) + '%';
+    if (typeof _syncMusicBtn === 'function') _syncMusicBtn();
+    if (typeof _syncSfxBtn === 'function') _syncSfxBtn();
+    if (typeof _syncMuteBtn === 'function') _syncMuteBtn();
+    const overlay = document.getElementById('settingsOverlay');
+    if (overlay) overlay.classList.add('open');
+  } catch (err) {
+    console.warn("openSettings 略過錯誤:", err);
+  }
 }
 
 function closeSettings() {
-  document.getElementById('settingsOverlay').classList.remove('open');
+  try {
+    const overlay = document.getElementById('settingsOverlay');
+    if (overlay) overlay.classList.remove('open');
+  } catch (err) {
+    console.warn("closeSettings 略過錯誤:", err);
+  }
 }
 
 function saveSettingsFarmProfile() {
-  const loc  = document.getElementById('settingsFarmLocation').value.trim();
-  const name = document.getElementById('settingsFarmerName').value.trim();
-  if (loc)  farmProfile.location = loc;
-  if (name) farmProfile.farmer   = name;
-  accountStorage.setItem('puli_farm_profile', JSON.stringify(farmProfile));
-  updateProfileDisplay();
-  const btn = document.querySelector('#settingsOverlay .btn-settings-save');
-  if (btn) { const orig = btn.textContent; btn.textContent = '✓ 已儲存'; setTimeout(() => btn.textContent = orig, 1500); }
+  try {
+    const locEl = document.getElementById('settingsFarmLocation');
+    const nameEl = document.getElementById('settingsFarmerName');
+    const loc = locEl ? locEl.value.trim() : '';
+    const name = nameEl ? nameEl.value.trim() : '';
+    
+    if (typeof farmProfile !== 'undefined' && farmProfile) {
+      if (loc) farmProfile.location = loc;
+      if (name) farmProfile.farmer = name;
+    }
+    if (typeof accountStorage !== 'undefined') {
+      accountStorage.setItem('puli_farm_profile', JSON.stringify(typeof farmProfile !== 'undefined' ? farmProfile : {}));
+    }
+    if (typeof updateProfileDisplay === 'function') {
+      updateProfileDisplay();
+    }
+  } catch (err) {
+    console.warn("saveSettingsFarmProfile 略過錯誤:", err);
+  }
 }
 function saveAccountAvatar(input) {
   const file=input?.files?.[0]; if(!file) return;
