@@ -15981,6 +15981,35 @@ body:has(#viewGallery.active) {
   font-weight: 800 !important;
 }
 </style>
+
+<style id="gallery-fullscreen-bg-fix">
+/* 圖鑑背景隨裝置尺寸填滿整個畫面，內容維持原本卡片寬度 */
+#viewGallery.view-screen {
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 100vh !important;
+  min-height: 100dvh !important;
+  background-size: cover !important;
+  background-position: center top !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+}
+#viewGallery.view-screen > .container {
+  width: 100%;
+  max-width: 430px;
+  margin-inline: auto;
+}
+@media (min-width: 600px) {
+  #viewGallery.view-screen > .container {
+    max-width: 760px;
+  }
+}
+@media (min-width: 1024px) {
+  #viewGallery.view-screen > .container {
+    max-width: 1120px;
+  }
+}
+</style>
 </head>
 <body class="auth-pending">
 <div id="bootLoading" role="status" aria-live="polite">
