@@ -4903,7 +4903,18 @@ function quizCelebrate(){const feedback=document.getElementById('quizFeedback'),
 function quizOwner(){return _fbAuth?.currentUser?.uid||'guest'}
 function quizBest(){const raw=localStorage.getItem('skysef.quiz.best.v1.'+quizOwner());return raw===null?null:Math.max(0,Number(raw)||0)}
 function renderQuizBest(){const n=quizBest();document.getElementById('quizCoverBest').textContent=n===null?'等你挑戰':'最高答對：'+n+' 題'}
-function stopFarmQuiz(){clearTimeout(quizFeedbackTimer);document.getElementById('quizFeedback').hidden=true;document.querySelector('#viewFarmQuiz .quiz-header').classList.remove('urgent');clearInterval(farmQuiz.timer);clearTimeout(farmQuiz.delay);farmQuiz.phase='idle';document.getElementById('quizResult').hidden=true}
+function stopFarmQuiz(){
+  clearTimeout(quizFeedbackTimer);
+  const feedback=document.getElementById('quizFeedback');
+  if(feedback)feedback.hidden=true;
+  const header=document.querySelector('#viewFarmQuiz .quiz-header');
+  if(header)header.classList.remove('urgent');
+  clearInterval(farmQuiz.timer);
+  clearTimeout(farmQuiz.delay);
+  farmQuiz.phase='idle';
+  const result=document.getElementById('quizResult');
+  if(result)result.hidden=true;
+}
 function prepareFarmQuiz(){stopFarmQuiz();renderQuizBest();document.getElementById('quizTime').textContent=60;document.getElementById('quizCorrect').textContent=0;document.getElementById('quizOptions').innerHTML='';document.getElementById('quizQuestion').textContent='你對農場了解多少呢？';document.getElementById('quizProgress').textContent='農場小學堂 · 100 題隨機挑戰';document.getElementById('quizExplanation').hidden=true;document.getElementById('quizStart').hidden=false;document.getElementById('quizIntro').hidden=false;document.getElementById('quizMessage').textContent='準備好了嗎？一起來學新知識！'}
 function quizShuffle(items){for(let i=items.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[items[i],items[j]]=[items[j],items[i]]}return items}
 function startFarmQuiz(){stopFarmQuiz();farmQuiz.deck=quizShuffle(farmQuizBank.slice());farmQuiz.index=0;farmQuiz.correct=0;farmQuiz.total=0;farmQuiz.owner=quizOwner();farmQuiz.end=performance.now()+60000;farmQuiz.phase='answer';document.getElementById('quizCorrect').textContent=0;document.getElementById('quizTime').textContent=60;document.getElementById('quizStart').hidden=true;document.getElementById('quizIntro').hidden=true;document.getElementById('quizMessage').textContent='挑戰開始，加油！';showFarmQuestion();farmQuiz.timer=setInterval(()=>{const remaining=Math.max(0,Math.ceil((farmQuiz.end-performance.now())/1000));document.getElementById('quizTime').textContent=remaining;document.querySelector('#viewFarmQuiz .quiz-header').classList.toggle('urgent',remaining<=10);if(remaining===0)finishFarmQuiz()},100)}
@@ -4916,7 +4927,15 @@ let memoryGame={deck:[],open:[],turns:0,pairs:0,phase:'idle',timer:0,uid:null};
 function memoryBestKey(){return 'skysef.memory.best.v1.'+(_fbAuth?.currentUser?.uid||'guest')}
 function memoryReadBest(){const n=Number(localStorage.getItem(memoryBestKey()));return Number.isInteger(n)&&n>=6?n:null}
 function renderMemoryBest(){const best=memoryReadBest();document.getElementById('memoryCoverBest').textContent=best?'最佳紀錄：'+best+' 回合':'等你挑戰'}
-function stopMemoryGame(){clearTimeout(memoryGame.timer);memoryGame.phase='idle';memoryGame.open=[];document.getElementById('memoryResult').hidden=true;document.getElementById('memoryStart').disabled=false;document.getElementById('memoryStart').textContent='開始挑戰'}
+function stopMemoryGame(){
+  clearTimeout(memoryGame.timer);
+  memoryGame.phase='idle';
+  memoryGame.open=[];
+  const result=document.getElementById('memoryResult');
+  if(result)result.hidden=true;
+  const start=document.getElementById('memoryStart');
+  if(start){start.disabled=false;start.textContent='開始挑戰';}
+}
 function drawMemoryCards(){const grid=document.getElementById('memoryGrid');grid.innerHTML='';memoryGame.deck.forEach((plant,i)=>{const button=document.createElement('button');button.type='button';button.className='memory-card';button.setAttribute('aria-label','第 '+(i+1)+' 張，未翻開');button.innerHTML='<span class="memory-card-inner"><span class="memory-face memory-back" aria-hidden="true">🌱</span><span class="memory-face memory-front" aria-hidden="true"><span>'+memoryPlants[plant][0]+'</span><small>'+memoryPlants[plant][1]+'</small></span></span>';button.onclick=()=>flipMemoryCard(i);grid.appendChild(button)})}
 function memoryReveal(i,open){const card=document.getElementById('memoryGrid').children[i];card.classList.toggle('is-open',open);card.setAttribute('aria-label','第 '+(i+1)+' 張，'+(open?memoryPlants[memoryGame.deck[i]][1]:'未翻開'))}
 function prepareMemoryGame(){stopMemoryGame();memoryGame.deck=[0,1,2,3,4,5,0,1,2,3,4,5];memoryGame.turns=0;memoryGame.pairs=0;drawMemoryCards();document.getElementById('memoryTurns').textContent='0';document.getElementById('memoryPairs').textContent='0';document.getElementById('memoryMessage').textContent='準備一起找植物朋友嗎？';renderMemoryBest()}
@@ -6660,13 +6679,23 @@ async function initAuth() {
       _authStartedUid = uid;
       hideLogin();
       startApp();
-      renderMePage();
-      if (_entryRole === 'consumer') {
-        document.body.classList.add('consumer-mode');
-        switchView('viewConsumerHome');
-      } else {
-        document.body.classList.remove('consumer-mode');
-        maybeShowProfileSetup();
+      try { renderMePage(); }
+      catch (error) { console.error('Profile page startup failed:', error); }
+      try {
+        if (_entryRole === 'consumer') {
+          document.body.classList.add('consumer-mode');
+          switchView('viewConsumerHome');
+        } else {
+          document.body.classList.remove('consumer-mode');
+          switchView('viewFarmer');
+          maybeShowProfileSetup();
+        }
+      } catch (error) {
+        console.error('Initial role view failed:', error);
+        const fallbackId = _entryRole === 'consumer' ? 'viewConsumerHome' : 'viewFarmer';
+        const fallback = document.getElementById(fallbackId);
+        document.querySelectorAll('.view-screen').forEach(view => view.classList.remove('active'));
+        if (fallback) fallback.classList.add('active');
       }
     } else {
       document.body.classList.remove('consumer-mode');
