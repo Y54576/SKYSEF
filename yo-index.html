@@ -16010,6 +16010,25 @@ body:has(#viewGallery.active) {
   }
 }
 </style>
+
+<style id="homepage-reference-spec">
+/* 首頁依參考圖的比例與裝置寬度排列 */
+html, body { overflow-x: hidden; }
+#viewFarmer.home-v2 { width: 100%; max-width: 1100px; margin-inline: auto; }
+#viewFarmer.home-v2.active { min-height: 100dvh; }
+#viewFarmer.home-v2 .hero-banner { width: calc(100% + 28px); }
+#viewFarmer.home-v2 .hb-wrap { width: 100%; box-sizing: border-box; }
+@media (max-width: 599px) {
+  #viewFarmer.home-v2 .hb-wrap { display: flex; flex-direction: column; }
+  #viewFarmer.home-v2 .hb-duo { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 359px) {
+  #viewFarmer.home-v2 .hb-duo { grid-template-columns: 1fr; }
+}
+@media (min-width: 600px) {
+  #viewFarmer.home-v2 .hb-wrap { display: grid; grid-template-columns: 1fr 1fr; }
+}
+</style>
 </head>
 <body class="auth-pending">
 <div id="bootLoading" role="status" aria-live="polite">
