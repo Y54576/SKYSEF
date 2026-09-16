@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
+<meta name="skysef-build" content="merged-farmer-root-plus-consumer-yo-2026-09-16">
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>福萌芽 Formoya - 智慧農場動態履歷</title>
@@ -14044,6 +14045,553 @@ html:has(#viewPestGame.active),body:has(#viewPestGame.active),html:has(#viewFarm
 @keyframes bootSprout{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-7px) rotate(3deg)}}
 @keyframes bootDot{0%,100%{opacity:.3;transform:scale(.75)}50%{opacity:1;transform:scale(1.15)}}
 </style>
+
+<style id="merged-farmer-ui-styles">
+/* Farmer UI copied from the current root index.html. */
+@keyframes slideInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes gachaPulse { 0%,100% { box-shadow: 0 6px 22px rgba(244,67,54,0.45); } 50% { box-shadow: 0 8px 30px rgba(244,67,54,0.7); } }
+@keyframes machineShake { 0%,100%{transform:translateX(0) rotate(0deg)} 20%{transform:translateX(-5px) rotate(-1.2deg)} 40%{transform:translateX(5px) rotate(1.2deg)} 60%{transform:translateX(-3px) rotate(-0.6deg)} 80%{transform:translateX(3px) rotate(0.6deg)} }
+@keyframes sparkFloat { 0%{transform:translateY(0) scale(1) rotate(0deg);opacity:1} 60%{opacity:1} 100%{transform:translateY(-150px) scale(0.1) rotate(200deg);opacity:0} }
+@keyframes flashFade { 0%{opacity:0.9} 100%{opacity:0} }
+@keyframes confettiDrop { 0%{transform:translateY(0) rotate(0deg) scale(1);opacity:1} 80%{opacity:0.7} 100%{transform:translateY(250px) rotate(720deg) scale(0.5);opacity:0} }
+@keyframes rainbowBorder { 0%,100%{box-shadow:0 20px 60px rgba(0,0,0,0.35),0 0 0 4px #ff6b6b,0 0 22px rgba(255,107,107,0.45)} 25%{box-shadow:0 20px 60px rgba(0,0,0,0.35),0 0 0 4px #ffd93d,0 0 22px rgba(255,217,61,0.45)} 50%{box-shadow:0 20px 60px rgba(0,0,0,0.35),0 0 0 4px #6bcb77,0 0 22px rgba(107,203,119,0.45)} 75%{box-shadow:0 20px 60px rgba(0,0,0,0.35),0 0 0 4px #4d96ff,0 0 22px rgba(77,150,255,0.45)} }
+#viewTask .tk-head-emoji { font-size:23px; line-height:1; }
+@media (max-width:600px){
+#viewTask .tk-head-emoji { font-size:16px; }
+}
+.hb-logo-full { width:56px; height:auto; aspect-ratio:1/1; object-fit:contain; flex-shrink:0; filter:drop-shadow(0 1px 2px rgba(255,255,255,0.6)); }
+.hb-points { display:inline-flex; align-items:center; gap:8px; flex-shrink:0; cursor:pointer;
+  background:linear-gradient(180deg,#fffdf6,#fdf3d4); border:1.5px solid rgba(241,204,120,0.95);
+  border-radius:999px; padding:7px 14px 7px 8px; box-shadow:0 4px 12px rgba(190,150,40,0.20), inset 0 1px 0 rgba(255,255,255,0.9);
+  line-height:normal; -webkit-tap-highlight-color:transparent; }
+.hb-points:active { transform:translateY(1px); box-shadow:0 2px 6px rgba(190,150,40,0.20), inset 0 1px 0 rgba(255,255,255,0.9); }
+.hb-points-coin { width:24px; height:24px; object-fit:contain; flex-shrink:0; filter:drop-shadow(0 1px 1px rgba(160,110,20,0.25)); }
+.hb-points-txt { display:flex; flex-direction:column; align-items:flex-start; justify-content:center; }
+.hb-points-label { font-size:10px; font-weight:800; color:#8a6a12 !important; letter-spacing:0.01em; line-height:1.25; white-space:nowrap; }
+.hb-points-val { font-size:17px; font-weight:900; color:#5f4708 !important; letter-spacing:0.01em; line-height:1.15; }
+.hb-tkrow { display:flex; align-items:center; gap:6px; font-size:11px; font-weight:600; color:#9CA3AF !important; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+#viewFarmer.home-v2 .hb-logo-full {
+  width:clamp(50px,15vw,60px);
+  height:auto;
+}
+#viewFarmer.home-v2 .hb-points {
+  padding:clamp(4px,1.2vw,5px) clamp(10px,3vw,13px) clamp(4px,1.2vw,5px) clamp(6px,1.8vw,7px);
+}
+#viewFarmer.home-v2 .hb-points-coin {
+  width:clamp(21px,6vw,25px);
+  height:clamp(21px,6vw,25px);
+}
+#viewFarmer.home-v2 .hb-points-val {
+  font-size:clamp(14px,4.2vw,17px);
+}
+#viewFarmer.home-v2 .hb-metric {
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:clamp(3px,0.9vw,4px);
+  min-width:0;
+  padding:clamp(8px,1.4dvh,12px) clamp(4px,1.2vw,6px);
+  background:linear-gradient(180deg,#ffffff,#f6faf1);
+  border:1px solid rgba(60,90,55,0.07);
+  border-radius:clamp(14px,4vw,18px);
+  box-shadow:0 3px 8px rgba(40,70,40,0.08);
+}
+#viewFarmer.home-v2 .hb-metric-ic {
+  width:clamp(27px,8vw,33px);
+  height:clamp(27px,8vw,33px);
+  object-fit:contain;
+  object-position:center;
+  max-width:100%;
+  flex-shrink:0;
+  filter:drop-shadow(0 1px 2px rgba(40,70,40,0.14));
+}
+#viewFarmer.home-v2 .hb-recordbtn {
+  width:90%;
+  margin:0 auto;
+  padding:0;
+  border:0;
+  background:transparent;
+  cursor:pointer;
+  display:block;
+  -webkit-tap-highlight-color:transparent;
+  transition:transform 120ms ease, filter 120ms ease;
+}
+#viewFarmer.home-v2 .hb-recordbtn img {
+  width:100%;
+  height:auto;
+  display:block;
+  object-fit:contain;
+  filter:drop-shadow(0 5px 12px rgba(27,110,55,0.22));
+}
+#viewFarmer.home-v2 .hb-recordbtn:active { transform:scale(0.985); filter:brightness(0.98); }
+#viewFarmer.home-v2 .hb-metric-tx {
+  display:flex;
+  flex-direction:column;
+  flex:1 1 auto;
+  min-width:0;
+  line-height:1.12;
+}
+#viewFarmer.home-v2 .hb-metric-lb {
+  font-size:clamp(9px,2.5vw,10.5px);
+  font-weight:700;
+  color:#7b8a6f;
+  white-space:nowrap;
+}
+#viewFarmer.home-v2 .hb-metric-vl {
+  font-size:clamp(10.5px,2.9vw,12.5px);
+  font-weight:800;
+  color:#2c3a30;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+#viewFarmer.home-v2 .hb-taskcard .hb-tkrow {
+  min-height:15px;
+  align-items:center;
+  gap:clamp(4px,1.4vw,6px);
+  font-size:clamp(10.5px,2.8vw,12px);
+  line-height:1.2;
+  overflow:visible;
+  text-overflow:clip;
+}
+#viewFarmer.home-v2 .hb-taskcard .hb-tk-titleic {
+  width:clamp(18px,5vw,22px);
+  height:clamp(18px,5vw,22px);
+  object-fit:contain;
+  flex:0 0 auto;
+  filter:drop-shadow(0 1px 2px rgba(40,70,40,0.15));
+}
+#viewFarmer.home-v2 .hb-taskcard .hb-ring-img {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  pointer-events:none;
+  filter:drop-shadow(0 2px 5px rgba(40,70,40,0.10));
+}
+#viewFarmer.home-v2 .hb-taskcard .hb-ring-val {
+  position:relative;
+  z-index:2;
+  font-size:clamp(16px,4.6vw,21px);
+  font-weight:800;
+  color:var(--brand) !important;
+  line-height:1;
+}
+#viewFarmer.home-v2 .hb-taskcard .hb-tkchk {
+  width:clamp(15px,4.2vw,18px);
+  height:clamp(15px,4.2vw,18px);
+  object-fit:contain;
+  flex:0 0 auto;
+  pointer-events:none;
+}
+#viewFarmer.home-v2 .hb-taskcard .hb-tkrow { color:#7c8a72 !important; font-weight:650; }
+#viewFarmer.home-v2 .hb-taskcard .hb-tkrow.hb-tkdone { color:#2c3a30 !important; font-weight:750; }
+#viewFarmer.home-v2 .hb-taskcard .hb-tkbtn {
+  position:relative;
+  width:80%;
+  margin:clamp(2px,0.5dvh,5px) auto clamp(5px,1.6dvh,11px);
+  flex-shrink:0;
+  line-height:0;
+}
+#viewFarmer.home-v2 .hb-taskcard .hb-tkbtn img {
+  width:100%;
+  height:auto;
+  display:block;
+  object-fit:contain;
+  filter:drop-shadow(0 2px 5px rgba(27,110,55,0.14));
+}
+#viewFarmer.home-v2 .hb-taskcard .hb-tkbtn span {
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff !important;
+  font-size:clamp(12px,3.2vw,14px);
+  font-weight:800;
+  letter-spacing:0.01em;
+  text-shadow:0 1px 2px rgba(18,78,40,0.4);
+}
+@media (max-width:350px){
+#viewFarmer.home-v2 .hb-taskcard .hb-tkrow { gap:3px; font-size:11px; }
+}
+#viewFarmer.home-v2 .hb-qitem.qa-camera { background:linear-gradient(180deg,#eef9ee,#dff1e0) !important; border-color:rgba(120,190,130,0.35); }
+#viewFarmer.home-v2 .hb-qitem.qa-upload { background:linear-gradient(180deg,#eef5fd,#dcebfb) !important; border-color:rgba(120,170,225,0.32); }
+#viewFarmer.home-v2 .hb-qitem.qa-qr     { background:linear-gradient(180deg,#f5eefd,#eaddfa) !important; border-color:rgba(170,135,220,0.32); }
+#viewFarmer.home-v2 .hb-qitem.qa-task   { background:linear-gradient(180deg,#fdf7e6,#fcefcf) !important; border-color:rgba(225,190,110,0.36); }
+#viewFarmer.home-v2 .hb-taskcard .hb-tkrow {
+  color:var(--text-muted) !important;
+  font-weight:600;
+}
+#viewFarmer.home-v2 .hb-gachacard .hb-gacha-gift {
+  width:clamp(17px,4.8vw,21px);
+  height:clamp(17px,4.8vw,21px);
+  object-fit:contain;
+  margin-right:3px;
+  vertical-align:middle;
+  filter:drop-shadow(0 1px 2px rgba(150,90,20,0.22));
+}
+#viewFarmer.home-v2 .hb-gacha-sparkle {
+  position:absolute;
+  top:clamp(3px,0.8dvh,8px);
+  right:clamp(5px,2vw,10px);
+  width:clamp(18px,5.2vw,26px);
+  height:auto;
+  opacity:0.9;
+  pointer-events:none;
+  z-index:1;
+  filter:drop-shadow(0 1px 2px rgba(210,150,30,0.22));
+}
+#viewMe .me-avatar-wrap { position:relative; width:84px; height:84px; margin:0 auto 12px; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+#viewMe .me-avatar-wrap .me-avatar { margin:0; }
+#viewMe .me-avatar-wrap:active { transform:scale(0.97); }
+#viewMe .me-avatar-edit { position:absolute; right:-1px; bottom:-1px; width:24px; height:24px; border-radius:50%; background:#fff; border:1.5px solid rgba(30,50,40,0.12); box-shadow:0 2px 6px rgba(30,60,40,0.22); display:flex; align-items:center; justify-content:center; line-height:1; pointer-events:none; color:#222; }
+#viewMe .me-avatar-edit svg { width:13px; height:13px; display:block; }
+#viewMe .me-profile { background:url('assets/images/me-softcard.png') center/cover no-repeat; border:1px solid rgba(255,255,255,0.7); }
+#viewMe .me-menu { padding:4px 16px; }
+#viewMe .me-menu-row { display:flex; align-items:center; gap:13px; padding:12px 2px; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+#viewMe .me-menu-row:active { opacity:0.65; }
+#viewMe .me-menu-ic { flex:0 0 auto; width:48px; height:48px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:26px; line-height:1; }
+#viewMe .me-menu-ic.ic-green { background:#dcecd2; }
+#viewMe .me-menu-ic.ic-gold  { background:#fbf0cd; }
+#viewMe .me-menu-ic.ic-teal  { background:#d6ebe8; }
+#viewMe .me-menu-txt { flex:1 1 auto; min-width:0; }
+#viewMe .me-menu-title { font-size:17px; font-weight:800; color:#1c3325; line-height:1.25; }
+#viewMe .me-menu-sub { font-size:12.5px; color:#8a9a8f; margin-top:3px; line-height:1.25; }
+#viewMe .me-menu-arrow { flex:0 0 auto; font-size:24px; color:rgba(30,50,40,0.26); }
+#viewMe .me-menu-div { height:1px; background:rgba(30,50,40,0.08); }
+#viewMe .me-logout-ic { display:inline-flex; align-items:center; }
+@keyframes popIn { from { transform: scale(0.3) rotate(-10deg); opacity: 0; } to { transform: scale(1) rotate(0deg); opacity: 1; } }
+.gallery-tab-icon { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; }
+.gallery-tab-icon svg { width: 28px; height: 28px; opacity: 0.6; transition: opacity 0.2s, filter 0.2s; }
+.gallery-tab:hover .gallery-tab-icon svg { opacity: 0.9; }
+.gallery-tab.active .gallery-tab-icon svg { opacity: 1; filter: drop-shadow(0 0 7px rgba(74,222,128,0.8)); }
+#viewGallery .gallery-title-leaf {
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin-left: 1px;
+  object-fit: contain;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  transform: rotate(-6deg);
+}
+#viewGallery .gallery-tabs-scroll-hint {
+  position: absolute;
+  z-index: 6;
+  top: 148px;
+  right: 0;
+  width: 32px;
+  height: 60px;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  color: rgba(54,105,63,0.72);
+  background: linear-gradient(90deg, rgba(232,246,206,0), rgba(232,246,206,0.82) 72%);
+  opacity: 1;
+  transition: opacity 160ms ease;
+}
+#viewGallery .gallery-tabs-scroll-hint::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  margin-left: 8px;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+  transform: rotate(45deg);
+}
+#viewGallery .gallery-tabs-scroll-hint.is-hidden { opacity: 0; }
+#viewGallery .gallery-tab-label {
+  color: inherit !important;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+#viewGallery .gallery-tab-icon {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  display: grid;
+  place-items: center;
+  color: currentColor;
+}
+#viewGallery .gallery-tab-icon svg {
+  width: 31px;
+  height: 31px;
+  opacity: 1;
+  color: currentColor;
+}
+#viewGallery .gallery-tab.active .gallery-tab-icon svg {
+  opacity: 1;
+  filter: none;
+}
+#viewGallery .gallery-tab:not(.gallery-tab-image-card) {
+  overflow: visible;
+  border: 1px solid rgba(125,139,79,0.3);
+  background: linear-gradient(180deg, rgba(255,254,239,0.98), rgba(244,242,213,0.96));
+  box-shadow: 0 2px 5px rgba(75,100,55,0.1), inset 0 0 0 2px rgba(255,255,255,0.55);
+}
+#viewGallery .gallery-tab:not(.gallery-tab-image-card):hover {
+  border-color: rgba(85,155,60,0.42);
+  background: linear-gradient(180deg, rgba(255,255,244,0.99), rgba(239,245,207,0.98));
+}
+#viewGallery .gallery-tab:not(.gallery-tab-image-card).active {
+  border: 1.5px solid rgba(85,155,60,0.9);
+  background: rgba(235,248,220,0.88);
+  box-shadow: 0 3px 8px rgba(60,120,50,0.13);
+}
+#viewGallery .gallery-tab-image-card {
+  padding: 0;
+  overflow: visible;
+  border: 1.5px solid transparent;
+  border-radius: 18px;
+  background: transparent;
+  box-shadow: none;
+}
+#viewGallery .gallery-tab-image-card:hover {
+  border-color: rgba(85,155,60,0.28);
+  background: rgba(235,248,220,0.18);
+  box-shadow: 0 2px 6px rgba(60,120,50,0.07);
+}
+#viewGallery .gallery-tab-image-card.active {
+  border: 1.5px solid rgba(85,155,60,0.9);
+  background: rgba(235,248,220,0.35);
+  box-shadow: 0 3px 8px rgba(60,120,50,0.12);
+  transform: translateY(-2px);
+}
+#viewGallery .gallery-tab-image-card:active {
+  transform: scale(.97);
+}
+#viewGallery .gallery-tab-image-card.active:active {
+  transform: translateY(-2px) scale(.97);
+}
+#viewGallery .gallery-tab-card-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  border: 0;
+  background: transparent;
+  filter: none;
+  transition: filter .15s ease;
+}
+#viewGallery .gallery-tab-image-card.active .gallery-tab-card-image {
+  filter: none;
+}
+#viewGallery .gallery-tab-sr-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+#viewGallery .gallery-main-panel {
+  position: relative;
+  z-index: 5;
+  width: calc(100% + 24px);
+  min-width: 0;
+  height: auto;
+  margin: -10px -12px 0;
+  padding: 18px 9px 17px;
+  border: 0;
+  border-radius: 27px;
+  background: transparent;
+  box-shadow: none;
+  box-sizing: border-box;
+  isolation: isolate;
+}
+#viewGallery .gallery-main-panel::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: 27px;
+  background: url('assets/images/gallery/bird-panel/main-content-panel-bg.png') center / 100% 100% no-repeat;
+  pointer-events: none;
+}
+#viewGallery .gallery-main-panel .gallery-summary {
+  width: 100%;
+  min-height: 100px;
+  margin: 0;
+  padding: 11px 13px 31px;
+  grid-template-columns: 56px minmax(0,1fr) 68px;
+  gap: 12px;
+  border: 1px solid rgba(148,174,126,.16);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 13% 8%, rgba(255,255,255,.92), transparent 36%),
+    linear-gradient(145deg, rgba(255,254,247,.9), rgba(247,250,235,.82));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.88),
+    0 5px 14px rgba(75,105,62,.075);
+}
+#viewGallery .gallery-main-panel .gallery-progress-bar {
+  left: 81px;
+  right: 13px;
+  bottom: 9px;
+  height: 10px;
+  border: 1px solid rgba(154,145,111,.11);
+  border-radius: 999px;
+  background: linear-gradient(180deg, #eeeade, #f8f5eb 58%, #fffdf7);
+  box-shadow:
+    inset 0 2px 3px rgba(104,96,69,.09),
+    inset 0 -1px 0 rgba(255,255,255,.9),
+    0 1px 2px rgba(82,75,52,.045);
+}
+#viewGallery .gallery-main-panel .gallery-progress-bar::after {
+  content: '';
+  position: absolute;
+  inset: 1px 5px auto;
+  height: 2px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.52);
+  pointer-events: none;
+}
+#viewGallery .gallery-main-panel .gallery-progress-fill {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.22), transparent 52%),
+    linear-gradient(90deg, #61c574, #70ca6a) !important;
+  box-shadow: inset 0 -1px 2px rgba(46,113,54,.13);
+}
+#viewGallery .gallery-main-panel .gallery-progress-fill::after {
+  display: block;
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(120deg, transparent 0 7px, rgba(255,255,255,.12) 7px 10px);
+}
+#viewGallery .gallery-main-panel .gallery-summary-book {
+  width: 54px;
+  height: 56px;
+  align-self: center;
+  justify-self: center;
+  border: 1px solid rgba(104,155,76,.12);
+  border-radius: 17px;
+  background: linear-gradient(145deg, rgba(246,251,238,.94), rgba(229,242,216,.82));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.95),
+    0 2px 6px rgba(57,109,52,.07);
+}
+#viewGallery .gallery-main-panel .gallery-summary-book img {
+  display: block;
+  width: 43px;
+  height: 47px;
+  margin: 0;
+  object-position: center;
+  transform: none;
+}
+#viewGallery .gallery-main-panel .gallery-summary-main,
+#viewGallery .gallery-main-panel .gallery-summary-achievement {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#viewGallery .gallery-main-panel .gallery-summary-achievement {
+  padding-left: 12px;
+  border-left: 1px solid rgba(116,145,101,.14);
+}
+#viewGallery .gallery-main-panel .gallery-summary-label {
+  color: #66766c;
+  font-size: 10px;
+  font-weight: 750;
+  letter-spacing: .025em;
+  white-space: nowrap;
+}
+#viewGallery .gallery-main-panel .gallery-progress-frac {
+  display: inline-flex;
+  align-items: baseline;
+  align-self: flex-start;
+  gap: 2px;
+  margin-top: 4px;
+  font-size: 26px;
+  letter-spacing: -.025em;
+}
+#viewGallery .gallery-main-panel .gallery-progress-frac small {
+  margin-left: 0;
+  color: #89938c;
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0;
+}
+#viewGallery .gallery-main-panel .gallery-achievement-value {
+  margin-top: 5px;
+  font-size: 22px;
+  letter-spacing: -.02em;
+}
+@media (max-width: 340px){
+#viewGallery .gallery-main-panel .gallery-summary {
+    padding-inline: 9px;
+    grid-template-columns: 50px minmax(0,1fr) 61px;
+    gap: 8px;
+  }
+#viewGallery .gallery-main-panel .gallery-summary-book {
+    width: 48px;
+    height: 52px;
+  }
+#viewGallery .gallery-main-panel .gallery-summary-book img {
+    width: 39px;
+    height: 43px;
+  }
+#viewGallery .gallery-main-panel .gallery-summary-achievement { padding-left: 8px; }
+#viewGallery .gallery-main-panel .gallery-progress-bar {
+    left: 67px;
+    right: 9px;
+  }
+}
+#viewGallery .gallery-panel-decoration {
+  display: none;
+  position: absolute;
+  z-index: 0;
+  bottom: 4px;
+  width: 68px;
+  height: 68px;
+  object-fit: contain;
+  pointer-events: none;
+  opacity: .66;
+}
+#viewGallery .gallery-main-panel.bird-panel-active .gallery-panel-decoration { display: block; }
+#viewGallery .gallery-panel-decoration.panel-bottom-left { left: 5px; }
+#viewGallery .gallery-panel-decoration.panel-bottom-right { right: 5px; }
+#viewGallery .gallery-series-image-icon {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  overflow: hidden;
+  border-radius: 9px;
+  background: #fffdf4;
+}
+#viewGallery .gallery-series-image-icon img {
+  position: absolute;
+  top: -2px;
+  left: 50%;
+  width: 46px;
+  height: 46px;
+  max-width: none;
+  object-fit: cover;
+  object-position: center top;
+  transform: translateX(-50%);
+}
+@media (max-width: 374px){
+#viewGallery .gallery-tabs-scroll-hint { top: 142px; }
+#viewGallery .gallery-tab-icon { width: 32px; height: 32px; flex-basis: 32px; }
+#viewGallery .gallery-tab-icon svg { width: 29px; height: 29px; }
+}
+@keyframes loginFadeIn { from{opacity:0} to{opacity:1} }
+@keyframes logoScaleIn { from{transform:scale(0.7);opacity:0} to{transform:scale(1);opacity:1} }
+@keyframes cardFadeUp { from{transform:translateY(16px);opacity:0} to{transform:translateY(0);opacity:1} }
+</style>
 </head>
 <body class="auth-pending">
 <div id="bootLoading" role="status" aria-live="polite">
@@ -14085,64 +14633,67 @@ html:has(#viewPestGame.active),body:has(#viewPestGame.active),html:has(#viewFarm
 
 <div class="hero-banner">
 <div class="hb-topbar hero-topbar">
-  <img class="hb-logo" src="assets/images/logo.png" alt="">
-  <div class="hb-brand"><div class="hb-brand-t">福萌芽 Formoya</div><div class="hb-brand-s">記錄每一步農場成長</div></div>
-  <span class="hb-notif-wrap"><button class="hb-rbtn" onclick="switchView('viewTask')"><img src="assets/images/icons/bell.png" alt=""></button><span class="hb-notif-dot"></span></span>
-  <button class="hb-rbtn" onclick="switchView('viewMe')">
-    <img id="homeAvatarImg" src="" alt="" style="width:100%;height:100%;border-radius:50%;object-fit:cover;display:none;" onerror="this.style.display='none'">
-    <img id="homeAvatarFallback" src="assets/images/icons/user.png" alt="" style="width:100%;height:100%;object-fit:contain;">
+  <img class="hb-logo-full" src="assets/images/logo-formoya.png" alt="福萌芽 Formoya">
+  <button class="hb-points" onclick="switchView('viewMe')" aria-label="我的點數">
+    <img class="hb-points-coin" src="assets/images/others/coin.png" alt="">
+    <span class="hb-points-txt"><span class="hb-points-label">我的點數</span><span class="hb-points-val" id="homePointsVal">0</span></span>
   </button>
 </div>
 
   <div class="hero-greet">
-    <div class="hb-greet-row"><div class="hb-greet-h" id="homeGreeting">午安！</div><img class="hb-greet-leaf" src="assets/images/decorations/leaf-left.png" alt=""></div>
+    <div class="hb-greet-row"><div class="hb-greet-h" id="homeGreeting">午安！</div></div>
     <div class="hb-greet-sub">記錄每一步，串聯信任的農業未來</div>
   </div>
-  <img class="hero-farmer" src="assets/images/hero-farmer-mascot.png" alt="">
+  <img class="hero-farmer" src="assets/images/home/home-farmer.png" alt="">
 </div>
 
 <div class="hb-card hb-summary">
   <div class="hb-head"><img class="hb-section-icon" src="assets/images/icons/icon-farm-section.png" alt="">今日農場紀錄<span class="hb-seeall" onclick="switchView('viewConsumer')">查看全部 ›</span></div>
-  <div class="hb-note" id="homeSumNote">點擊下方按鈕開始今天的第一筆紀錄</div>
+  <div class="hb-note" id="homeSumNote">點擊下方按鈕開始今天的第一筆紀錄吧！</div>
   <div class="hb-chiprow">
-    <div class="hb-chip"><span class="hb-chip-ico"><img src="assets/images/crops/crop-water-spinach.png" alt=""></span><div class="hb-chip-text"><div class="hb-chip-val" id="homeSumCrop">尚未紀錄</div><div class="hb-chip-label hb-chip-label-pill">作物</div></div></div>
-    <div class="hb-chip"><span class="hb-chip-ico"><img src="assets/images/data/icon-temperature.png" alt=""></span><div class="hb-chip-text"><div class="hb-chip-val" id="homeSumTemp">--°C</div><div class="hb-chip-label">溫度</div></div></div>
-    <div class="hb-chip"><span class="hb-chip-ico"><img src="assets/images/data/icon-humidity.png" alt=""></span><div class="hb-chip-text"><div class="hb-chip-val" id="homeSumHum">--%</div><div class="hb-chip-label">濕度</div></div></div>
-    <div class="hb-chip"><span class="hb-chip-ico"><img src="assets/images/data/icon-soil-ph.png" alt=""></span><div class="hb-chip-text"><div class="hb-chip-val" id="homeSumPh">--</div><div class="hb-chip-label">土壤 pH</div></div></div>
+    <div class="hb-metric"><img class="hb-metric-ic" src="assets/images/home/metrics/ic/crop.png" alt=""><div class="hb-metric-tx"><span class="hb-metric-lb">作物</span><span class="hb-metric-vl" id="homeSumCrop">--</span></div></div>
+    <div class="hb-metric"><img class="hb-metric-ic" src="assets/images/home/metrics/ic/temperature.png" alt=""><div class="hb-metric-tx"><span class="hb-metric-lb">溫度</span><span class="hb-metric-vl" id="homeSumTemp">--°C</span></div></div>
+    <div class="hb-metric"><img class="hb-metric-ic" src="assets/images/home/metrics/ic/humidity.png" alt=""><div class="hb-metric-tx"><span class="hb-metric-lb">濕度</span><span class="hb-metric-vl" id="homeSumHum">--%</span></div></div>
+    <div class="hb-metric"><img class="hb-metric-ic" src="assets/images/home/metrics/ic/soil-ph.png" alt=""><div class="hb-metric-tx"><span class="hb-metric-lb">土壤 pH</span><span class="hb-metric-vl" id="homeSumPh">--</span></div></div>
   </div>
-  <button class="hb-bigbtn" onclick="openQuickLogModal()"><img class="hb-record-icon" src="assets/images/icons/icon-start-record.png" alt="">開始記錄</button>
+  <button class="hb-recordbtn" onclick="openQuickLogModal()" aria-label="開始紀錄"><img src="assets/images/home/start-record-btn.png" alt="開始紀錄"></button>
 </div>
 
 <div class="hb-card">
   <div class="hb-head">🌱 快速操作</div>
   <div class="hb-quickrow">
-    <button class="hb-qitem" onclick="startCamera()" style="background:#E8F5E9;"><span class="hb-qic"><img src="assets/images/icons/icon-camera.png" alt=""></span><span class="hb-qn">拍攝照片</span><span class="hb-qarrow">›</span></button>
-    <button class="hb-qitem" onclick="document.getElementById('farmerPhotoInput').click()" style="background:#E8F0FE;"><span class="hb-qic"><img src="assets/images/icons/icon-upload.png" alt=""></span><span class="hb-qn">上傳照片</span><span class="hb-qarrow">›</span></button>
-    <button class="hb-qitem" onclick="generateConsumerQR(); openQrModal();" style="background:#F3E8FD;"><span class="hb-qic"><img src="assets/images/icons/icon-qr.png" alt=""></span><span class="hb-qn">產生 QR Code</span><span class="hb-qarrow">›</span></button>
-    <button class="hb-qitem" onclick="switchView('viewTask')" style="background:#FFF3E0;"><span class="hb-qic"><img src="assets/images/icons/icon-task.png" alt=""></span><span class="hb-qn">我的任務</span><span class="hb-qarrow">›</span></button>
+    <button class="hb-qitem qa-camera" onclick="startCamera()"><span class="hb-qic"><img src="assets/images/home/quick/qa-camera.png" alt=""></span><span class="hb-qn">拍攝照片</span><span class="hb-qarrow">›</span></button>
+    <button class="hb-qitem qa-upload" onclick="document.getElementById('farmerPhotoInput').click()"><span class="hb-qic"><img src="assets/images/home/quick/qa-upload.png" alt=""></span><span class="hb-qn">上傳照片</span><span class="hb-qarrow">›</span></button>
+    <button class="hb-qitem qa-qr" onclick="generateConsumerQR(); openQrModal();"><span class="hb-qic"><img src="assets/images/home/quick/qa-qr.png" alt=""></span><span class="hb-qn">產生 QR Code</span><span class="hb-qarrow">›</span></button>
+    <button class="hb-qitem qa-task" onclick="switchView('viewTask')"><span class="hb-qic"><img src="assets/images/home/quick/qa-task.png" alt=""></span><span class="hb-qn">我的任務</span><span class="hb-qarrow">›</span></button>
   </div>
 </div>
 
 <div class="hb-duo">
   <div class="hb-card hb-taskcard" onclick="switchView('viewTask')">
-    <div class="hb-head">💧 今日任務</div>
+    <div class="hb-head"><img class="hb-tk-titleic" src="assets/images/home/tasks/icon_task_drop.png" alt="">今日任務</div>
     <div class="hb-ring-row">
       <div class="hb-ring-col">
         <div class="hb-ring-outer" id="homeRingOuter">
-          <div class="hb-ring-inner">
-            <span id="homeRingText">0/6</span>
-          </div>
+          <img class="hb-ring-img" src="assets/images/home/tasks/task_progress_ring.png" alt="">
+          <span class="hb-ring-val" id="homeRingText">0/6</span>
         </div>
         <div class="hb-ring-sub">已完成<b id="homeRingSubText">0 項</b></div>
       </div>
-      <div class="hb-tklist" id="homeTaskList"></div>
+      <div class="hb-tklist">
+        <div class="hb-tkrow" data-task="澆水"><img class="hb-tkchk" src="assets/images/home/tasks/task_check_empty.png" alt="">澆水</div>
+        <div class="hb-tkrow" data-task="施肥"><img class="hb-tkchk" src="assets/images/home/tasks/task_check_empty.png" alt="">施肥</div>
+        <div class="hb-tkrow" data-task="除草"><img class="hb-tkchk" src="assets/images/home/tasks/task_check_empty.png" alt="">除草</div>
+        <div class="hb-tkrow" data-task="巡視農場"><img class="hb-tkchk" src="assets/images/home/tasks/task_check_empty.png" alt="">巡視農場</div>
+      </div>
     </div>
-    <div class="hb-tkcta"><span>查看任務詳情</span><span aria-hidden="true">›</span></div>
+    <div class="hb-tkbtn"><img src="assets/images/home/tasks/btn_task_detail.png" alt=""><span>查看所有任務</span></div>
   </div>
   <div class="hb-card hb-gachacard" onclick="switchView('viewGallery')">
-    <div class="hb-head" style="justify-content:center;">🎁 農場扭蛋機</div>
+    <img class="hb-gacha-sparkle" src="assets/images/home/gacha/sparkle.png" alt="" aria-hidden="true">
+    <div class="hb-head" style="justify-content:center;"><img class="hb-gacha-gift" src="assets/images/home/gacha/gift.png" alt="">農場扭蛋機</div>
     <div class="hb-gacha-main">
-    <div class="hb-gacha-top"><img src="assets/images/gacha-machine-green.png" alt=""></div>
+    <div class="hb-gacha-top"><img src="assets/images/home/gacha/machine.png" alt=""></div>
     <div class="hb-gacha-desc">完成每日任務<br>獲得扭蛋抽獎機會！</div>
     <div class="hb-gacha-countbox">
       <div class="hb-gacha-countlabel">今日剩餘次數</div>
@@ -14220,30 +14771,37 @@ html:has(#viewPestGame.active),body:has(#viewPestGame.active),html:has(#viewFarm
 </div>
 
 <div id="viewMe" class="view-screen">
-<div class="container me-page-wrap">
-  <header class="me-page-hero">
-    <div class="me-page-sprout" aria-hidden="true">🌱</div>
-    <div class="me-page-heading">
-      <span class="me-page-kicker">FORMOYA PROFILE</span>
-      <h1>我的小天地</h1>
-      <p>收藏農場足跡，也把每一天種成喜歡的樣子。</p>
+<div class="container" style="max-width:560px; padding-top:56px;">
+  <div class="me-card me-profile">
+    <input type="file" id="avatarInput" accept="image/*" style="display:none;" onchange="handleAvatarUpload(event)">
+    <div class="me-avatar-wrap" onclick="changeAvatar()" title="更換頭像" role="button" aria-label="更換頭像">
+      <img class="me-avatar" id="meAvatar" src="" alt="頭像">
+      <span class="me-avatar-edit" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg></span>
     </div>
-    <div class="me-page-decor" aria-hidden="true"><span>🌼</span><span>🍃</span></div>
-  </header>
-  <div class="me-card me-profile-card">
-                  <label class="me-avatar-picker" for="accountAvatarInput" title="更換頭像"><img class="me-avatar" id="meAvatar" src="" alt="點擊更換頭像"><span>📷 更換頭像</span></label>
-                  <input id="accountAvatarInput" type="file" accept="image/*" capture="user" onchange="saveAccountAvatar(this)" style="display:none;">
     <div class="me-name" id="meName">在地小農</div>
     <div class="me-mail" id="meMail"></div>
   </div>
-  <div class="me-card">
-    <div id="accountSyncStatus" hidden role="status" style="padding:12px;color:#245936;font-size:14px"></div>
-<div class="me-row" onclick="openSettings()"><span>⚙️ 農場設定</span><span>›</span></div>
-    <div class="me-row" onclick="switchView('viewTask')"><span>⭐ 任務與成就</span><span>›</span></div>
-    <div class="me-row" onclick="switchView('viewGallery')"><span>📖 我的圖鑑</span><span>›</span></div>
+  <div class="me-card me-menu">
+    <div class="me-menu-row" onclick="openSettings()">
+      <div class="me-menu-ic ic-green">🌱</div>
+      <div class="me-menu-txt"><div class="me-menu-title">農場設定</div><div class="me-menu-sub">管理你的農場資訊與設備</div></div>
+      <div class="me-menu-arrow">›</div>
+    </div>
+    <div class="me-menu-div"></div>
+    <div class="me-menu-row" onclick="switchView('viewTask')">
+      <div class="me-menu-ic ic-gold">🏆</div>
+      <div class="me-menu-txt"><div class="me-menu-title">任務與成就</div><div class="me-menu-sub">完成任務，獲得成就與獎勵</div></div>
+      <div class="me-menu-arrow">›</div>
+    </div>
+    <div class="me-menu-div"></div>
+    <div class="me-menu-row" onclick="switchView('viewGallery')">
+      <div class="me-menu-ic ic-teal">📖</div>
+      <div class="me-menu-txt"><div class="me-menu-title">我的圖鑑</div><div class="me-menu-sub">查看你收藏的植物與知識</div></div>
+      <div class="me-menu-arrow">›</div>
+    </div>
   </div>
   <div class="me-card">
-    <button class="me-logout" onclick="doLogout()">登出帳號</button>
+    <button class="me-logout" onclick="doLogout()"><span class="me-logout-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span>登出帳號</button>
   </div>
 </div>
 </div>
@@ -14256,63 +14814,22 @@ html:has(#viewPestGame.active),body:has(#viewPestGame.active),html:has(#viewFarm
     <img src="assets/images/others/coin.png" alt="">
     <span id="galleryCoinCount">0</span>
   </div>
-  <button class="gallery-settings" type="button" aria-label="開啟設定" onclick="openSettings()">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <circle cx="12" cy="12" r="3"></circle>
-      <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21h-4v-.09A1.7 1.7 0 0 0 8.6 19.4a1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H3v-4h.09A1.7 1.7 0 0 0 4.6 8.6a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 0 .4-1.1V3h4v.09A1.7 1.7 0 0 0 15.4 4.6a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.4 9c.16.38.37.72.6 1 .3.35.68.55 1.1.6H21v4h-.09a1.7 1.7 0 0 0-1.51.4Z"></path>
-    </svg>
-  </button>
   <div class="gallery-hero-copy">
     <div class="gallery-title-row">
       <h2 class="gallery-title">圖鑑</h2>
-      <span class="gallery-hero-count" id="galleryCount">0/102</span>
+      <img class="gallery-title-leaf" src="assets/images/decorations/atlas-title-leaf.png" alt="" aria-hidden="true">
     </div>
     <div class="gallery-subtitle">記錄農場的每一個發現！</div>
   </div>
 
-  <div class="gallery-tabs">
-    <button class="gallery-tab active" data-series="全部" onclick="switchGalleryTab(this)">
-      <span class="gallery-tab-icon" aria-hidden="true">🌐</span><span>全部</span>
-    </button>
-    <button class="gallery-tab" data-series="哺乳類" onclick="switchGalleryTab(this)">
-      <span class="gallery-tab-icon" aria-hidden="true">🐾</span><span>哺乳類</span>
-    </button>
-    <button class="gallery-tab" data-series="鳥類" onclick="switchGalleryTab(this)">
-      <span class="gallery-tab-icon" aria-hidden="true">🐦</span><span>鳥類</span>
-    </button>
-    <button class="gallery-tab" data-series="魚類" onclick="switchGalleryTab(this)">
-      <span class="gallery-tab-icon" aria-hidden="true">🐟</span><span>魚類</span>
-    </button>
-    <button class="gallery-tab" data-series="蛙類" onclick="switchGalleryTab(this)">
-      <span class="gallery-tab-icon" aria-hidden="true">🐸</span><span>蛙類</span>
-    </button>
-    <button class="gallery-tab" data-series="昆蟲" onclick="switchGalleryTab(this)">
-      <span class="gallery-tab-icon" aria-hidden="true">🐞</span><span>昆蟲</span>
-    </button>
-    <button class="gallery-tab" data-series="樹類" onclick="switchGalleryTab(this)">
-      <span class="gallery-tab-icon" aria-hidden="true">🌳</span><span>樹類</span>
-    </button>
-    <button class="gallery-tab" data-series="花類" onclick="switchGalleryTab(this)">
-      <span class="gallery-tab-icon" aria-hidden="true">🌸</span><span>花類</span>
-    </button>
-    <button class="gallery-tab" data-series="水果類" onclick="switchGalleryTab(this)">
-      <span class="gallery-tab-icon" aria-hidden="true">🍎</span><span>水果類</span>
-    </button>
-    <button class="gallery-tab" data-series="蔬菜類" onclick="switchGalleryTab(this)">
-      <span class="gallery-tab-icon" aria-hidden="true">🥬</span><span>蔬菜類</span>
-    </button>
-    <button class="gallery-tab" data-series="美食類" onclick="switchGalleryTab(this)">
-      <span class="gallery-tab-icon" aria-hidden="true">🍜</span><span>美食類</span>
-    </button>
-    <button class="gallery-tab" data-series="人物" onclick="switchGalleryTab(this)">
-      <span class="gallery-tab-icon" aria-hidden="true">🧑‍🌾</span><span>人物</span>
-    </button>
-  </div>
+  <div class="gallery-tabs" id="galleryTabs" role="tablist" aria-label="圖鑑分類"></div>
+  <span class="gallery-tabs-scroll-hint" id="galleryTabsScrollHint" aria-hidden="true"></span>
 </section>
 
+<main class="gallery-main-panel">
 <div id="gallerySummary">
   <div class="gallery-summary">
-    <div class="gallery-summary-book" aria-hidden="true"><img src="assets/images/gallery/gallery_collection_book.png" alt=""></div>
+    <div class="gallery-summary-book" aria-hidden="true"><img src="assets/images/gallery/bird-panel/collection-book.png" alt=""></div>
     <div class="gallery-summary-main">
       <div class="gallery-summary-label">收藏總數</div>
       <div class="gallery-progress-frac">0 <small>/ 102</small></div>
@@ -14331,13 +14848,13 @@ html:has(#viewPestGame.active),body:has(#viewPestGame.active),html:has(#viewFarm
       <div class="gallery-series-banner-right">0/10</div>
     </div>
     <div class="gallery-series-items">
-      <div class="gallery-item locked" data-character-id="${item.id}"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
-      <div class="gallery-item locked" data-character-id="${item.id}"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
-      <div class="gallery-item locked" data-character-id="${item.id}"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
-      <div class="gallery-item locked" data-character-id="${item.id}"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
-      <div class="gallery-item locked" data-character-id="${item.id}"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
-      <div class="gallery-item locked" data-character-id="${item.id}"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
-      <div class="gallery-item locked" data-character-id="${item.id}"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
+      <div class="gallery-item locked"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
+      <div class="gallery-item locked"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
+      <div class="gallery-item locked"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
+      <div class="gallery-item locked"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
+      <div class="gallery-item locked"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
+      <div class="gallery-item locked"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
+      <div class="gallery-item locked"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
     </div>
   </section>
   <section class="gallery-series-section series-taiwan" aria-label="圖鑑載入中">
@@ -14346,17 +14863,20 @@ html:has(#viewPestGame.active),body:has(#viewPestGame.active),html:has(#viewFarm
       <div class="gallery-series-banner-right">0/15</div>
     </div>
     <div class="gallery-series-items">
-      <div class="gallery-item locked" data-character-id="${item.id}"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
-      <div class="gallery-item locked" data-character-id="${item.id}"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
-      <div class="gallery-item locked" data-character-id="${item.id}"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
-      <div class="gallery-item locked" data-character-id="${item.id}"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
-      <div class="gallery-item locked" data-character-id="${item.id}"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
-      <div class="gallery-item locked" data-character-id="${item.id}"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
-      <div class="gallery-item locked" data-character-id="${item.id}"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
-      <div class="gallery-item locked" data-character-id="${item.id}"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
+      <div class="gallery-item locked"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
+      <div class="gallery-item locked"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
+      <div class="gallery-item locked"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
+      <div class="gallery-item locked"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
+      <div class="gallery-item locked"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
+      <div class="gallery-item locked"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
+      <div class="gallery-item locked"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
+      <div class="gallery-item locked"><div class="gallery-item-rarity-label">???</div><div class="gallery-item-art"><div class="gallery-lock">🔒</div></div><div class="gallery-item-name">???</div></div>
     </div>
   </section>
 </div>
+<img class="gallery-panel-decoration panel-bottom-left" src="assets/images/gallery/bird-panel/panel-bottom-left-decor.png" alt="" aria-hidden="true">
+<img class="gallery-panel-decoration panel-bottom-right" src="assets/images/gallery/bird-panel/panel-bottom-right-decor.png" alt="" aria-hidden="true">
+</main>
 </div>
 </div>
 
@@ -14368,26 +14888,25 @@ html:has(#viewPestGame.active),body:has(#viewPestGame.active),html:has(#viewFarm
     <h2 class="tk-h2">任務 ・ 成就</h2>
     <div class="tk-sub">完成任務，累積經驗，成為更優秀的農夫！</div>
   </div>
-  <button class="tk-gear" onclick="openSettings()" title="設定"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button>
 </div>
 
 <div class="tk-card" id="expPanel" style="margin-bottom:16px;"></div>
 
 <div class="task-two-col">
   <div class="tk-card" id="dailyTaskPanel">
-    <div class="tk-card-head">今日任務 <span id="dailyTaskCount" class="tk-card-count"></span></div>
+    <div class="tk-card-head"><span class="tk-head-emoji">📅</span>今日任務 <span id="dailyTaskCount" class="tk-card-count"></span></div>
     <div id="dailyTaskList"></div>
     <div class="tk-footnote">每日午夜自動重置</div>
   </div>
 
   <div class="tk-card" id="achievementPanel">
-    <div class="tk-card-head">成就 <span id="achieveCount" class="tk-card-count"></span></div>
+    <div class="tk-card-head"><span class="tk-head-emoji">🏆</span>成就 <span id="achieveCount" class="tk-card-count"></span></div>
     <div id="achievementList"></div>
   </div>
 </div>
 
 <div class="tk-card" id="titlePanel">
-  <div class="tk-card-head">稱號 <span id="titleCount" class="tk-card-count"></span></div>
+  <div class="tk-card-head"><span class="tk-head-emoji">👑</span>稱號 <span id="titleCount" class="tk-card-count"></span></div>
   <div id="titleList" class="tk-title-row"></div>
 </div>
 
@@ -14625,7 +15144,6 @@ html:has(#viewPestGame.active),body:has(#viewPestGame.active),html:has(#viewFarm
 </section>
 
 <div class="bottom-tabbar" id="bottomTabbar">
-<button class="tab-btn" id="tab-community" onclick="switchView('viewCommunity')"><span class="tab-icon-wrap">🌱</span><span class="tab-label">農友</span></button>
   <button class="tab-btn" id="tab-farmer" onclick="switchView('viewFarmer')">
     <div class="tab-icon-wrap">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -14722,35 +15240,36 @@ html:has(#viewPestGame.active),body:has(#viewPestGame.active),html:has(#viewFarm
     <div class="settings-divider"></div>
 
     <div class="settings-section">
-      <div class="settings-section-label">音樂設定</div>
+      <div class="settings-section-label">音效與音樂</div>
+      <div class="settings-row">
+        <label>背景音樂</label>
+        <button id="settingsMusicBtn" onclick="setMusicOn(!_getMusicOn())" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;border-radius:10px;padding:7px 18px;font-size:13px;cursor:pointer;">🔊 開啟</button>
+      </div>
       <div class="settings-row">
         <label>音量</label>
         <input type="range" id="settingsVolume" min="0" max="100" value="60" oninput="setMusicVolume(this.value)">
         <span id="settingsVolumeVal" style="font-size:12px;color:rgba(255,255,255,0.55);min-width:28px;text-align:right;">60%</span>
       </div>
       <div class="settings-row">
-        <label>背景音樂</label>
-        <button id="settingsMuteBtn" onclick="toggleSettingsMute()" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;border-radius:10px;padding:7px 18px;font-size:13px;cursor:pointer;">🔊 開啟</button>
+        <label>音效</label>
+        <button id="settingsSfxBtn" onclick="setSfxOn(!_getSfxOn())" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;border-radius:10px;padding:7px 18px;font-size:13px;cursor:pointer;">🔊 開啟</button>
       </div>
     </div>
 
     <div class="settings-divider"></div>
 
     <div class="settings-section">
-      <div class="settings-section-label">帳號與安全</div>
-      <p id="accountEmail" style="overflow-wrap:anywhere"></p><p id="accountVerified"></p>
-      <div class="account-actions"><button type="button" data-account-action onclick="verifyAccount()">寄送驗證信</button><button type="button" data-account-action onclick="refreshAccount()">我已完成驗證</button></div>
-      <details><summary>修改密碼或登入信箱</summary>
-      <label for="accountCurrentPassword">目前密碼</label><input class="login-input" id="accountCurrentPassword" type="password" autocomplete="current-password">
-      <label for="accountNewPassword">新密碼（至少 8 字元）</label><input class="login-input" id="accountNewPassword" type="password" autocomplete="new-password">
-      <label for="accountConfirmPassword">再次輸入新密碼</label><input class="login-input" id="accountConfirmPassword" type="password" autocomplete="new-password">
-      <button type="button" data-account-action onclick="changeAccountPassword()">更新密碼</button>
-      <label for="accountNewEmail">新登入信箱</label><input class="login-input" id="accountNewEmail" type="email" autocomplete="email">
-      <button type="button" data-account-action onclick="changeAccountEmail()">寄送新信箱確認信</button></details>
-      <p id="accountStatus" role="status" aria-live="polite"></p>
-      <div class="account-actions"><button type="button" data-account-action onclick="retryAccountSave()">重試儲存</button><button type="button" onclick="exportAccountData()">下載我的資料</button></div>
+      <div class="settings-section-label">帳號</div>
       <button class="btn-settings-save" onclick="sendResetEmail()" style="margin-bottom:10px;">更改密碼（發送重設信）</button>
       <button class="btn-settings-logout" onclick="doLogout(); closeSettings();">登出帳號</button>
+    </div>
+
+    <div class="settings-divider"></div>
+
+    <div class="settings-section">
+      <div class="settings-section-label">關於</div>
+      <div class="settings-row" style="cursor:default;"><label>版本</label><span style="font-size:12px;color:rgba(255,255,255,0.6);">福萌芽 Formoya v1.0.0</span></div>
+      <div class="settings-row" style="cursor:default;"><label>更新資訊</label><span style="font-size:12px;color:rgba(255,255,255,0.6);">已是最新版本</span></div>
     </div>
 
   </div>
@@ -15680,9 +16199,22 @@ let gallery = JSON.parse(accountStorage.getItem('skysef_gallery') || '[]');
 
 function switchGalleryTab(btn) {
   currentGalleryTab = btn.dataset.series;
-  document.querySelectorAll('.gallery-tab').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
+  document.querySelectorAll('#galleryTabs .gallery-tab').forEach(b => {
+    const active = b === btn;
+    b.classList.toggle('active', active);
+    b.setAttribute('aria-selected', String(active));
+  });
   renderGallery();
+  requestAnimationFrame(() => {
+    const scroller = document.getElementById('galleryTabs');
+    if (!scroller) return;
+    const buttonRect = btn.getBoundingClientRect();
+    const scrollerRect = scroller.getBoundingClientRect();
+    const clipped = buttonRect.left < scrollerRect.left + 4 || buttonRect.right > scrollerRect.right - 4;
+    if (clipped) {
+      btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+  });
 }
 
 function saveGachaReward(char) {
@@ -15695,14 +16227,15 @@ function saveGachaReward(char) {
   renderGallery();
   return true;
 }
-function addToGallery() {
-  closeGachaModal();
-  currentGalleryTab = '全部';
-  document.querySelectorAll('.gallery-tab').forEach(btn => btn.classList.toggle('active', btn.dataset.series === '全部'));
-  renderGallery();
-  switchView('viewGallery');
-}
 
+function addToGallery() {
+  if (!window._lastGachaChar) return;
+  const char = window._lastGachaChar;
+  gallery.push({ name: char.name, img: char.img, series: seriesMap[char.name] || '其他' });
+  localStorage.setItem('skysef_gallery', JSON.stringify(gallery));
+  renderGallery();
+  closeGachaModal();
+}
 
 function _rarityStars(n, color) {
   return Array.from({length:5}, (_,i) =>
@@ -15710,17 +16243,25 @@ function _rarityStars(n, color) {
   ).join('');
 }
 
-function renderGalleryItem(item, collected) {
+function renderGalleryItem(item, collected, category) {
   const stars = _rarityStars(5, '#efb94a');
+  if (category === '鳥類') {
+    return renderEncyclopediaCard({
+      item,
+      locked: !collected,
+      rarity: item.rarity || 5,
+      silhouette: GALLERY_BIRD_PANEL_ASSETS.silhouette,
+    });
+  }
   if (collected) {
-    return `<div class="gallery-item collected" data-character-id="${item.id}">
-      <div class="gallery-item-rarity-label">已收藏 ×${gallery.filter(entry => findCatalogItem(entry)?.id === item.id).length}</div>
+    return `<div class="gallery-item collected">
+      <div class="gallery-item-rarity-label">已收藏</div>
       <div class="gallery-item-art"><img src="${encodeURI(item.img)}" alt="${item.name}"></div>
-      <div class="gallery-stars">${stars}</div>
+      <div class="gallery-stars${category === '鳥類' ? ' gallery-image-stars' : ''}">${category === '鳥類' ? renderBirdStars(true) : stars}</div>
       <div class="gallery-item-name">${item.name}</div>
     </div>`;
   } else {
-    return `<div class="gallery-item locked" data-character-id="${item.id}">
+    return `<div class="gallery-item locked">
       <div class="gallery-item-rarity-label">???</div>
       <div class="gallery-item-art">
         <div class="gallery-lock" aria-label="尚未解鎖">
@@ -15734,6 +16275,7 @@ function renderGalleryItem(item, collected) {
 }
 
 function gallerySectionDecorations(category, index) {
+  if (category === '鳥類') return '';
   if (category === '魚類') {
     return `<img class="gallery-section-decoration decor-left" src="${GALLERY_DECORATIONS.coralLeft}" alt=""><img class="gallery-section-decoration decor-right" src="${GALLERY_DECORATIONS.coralRight}" alt="">`;
   }
@@ -15746,20 +16288,13 @@ function gallerySectionDecorations(category, index) {
 }
 
 function renderGallery() {
-  const tabs = document.querySelector('#viewGallery .gallery-tabs');
-  if (tabs) for (const category of ['農村配件', '農耕農具']) {
-    if (!tabs.querySelector(`[data-series="${category}"]`)) {
-      const btn = document.createElement('button');
-      btn.className = 'gallery-tab'; btn.dataset.series = category;
-      btn.textContent = category; btn.onclick = () => switchGalleryTab(btn);
-      tabs.appendChild(btn);
-    }
-  }
   const grid = document.getElementById('galleryGrid');
   const summary = document.getElementById('gallerySummary');
-  const visibleCatalog = TINY_GALLERY_CATALOG;
-  const collectedNames = new Set(gallery.map(findCatalogItem).filter(Boolean).map(item => item.name));
-  const total = visibleCatalog.length;
+  const mainPanel = document.querySelector('#viewGallery .gallery-main-panel');
+  if (mainPanel) mainPanel.classList.toggle('bird-panel-active', currentGalleryTab === '鳥類');
+  const catalogNames = new Set(TINY_GALLERY_CATALOG.map(item => item.name));
+  const collectedNames = new Set(gallery.map(g => g.name).filter(name => catalogNames.has(name)));
+  const total = TINY_GALLERY_CATALOG.length;
   const collected = collectedNames.size;
 
   const count = document.getElementById('galleryCount');
@@ -15790,18 +16325,21 @@ function renderGallery() {
   const seriesToShow = currentGalleryTab === '全部' ? GALLERY_CATEGORY_ORDER : [currentGalleryTab];
 
   for (const [sectionIndex, s] of seriesToShow.entries()) {
-    const chars = visibleCatalog.filter(item => item.category === s);
+    const chars = TINY_GALLERY_CATALOG.filter(item => item.category === s);
     if (chars.length === 0) continue;
     const ui = GALLERY_CATEGORY_UI[s] || { icon:'🌱', className:'series-trees' };
     const seriesCollected = chars.filter(c => collectedNames.has(c.name)).length;
+    const sectionIcon = s === '鳥類'
+      ? `<span class="gallery-series-icon gallery-series-image-icon" aria-hidden="true"><img src="${GALLERY_BIRD_PANEL_ASSETS.category}" alt=""></span>`
+      : `<span class="gallery-series-icon" aria-hidden="true">${ui.icon}</span>`;
     html += `<section class="gallery-series-section ${ui.className}">
       ${gallerySectionDecorations(s, sectionIndex)}
       <div class="gallery-series-banner">
-        <div class="gallery-series-banner-left"><span class="gallery-series-icon" aria-hidden="true">${ui.icon}</span><span>${s}</span></div>
+        <div class="gallery-series-banner-left">${sectionIcon}<span>${s}</span></div>
         <div class="gallery-series-banner-right">${seriesCollected}/${chars.length}</div>
       </div>
       <div class="gallery-series-items">
-        ${chars.map(c => renderGalleryItem(c, collectedNames.has(c.name))).join('')}
+        ${s === '鳥類' ? renderBirdCardPreview(chars) : chars.map(c => renderGalleryItem(c, collectedNames.has(c.name), s)).join('')}
       </div>
     </section>`;
   }
@@ -16673,14 +17211,14 @@ function _tryInitFirebase() {
 
 // ── 設定 ─────────────────────────────────────────────────
 function openSettings() {
-  renderAccount();
-  const avatar=document.getElementById('accountAvatarPreview'); if(avatar && farmProfile.photo){avatar.src=farmProfile.photo;avatar.style.display='block';}
   updateProfileDisplay();
-  const vol = _musicAudio ? Math.round(_musicAudio.volume * 100) : 60;
+  const vol = _getMusicVol();
   const slider = document.getElementById('settingsVolume');
   const label  = document.getElementById('settingsVolumeVal');
   if (slider) slider.value = vol;
   if (label)  label.textContent = vol + '%';
+  _syncMusicBtn();
+  _syncSfxBtn();
   _syncMuteBtn();
   document.getElementById('settingsOverlay').classList.add('open');
 }
@@ -17124,15 +17662,19 @@ function closeQrModal() {
 function profileAvatarSource(photo='') {
   return photo || ('data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#d7e8dc"/><circle cx="32" cy="24" r="11" fill="#9bb8a5"/><ellipse cx="32" cy="54" rx="18" ry="12" fill="#9bb8a5"/></svg>'));
 }
+
+
+
 function renderMePage() {
-  renderConsumerGreeting();
   const av = document.getElementById('meAvatar');
   const nm = document.getElementById('meName');
   const ml = document.getElementById('meMail');
   if (nm) nm.textContent = farmProfile.farmer || '在地小農';
   if (ml) ml.textContent = (_fbAuth && _fbAuth.currentUser) ? (_fbAuth.currentUser.email || '') : '';
+  const pv = document.getElementById('mePointsVal');   // 目前登入者的積分（EXP），已依 UID 隔離
+  if (pv) pv.textContent = _exp;
   if (av) {
-    av.src = profileAvatarSource(farmProfile.photo);
+    av.src = farmProfile.photo || 'assets/images/default-avatar.png';   // 預設頭像
   }
 }
 
@@ -17391,6 +17933,185 @@ async function syncPublicProfile() {
   }
 }
 
+
+
+/* === Current farmer UI compatibility layer === */
+const GALLERY_BIRD_PANEL_ASSETS = {
+  lock: 'assets/images/gallery/bird-panel/lock-icon.png',
+  starEmpty: 'assets/images/gallery/bird-panel/star-empty.png',
+  starFilled: 'assets/images/gallery/bird-panel/star-filled.png',
+  silhouette: 'assets/images/gallery/bird-panel/bird-locked-silhouette.png',
+  category: 'assets/images/categories/birds.png',
+};
+
+const ATLAS_CATEGORIES = [
+  { id:'all',        label:'全部',   series:'全部',   type:'icon',  icon:'globe' },
+  { id:'mammals',    label:'哺乳類', series:'哺乳類', type:'image', src:'assets/images/categories/mammals.png' },
+  { id:'birds',      label:'鳥類',   series:'鳥類',   type:'image', src:'assets/images/categories/birds.png' },
+  { id:'fish',       label:'魚類',   series:'魚類',   type:'image', src:'assets/images/categories/fish.png' },
+  { id:'frogs',      label:'蛙類',   series:'蛙類',   type:'image', src:'assets/images/categories/frogs.png' },
+  { id:'insects',    label:'蟲類',   series:'昆蟲',   type:'image', src:'assets/images/categories/insects.png' },
+  { id:'vegetables', label:'蔬菜',   series:'蔬菜類', type:'image', src:'assets/images/categories/vegetables.png' },
+  { id:'fruits',     label:'水果',   series:'水果類', type:'image', src:'assets/images/categories/fruits.png' },
+  { id:'flowers',    label:'花卉',   series:'花類',   type:'image', src:'assets/images/categories/flowers.png' },
+  { id:'trees',      label:'樹木',   series:'樹類',   type:'image', src:'assets/images/categories/trees.png' },
+  { id:'food',       label:'食物',   series:'美食類', type:'image', src:'assets/images/categories/food.png' },
+  { id:'people',     label:'人物',   series:'人物',   type:'image', src:'assets/images/categories/people.png' },
+];
+
+const ATLAS_GLOBE_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3a14.5 14.5 0 0 1 0 18M12 3a14.5 14.5 0 0 0 0 18"></path></svg>';
+
+
+const BIRD_CARD_PREVIEW = [
+  { locked: true, rarity: 0 },
+  { locked: false, rarity: 1, name: '台灣小灣嘴' },
+  { locked: false, rarity: 3, name: '台灣朱雀' },
+  { locked: false, rarity: 5, name: '帝雉' },
+];
+
+function _getMusicOn()  { const v = localStorage.getItem('skysef_music_on');  return v === null ? true : v === '1'; }
+
+function _getMusicVol() { const v = parseInt(localStorage.getItem('skysef_music_vol') || '60', 10); return isNaN(v) ? 60 : Math.max(0, Math.min(100, v)); }
+
+function _getSfxOn()    { const v = localStorage.getItem('skysef_sfx_on');     return v === null ? true : v === '1'; }
+
+
+function _syncMusicBtn() {
+  const btn = document.getElementById('settingsMusicBtn');
+  if (btn) btn.textContent = _getMusicOn() ? '🔊 開啟' : '🔇 關閉';
+}
+
+function _syncSfxBtn() {
+  const btn = document.getElementById('settingsSfxBtn');
+  if (btn) btn.textContent = _getSfxOn() ? '🔊 開啟' : '🔇 關閉';
+}
+
+function setMusicOn(on) {
+  localStorage.setItem('skysef_music_on', on ? '1' : '0');
+  if (_musicAudio) {
+    if (on) { _musicAudio.play().then(() => _setPlayBtn(true)).catch(() => { _setPlayBtn(false); _armAutoplayUnlock(); }); }
+    else    { _musicAudio.pause(); _setPlayBtn(false); }
+  } else if (on) {
+    initMusicPlayer();
+  }
+  _syncMusicBtn(); _syncMuteBtn();
+}
+
+function setSfxOn(on) {
+  localStorage.setItem('skysef_sfx_on', on ? '1' : '0');
+  _syncSfxBtn();
+}
+
+function _armAutoplayUnlock() {
+  if (window.__mpArmed) return; window.__mpArmed = true;
+  const h = () => {
+    if (_musicAudio && _getMusicOn() && _musicAudio.paused) {
+      _musicAudio.play().then(() => _setPlayBtn(true)).catch(() => {});
+    }
+    window.removeEventListener('pointerdown', h);
+    window.removeEventListener('keydown', h);
+    window.__mpArmed = false;
+  };
+  window.addEventListener('pointerdown', h);
+  window.addEventListener('keydown', h);
+}
+
+function _applyUserMusicPrefs() {
+  if (!_musicAudio) return;
+  _musicAudio.volume = _getMusicVol() / 100;
+  if (_getMusicOn()) {
+    _musicAudio.play().then(() => _setPlayBtn(true)).catch(() => { _setPlayBtn(false); _armAutoplayUnlock(); });
+  } else {
+    _musicAudio.pause(); _setPlayBtn(false);
+  }
+}
+
+function changeAvatar() {
+  const inp = document.getElementById('avatarInput');
+  if (inp) { inp.value = ''; inp.click(); }   // 點頭像即開啟選圖
+}
+
+
+function renderAtlasCategoryTabs() {
+  const host = document.getElementById('galleryTabs');
+  if (!host) return;
+  host.innerHTML = ATLAS_CATEGORIES.map(category => {
+    const active = currentGalleryTab === category.series;
+    const visual = category.type === 'image'
+      ? `<img class="gallery-tab-card-image" src="${category.src}" alt="" aria-hidden="true"><span class="gallery-tab-sr-label">${category.label}</span>`
+      : `<span class="gallery-tab-icon" aria-hidden="true">${ATLAS_GLOBE_ICON}</span><span class="gallery-tab-label">${category.label}</span>`;
+    return `<button class="gallery-tab${category.type === 'image' ? ' gallery-tab-image-card' : ''}${active ? ' active' : ''}" type="button" role="tab" aria-label="${category.label}" aria-selected="${active}" data-category-id="${category.id}" data-series="${category.series}" onclick="switchGalleryTab(this)">${visual}</button>`;
+  }).join('');
+}
+
+
+function updateAtlasCategoryScrollHint() {
+  const scroller = document.getElementById('galleryTabs');
+  const hint = document.getElementById('galleryTabsScrollHint');
+  if (!scroller || !hint) return;
+  const canScrollRight = scroller.scrollLeft + scroller.clientWidth < scroller.scrollWidth - 3;
+  hint.classList.toggle('is-hidden', !canScrollRight);
+}
+
+
+function renderAtlasRarityStars(rarity = 0) {
+  const safeRarity = Math.max(0, Math.min(5, Number(rarity) || 0));
+  return Array.from({length:5}, (_, index) => {
+    const filled = index < safeRarity;
+    const src = filled ? GALLERY_BIRD_PANEL_ASSETS.starFilled : GALLERY_BIRD_PANEL_ASSETS.starEmpty;
+    return `<img src="${src}" alt="" aria-hidden="true">`;
+  }).join('');
+}
+
+
+function renderEncyclopediaCard({ item, locked = true, rarity = 0, silhouette = '', preview = false }) {
+  const safeRarity = locked ? 0 : Math.max(1, Math.min(5, Number(rarity) || 1));
+  const name = locked ? '???' : item.name;
+  const imageArea = locked
+    ? `${silhouette ? `<img class="gallery-card-silhouette" src="${encodeURI(silhouette)}" alt="" aria-hidden="true">` : ''}
+       <div class="gallery-lock" aria-label="尚未解鎖"><img class="gallery-lock-image" src="${GALLERY_BIRD_PANEL_ASSETS.lock}" alt=""></div>`
+    : `<img class="gallery-card-object" src="${encodeURI(item.img)}" alt="${name}">`;
+
+  return `<div class="gallery-item encyclopedia-card ${locked ? 'locked is-locked' : 'collected is-unlocked'}" data-rarity="${safeRarity}"${preview ? ' data-preview-card="true"' : ''}>
+    <div class="gallery-item-art card-image-area">${imageArea}</div>
+    <div class="gallery-item-name card-name">${name}</div>
+    <div class="gallery-stars gallery-image-stars card-rarity" aria-label="${locked ? '尚未解鎖' : `${safeRarity} 星稀有度`}">${renderAtlasRarityStars(safeRarity)}</div>
+  </div>`;
+}
+
+
+function renderBirdCardPreview(items) {
+  const byName = new Map(items.map(item => [item.name, item]));
+  return items.map((item, index) => {
+    const demo = BIRD_CARD_PREVIEW[index];
+    if (!demo) {
+      return renderEncyclopediaCard({ item, locked: true, silhouette: GALLERY_BIRD_PANEL_ASSETS.silhouette, preview: true });
+    }
+    const demoItem = demo.name ? byName.get(demo.name) || item : item;
+    return renderEncyclopediaCard({
+      item: demoItem,
+      locked: demo.locked,
+      rarity: demo.rarity,
+      silhouette: GALLERY_BIRD_PANEL_ASSETS.silhouette,
+      preview: true,
+    });
+  }).join('');
+}
+
+function handleAvatarUpload(event) {
+  if (event && event.target && typeof saveAccountAvatar === 'function') saveAccountAvatar(event.target);
+}
+
+function initMergedFarmerUi() {
+  renderAtlasCategoryTabs();
+  const scroller = document.getElementById('galleryTabs');
+  if (scroller) {
+    scroller.addEventListener('scroll', updateAtlasCategoryScrollHint, { passive:true });
+    window.addEventListener('resize', updateAtlasCategoryScrollHint, { passive:true });
+    requestAnimationFrame(updateAtlasCategoryScrollHint);
+  }
+}
+initMergedFarmerUi();
 
 function bootFormoya() {
   _tryInitFirebase();
