@@ -20290,5 +20290,118 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+<style id="consumer-game-cover-final-fix">
+/* Keep all four consumer game covers in one predictable, responsive frame. */
+#viewConsumerGames .consumer-games-list{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:16px!important;
+}
+#viewConsumerGames .consumer-game-tile,
+#viewConsumerGames #veggieGameTile,
+#viewConsumerGames .memory-cover,
+#viewConsumerGames .quiz-photo-cover{
+  width:100%!important;
+  height:clamp(188px,26vw,220px)!important;
+  min-height:188px!important;
+  max-height:220px!important;
+  box-sizing:border-box!important;
+  margin:0!important;
+  padding:0!important;
+  border-radius:24px!important;
+  overflow:hidden!important;
+  isolation:isolate!important;
+}
+#viewConsumerGames #veggieGameTile .consumer-game-tile-cover{
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  padding:18px!important;
+  box-sizing:border-box!important;
+}
+#viewConsumerGames .consumer-game-cover-bg,
+#viewConsumerGames .memory-cover-photo,
+#viewConsumerGames .quiz-cover-art{
+  position:absolute!important;
+  inset:0!important;
+  z-index:0!important;
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  object-fit:cover!important;
+  transform:none!important;
+}
+#viewConsumerGames .consumer-game-cover-bg{object-position:center 50%!important}
+#viewConsumerGames .memory-cover-photo{object-position:center 55%!important}
+#viewConsumerGames .pest-photo-cover .quiz-cover-art{object-position:center 52%!important}
+#viewConsumerGames .quiz-photo-cover:not(.pest-photo-cover) .quiz-cover-art{object-position:center 48%!important}
+#viewConsumerGames .consumer-game-tile-copy,
+#viewConsumerGames .consumer-game-tile-score,
+#viewConsumerGames .memory-cover-label,
+#viewConsumerGames #memoryCoverBest,
+#viewConsumerGames .quiz-cover-label,
+#viewConsumerGames .quiz-photo-cover>strong{
+  position:relative!important;
+  z-index:2!important;
+}
+#viewConsumerGames .memory-cover,
+#viewConsumerGames .quiz-photo-cover{
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:12px!important;
+  padding:18px!important;
+}
+#viewConsumerGames .consumer-game-tile:after,
+#viewConsumerGames .consumer-game-tile-cover:after{
+  pointer-events:none;
+}
+@media(max-width:480px){
+  #viewConsumerGames .consumer-game-tile,
+  #viewConsumerGames #veggieGameTile,
+  #viewConsumerGames .memory-cover,
+  #viewConsumerGames .quiz-photo-cover{
+    height:190px!important;
+    min-height:190px!important;
+  }
+  #viewConsumerGames #veggieGameTile .consumer-game-tile-cover,
+  #viewConsumerGames .memory-cover,
+  #viewConsumerGames .quiz-photo-cover{padding:12px!important}
+  #viewConsumerGames .consumer-game-tile-copy,
+  #viewConsumerGames .memory-cover-label,
+  #viewConsumerGames .quiz-cover-label{max-width:58%!important;width:auto!important}
+}
+
+/* The empty answer grid previously consumed the available height before play. */
+#viewFarmQuiz #quizOptions:empty{display:none!important;flex:0 0 0!important}
+#viewFarmQuiz #quizStart:not([hidden]){
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  width:100%!important;
+  min-height:54px!important;
+  flex:0 0 54px!important;
+  position:relative!important;
+  z-index:20!important;
+  margin-top:4px!important;
+}
+#viewFarmQuiz #quizIntro:not([hidden]){flex:0 0 auto!important}
+@media(max-width:600px){
+  #viewFarmQuiz{overflow:auto!important}
+  #viewFarmQuiz .quiz-wrap{min-height:100%!important;height:auto!important}
+  #viewFarmQuiz .quiz-layout{flex:none!important;grid-template-rows:auto auto!important}
+  #viewFarmQuiz .quiz-layout>main{overflow:visible!important}
+}
+</style>
+<script id="consumer-game-final-fix-script">
+document.addEventListener('DOMContentLoaded', function () {
+  const quizStart = document.getElementById('quizStart');
+  if (quizStart) {
+    quizStart.type = 'button';
+    quizStart.setAttribute('aria-label', '開始農場知識快問快答');
+  }
+});
+</script>
 </body>
 </html>
