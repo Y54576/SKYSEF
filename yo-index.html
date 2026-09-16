@@ -15968,6 +15968,95 @@ body:has(#viewGallery.active) {
 }
 </style>
 
+<style id="community-composer-layout-fix">
+/* Keep the community composer readable at every viewport width. */
+#viewCommunity #postComposer.community-composer {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 230px !important;
+  padding: 22px !important;
+  box-sizing: border-box !important;
+}
+#viewCommunity #postComposer .community-composer-head {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+#viewCommunity #postComposer .community-composer-avatar {
+  display: none !important;
+}
+#viewCommunity #postComposer .community-composer-main {
+  display: block !important;
+  grid-column: 1 / -1 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+#viewCommunity #postComposer h2 {
+  display: block !important;
+  width: auto !important;
+  margin: 0 42px 12px 0 !important;
+  font-size: 22px !important;
+  line-height: 1.3 !important;
+  white-space: nowrap !important;
+  writing-mode: horizontal-tb !important;
+  word-break: keep-all !important;
+}
+#viewCommunity #postComposer #postText {
+  display: block !important;
+  width: 100% !important;
+  min-width: 100% !important;
+  height: 104px !important;
+  min-height: 104px !important;
+  max-height: 220px !important;
+  padding: 14px 16px !important;
+  box-sizing: border-box !important;
+  font-size: 16px !important;
+  line-height: 1.55 !important;
+  white-space: pre-wrap !important;
+  writing-mode: horizontal-tb !important;
+  overflow-wrap: break-word !important;
+  resize: vertical !important;
+}
+#viewCommunity #postComposer .community-composer-sprout {
+  top: 22px !important;
+  right: 22px !important;
+}
+#viewCommunity #postComposer .composer-actions {
+  display: flex !important;
+  width: 100% !important;
+  margin-top: 14px !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+}
+#viewCommunity #postComposer .post-upload {
+  margin-right: auto !important;
+  white-space: nowrap !important;
+}
+@media (max-width: 480px) {
+  #viewCommunity #postComposer.community-composer {
+    min-height: 214px !important;
+    padding: 18px 16px !important;
+  }
+  #viewCommunity #postComposer h2 {
+    margin-right: 34px !important;
+    font-size: 19px !important;
+  }
+  #viewCommunity #postComposer #postText {
+    height: 96px !important;
+    min-height: 96px !important;
+    font-size: 16px !important;
+  }
+  #viewCommunity #postComposer .community-composer-sprout {
+    top: 18px !important;
+    right: 16px !important;
+  }
+}
+</style>
+
 <style id="trace-stats-contrast-fix">
 /* 履歷頁上方統計文字提高對比 */
 #viewConsumer .trace-stats span {
