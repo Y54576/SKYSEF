@@ -6643,14 +6643,30 @@ async function initAuth() {
       const uid = user.uid;
       document.getElementById('loginPassword').value = '';
       document.getElementById('loginConfirm').value = '';
+      let loaded = false;
       try {
-        if (await loadAccount(uid)) {
-          _authStartedUid = uid; hideLogin(); startApp(); renderMePage(); if(_entryRole==='consumer'){document.body.classList.add('consumer-mode');switchView('viewConsumerHome');}else{document.body.classList.remove('consumer-mode');maybeShowProfileSetup();}
-        }
+        loaded = await loadAccount(uid);
       } catch(error) {
         if (_fbAuth?.currentUser?.uid !== uid) return;
         accountReady = false; accountLoadError = true;
+        console.error('Account data load failed:', error);
         showLogin('帳號資料載入失敗，請稍後再試。');
+        return;
+      }
+      if (!loaded || _fbAuth?.currentUser?.uid !== uid) return;
+
+      // Authentication and private data loading have succeeded. From this point on,
+      // a single optional widget must never send the user back to the login screen.
+      _authStartedUid = uid;
+      hideLogin();
+      startApp();
+      renderMePage();
+      if (_entryRole === 'consumer') {
+        document.body.classList.add('consumer-mode');
+        switchView('viewConsumerHome');
+      } else {
+        document.body.classList.remove('consumer-mode');
+        maybeShowProfileSetup();
       }
     } else {
       document.body.classList.remove('consumer-mode');
@@ -6931,31 +6947,35 @@ function saveProfileSetup() {
 
 function startApp() {
   if (!accountReady) return;
-  renderHomeWidgets();
-  setTimeout(syncPublicProfile, 2000);
-  updateProfileDisplay();
-  renderGallery();
-  renderDailyTimeline();
-  renderTaskView();
-  renderFarmerPhotoGrid();
-  _renderTicketBadge();
+  const startSafely = (label, task) => {
+    try { task(); }
+    catch (error) { console.error(`App startup step failed (${label}):`, error); }
+  };
+  startSafely('home', renderHomeWidgets);
+  setTimeout(() => startSafely('public profile sync', syncPublicProfile), 2000);
+  startSafely('profile', updateProfileDisplay);
+  startSafely('gallery', renderGallery);
+  startSafely('timeline', renderDailyTimeline);
+  startSafely('tasks', renderTaskView);
+  startSafely('photos', renderFarmerPhotoGrid);
+  startSafely('ticket badge', _renderTicketBadge);
   const tfi = document.getElementById('ticketFabImg');
   const gti = document.getElementById('gachaTicketImg');
   if (tfi) tfi.src = TICKET_IMG;
   if (gti) gti.src = TICKET_IMG;
-  initMusicPlayer();
+  startSafely('music', initMusicPlayer);
   const urlParams = new URLSearchParams(window.location.search);
   const viewParam = urlParams.get('view');
   const hash = window.location.hash.replace('#', '');
   if (viewParam === 'trace' || viewParam === 'consumer' || hash === 'consumer') {
-    switchView('viewConsumer');
-    setTimeout(loadConsumerPublicProfile, 600);
+    startSafely('consumer trace view', () => switchView('viewConsumer'));
+    setTimeout(() => startSafely('consumer profile', loadConsumerPublicProfile), 600);
   } else if (viewParam === 'gallery' || hash === 'gallery') {
-    switchView('viewGallery');
+    startSafely('gallery view', () => switchView('viewGallery'));
   } else if (viewParam === 'farmer' || hash === 'farmer') {
-    switchView('viewFarmer');
+    startSafely('farmer view', () => switchView('viewFarmer'));
   } else {
-    switchView('viewFarmer');
+    startSafely('farmer view', () => switchView('viewFarmer'));
   }
 }
 // ──────────────────────────────────────────────────────────
