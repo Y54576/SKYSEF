@@ -1139,7 +1139,13 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
 
 /* 手機首頁：保留任務與扭蛋完整雙卡，必要時以垂直捲動容納內容。 */
 @media (max-width:600px) {
-  #viewFarmer.home-v2.active { height:auto; min-height:100dvh; }
+  #viewFarmer.home-v2.active {
+    height:100dvh;
+    min-height:0;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior-y:contain;
+  }
   #viewFarmer.home-v2 .hb-wrap {
     height:auto;
     min-height:calc(100dvh - var(--bottom-nav-height) - env(safe-area-inset-bottom,0px));
