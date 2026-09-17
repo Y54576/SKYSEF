@@ -1137,9 +1137,7 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
   #viewFarmer.home-v2 .hb-quickrow { gap:3px; }
 }
 
-/* 手機首頁：任務與扭蛋改為直式收合區塊，避免雙卡並排擠壓內容。 */
-.hb-mobile-card-body { display:contents; }
-.hb-mobile-chevron { display:none; }
+/* 手機首頁：保留任務與扭蛋完整雙卡，必要時以垂直捲動容納內容。 */
 @media (max-width:600px) {
   #viewFarmer.home-v2.active { height:auto; min-height:100dvh; }
   #viewFarmer.home-v2 .hb-wrap {
@@ -1148,17 +1146,9 @@ input, textarea { width: 100%; padding: 12px; border: 2px solid #eee; border-rad
     grid-template-rows:var(--hero-height) auto auto auto;
     padding-bottom:calc(var(--bottom-nav-height) + env(safe-area-inset-bottom,0px) + 12px);
   }
-  #viewFarmer.home-v2 .hb-duo { height:auto; grid-template-columns:1fr; gap:8px; background:none; box-shadow:none; }
+  #viewFarmer.home-v2 .hb-duo { height:auto; grid-template-columns:minmax(0,1fr) minmax(0,1fr); }
   #viewFarmer.home-v2 .hb-taskcard,
-  #viewFarmer.home-v2 .hb-gachacard { height:auto; min-height:0; padding:10px var(--card-padding-inline); }
-  #viewFarmer.home-v2 .hb-taskcard .hb-head,
-  #viewFarmer.home-v2 .hb-gachacard .hb-head { min-height:28px; margin:0; cursor:pointer; user-select:none; }
-  #viewFarmer.home-v2 .hb-mobile-chevron { display:block; margin-left:auto; color:#587061; font-size:20px; line-height:1; transition:transform 160ms ease; }
-  #viewFarmer.home-v2 .is-expanded .hb-mobile-chevron { transform:rotate(180deg); }
-  #viewFarmer.home-v2 .hb-mobile-card-body { display:none; }
-  #viewFarmer.home-v2 .is-expanded .hb-mobile-card-body { display:flex; flex-direction:column; padding-top:8px; }
-  #viewFarmer.home-v2 .hb-taskcard .hb-mobile-card-body { flex:1 1 auto; }
-  #viewFarmer.home-v2 .hb-gachacard .hb-mobile-card-body { min-height:0; }
+  #viewFarmer.home-v2 .hb-gachacard { height:auto; min-height:268px; }
 }
 
 @media (max-width:350px) {
@@ -4442,9 +4432,8 @@ body:has(#viewConsumer.active) #loginOverlay { display: none; }
 </div>
 
 <div class="hb-duo">
-  <div class="hb-card hb-taskcard is-expanded" id="homeTasksCard" onclick="switchView('viewTask')">
-    <div class="hb-head" role="button" tabindex="0" aria-controls="homeTasksCardBody" aria-expanded="true" onclick="toggleHomeMobileCard(event, 'homeTasksCard')" onkeydown="if(event.key === 'Enter' || event.key === ' '){ toggleHomeMobileCard(event, 'homeTasksCard'); }"><img class="hb-tk-titleic" src="assets/images/home/tasks/icon_task_drop.png" alt="">今日任務<span class="hb-mobile-chevron" aria-hidden="true">⌄</span></div>
-    <div class="hb-mobile-card-body" id="homeTasksCardBody">
+  <div class="hb-card hb-taskcard" onclick="switchView('viewTask')">
+    <div class="hb-head"><img class="hb-tk-titleic" src="assets/images/home/tasks/icon_task_drop.png" alt="">今日任務</div>
     <div class="hb-ring-row">
       <div class="hb-ring-col">
         <div class="hb-ring-outer" id="homeRingOuter">
@@ -4461,12 +4450,10 @@ body:has(#viewConsumer.active) #loginOverlay { display: none; }
       </div>
     </div>
     <div class="hb-tkbtn"><img src="assets/images/home/tasks/btn_task_detail.png" alt=""><span>查看所有任務</span></div>
-    </div>
   </div>
-  <div class="hb-card hb-gachacard" id="homeGachaCard" onclick="switchView('viewGallery')">
-    <div class="hb-head" style="justify-content:center;" role="button" tabindex="0" aria-controls="homeGachaCardBody" aria-expanded="false" onclick="toggleHomeMobileCard(event, 'homeGachaCard')" onkeydown="if(event.key === 'Enter' || event.key === ' '){ toggleHomeMobileCard(event, 'homeGachaCard'); }"><img class="hb-gacha-gift" src="assets/images/home/gacha/gift.png" alt="">農場扭蛋機<span class="hb-mobile-chevron" aria-hidden="true">⌄</span></div>
-    <div class="hb-mobile-card-body" id="homeGachaCardBody">
+  <div class="hb-card hb-gachacard" onclick="switchView('viewGallery')">
     <img class="hb-gacha-sparkle" src="assets/images/home/gacha/sparkle.png" alt="" aria-hidden="true">
+    <div class="hb-head" style="justify-content:center;"><img class="hb-gacha-gift" src="assets/images/home/gacha/gift.png" alt="">農場扭蛋機</div>
     <div class="hb-gacha-main">
     <div class="hb-gacha-top"><img src="assets/images/home/gacha/machine.png" alt=""></div>
     <div class="hb-gacha-desc">完成每日任務<br>獲得扭蛋抽獎機會！</div>
@@ -4479,7 +4466,6 @@ body:has(#viewConsumer.active) #loginOverlay { display: none; }
     <div class="hb-gacha-link">查看扭蛋圖鑑 ›</div>
     <div id="lotteryResult" class="hop-gresult">完成任務可獲得抽獎券 🎟</div>
     <img id="gachaTicketImg" src="" alt="" style="display:none;">
-    </div>
   </div>
 </div>
 
@@ -6263,17 +6249,6 @@ function saveQuickLog() {
   closeQuickLogModal();
   _tryAwardDailyTaskTicket();
   _tryAwardStreakTicket();
-}
-
-function toggleHomeMobileCard(event, cardId) {
-  if (!window.matchMedia('(max-width:600px)').matches) return;
-  event.preventDefault();
-  event.stopPropagation();
-  const card = document.getElementById(cardId);
-  if (!card) return;
-  const expanded = card.classList.toggle('is-expanded');
-  const header = card.querySelector('.hb-head');
-  if (header) header.setAttribute('aria-expanded', String(expanded));
 }
 
 function switchView(viewId) {
